@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS `administrators`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `administrators` (
   `id` bigint(20) NOT NULL,
+  `personalID` int(11) NOT NULL,
   `position` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_administrators_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -39,6 +40,29 @@ CREATE TABLE `administrators` (
 LOCK TABLES `administrators` WRITE;
 /*!40000 ALTER TABLE `administrators` DISABLE KEYS */;
 /*!40000 ALTER TABLE `administrators` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prefixes`
+--
+
+DROP TABLE IF EXISTS `prefixes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prefixes` (
+  `prefix` int(11) NOT NULL,
+  `city` varchar(60) NOT NULL,
+  PRIMARY KEY (`prefix`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prefixes`
+--
+
+LOCK TABLES `prefixes` WRITE;
+/*!40000 ALTER TABLE `prefixes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prefixes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -217,15 +241,18 @@ DROP TABLE IF EXISTS `subscribers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subscribers` (
   `id` bigint(20) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `phoneNum` bigint(20) NOT NULL,
+  `passportID` varchar(45) NOT NULL,
   `dob` date NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `prefixID` int(11) NOT NULL,
+  `phoneNum` int(11) NOT NULL,
   `administratorID` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `phoneNum_UNIQUE` (`phoneNum`),
+  UNIQUE KEY `uq_phoneNum` (`prefixID`, `phoneNum`),
   KEY `fk_subscribers_administrators_idx` (`administratorID`),
   CONSTRAINT `fk_subscribers_administrators` FOREIGN KEY (`administratorID`) REFERENCES `administrators` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_subscribers_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_subscribers_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_subscribers_prefixes` FOREIGN KEY (`prefixID`) REFERENCES `prefixes` (`prefix`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -249,12 +276,14 @@ CREATE TABLE `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `login` varchar(45) NOT NULL,
   `password` char(32) NOT NULL,
-  `fullName` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `patronymic` varchar(255) NOT NULL,
   `role` enum('ADMINISTRATOR','SUBSCRIBER') NOT NULL,
   `isActive` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UQ_Login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uq_login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-20 11:39:53
+-- Dump completed on 2017-12-21 14:47:19
