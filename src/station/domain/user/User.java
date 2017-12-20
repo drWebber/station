@@ -2,12 +2,12 @@ package station.domain.user;
 
 import station.domain.Entity;
 
-public abstract class User extends Entity {
+public class User extends Entity {
     protected String login;
     protected String password;
     protected String fullName;
     protected Role role;
-    private boolean active;
+    private boolean activity;
     
     public User() { }
 
@@ -43,11 +43,18 @@ public abstract class User extends Entity {
         this.role = role;
     }
     
-    public boolean isActive() {
-        return active;
+    public boolean getActivityState() {
+        return activity;
     }
     
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setActivityState(boolean active) {
+        this.activity = active;
+    }
+
+    @Override
+    public String toString() {
+        return "User [login=" + login + ", password=" + password
+                + ", fullName=" + fullName + ", role=" + role + ", activity="
+                + activity + "]";
     }
 }

@@ -3,17 +3,18 @@ package tmp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import station.datasource.Connector;
+import station.datasource.MysqlConnector;
+import station.dao.mysql.UserDaoImpl;
+import station.exception.DaoException;
 
 @WebServlet("/Hello")
 public class Hello extends HttpServlet {
@@ -26,23 +27,28 @@ public class Hello extends HttpServlet {
         response.setContentType("text/html; charset=utf-8");
 	    PrintWriter writer = response.getWriter();
 	    
-	    for (int i = 0; i < 100; i++) {
+//	    for (int i = 0; i < 100; i++) {
 	        Connection conn = null;
 	        try {
-	            conn = Connector.getConnection();
-	            String sqlScript = "SELECT * FROM `users`"; 
-	            Statement statement = null;
-	            ResultSet resultSet = null;
-	            statement = conn.createStatement();
-	            resultSet = statement.executeQuery(sqlScript);
-	            while (resultSet.next()) {
-	                writer.print("<p style='color:#333'>" +
-	                        resultSet.getString("fullName"));
-	            }
-	            resultSet.close();
-	            statement.close();
-	        } catch (SQLException e) {
-	            // TODO Auto-generated catch block
+	            conn = MysqlConnector.getConnection();
+	            
+	            UserDaoImpl dao = new UserDaoImpl();
+	            dao.setConnection(conn);
+	            
+	            System.out.println(dao.read(1L));
+	            
+//	            String sqlScript = "SELECT * FROM `users`"; 
+//	            Statement statement = null;
+//	            ResultSet resultSet = null;
+//	            statement = conn.createStatement();
+//	            resultSet = statement.executeQuery(sqlScript);
+//	            while (resultSet.next()) {
+//	                writer.print("<p style='color:#383'>" +
+//	                        resultSet.getString("fullName"));
+//	            }
+//	            resultSet.close();
+//	            statement.close();
+	        } catch (SQLException | NamingException | DaoException e) {
 	            e.printStackTrace();
 	        } finally {
 	            if (conn != null) {
@@ -53,7 +59,7 @@ public class Hello extends HttpServlet {
 	                } 
 	            }
 	        }
-	    }
+//	    }
         writer.close();
 	}
 }

@@ -32,4 +32,9 @@ public abstract class Entity {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Entity [id=" + id + "]";
+    }
 }

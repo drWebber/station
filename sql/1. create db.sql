@@ -220,7 +220,6 @@ CREATE TABLE `subscribers` (
   `address` varchar(255) NOT NULL,
   `phoneNum` bigint(20) NOT NULL,
   `dob` date NOT NULL,
-  `active` bit NOT NULL DEFAULT 1,
   `administratorID` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `phoneNum_UNIQUE` (`phoneNum`),
@@ -252,6 +251,7 @@ CREATE TABLE `users` (
   `password` char(32) NOT NULL,
   `fullName` varchar(255) NOT NULL,
   `role` enum('ADMINISTRATOR','SUBSCRIBER') NOT NULL,
+  `isActive` bit NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_Login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
