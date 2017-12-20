@@ -8,6 +8,15 @@ public class Subscriber extends User {
     private Date birthDay;
     private Administrator administrator;
     
+    public void setUser(User user) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.fullName = user.getFullName();
+        this.role = user.getRole();
+        this.activity = user.getActivityState();
+    }
+    
     public String getAddress() {
         return address;
     }
@@ -39,7 +48,7 @@ public class Subscriber extends User {
     public void setAdministrator(Administrator administrator) {
         this.administrator = administrator;
     }
-
+    
     @Override
     public String toString() {
         return "Subscriber [address=" + address + ", phoneNum=" + phoneNum

@@ -4,37 +4,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import station.dao.user.SubscriberDao;
+import station.dao.interfaces.user.SubscriberDao;
 import station.domain.user.Administrator;
 import station.domain.user.Subscriber;
 import station.exception.DaoException;
 
 public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
-
     @Override
     public Long create(Subscriber subscriber) throws DaoException {
-        String query = "INSERT INTO `subscribers` (`id`, `adress`, `phoneNum`, "
+        String query = "INSERT INTO `subscribers` (`id`, `address`, `phoneNum`, "
                 + "`DOB`, `administratorID`) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
-        ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
-                    PreparedStatement.RETURN_GENERATED_KEYS);
+            statement = getConnection().prepareStatement(query);
             statement.setLong(1, subscriber.getId());
             statement.setString(2, subscriber.getAddress());
             statement.setLong(3, subscriber.getPhoneNum());
             statement.setDate(4, subscriber.getBirthDay());
             statement.setLong(5, subscriber.getAdministrator().getId());
             statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            return resultSet.getLong(1);
+            return subscriber.getId();
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
@@ -86,6 +78,7 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             statement.setLong(2, subscriber.getPhoneNum());
             statement.setDate(3, subscriber.getBirthDay());
             statement.setLong(4, subscriber.getAdministrator().getId());
+            statement.setLong(5, subscriber.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

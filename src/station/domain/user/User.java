@@ -7,7 +7,7 @@ public class User extends Entity {
     protected String password;
     protected String fullName;
     protected Role role;
-    private boolean activity;
+    protected boolean activity;
     
     public User() { }
 

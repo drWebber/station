@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `station` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `station`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: station
+-- Host: localhost    Database: station
 -- ------------------------------------------------------
 -- Server version	5.6.13
 
@@ -163,7 +163,7 @@ CREATE TABLE `provided_services` (
   `description` text NOT NULL,
   `monthlyFee` float NOT NULL,
   `subscriptionRate` float NOT NULL,
-  `required` bit NOT NULL DEFAULT 1,
+  `required` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -251,7 +251,7 @@ CREATE TABLE `users` (
   `password` char(32) NOT NULL,
   `fullName` varchar(255) NOT NULL,
   `role` enum('ADMINISTRATOR','SUBSCRIBER') NOT NULL,
-  `isActive` bit NOT NULL DEFAULT 1,
+  `isActive` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UQ_Login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -275,4 +275,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-14 18:22:15
+-- Dump completed on 2017-12-20 11:39:53
