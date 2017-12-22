@@ -6,6 +6,17 @@ public class Administrator extends User {
 
     public Administrator() { }
 
+    public void setUser(User user) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.surname = user.getSurname();
+        this.name = user.getName();
+        this.patronymic = user.getPatronymic();
+        this.role = user.getRole();
+        this.activity = user.getActivityState();
+    }
+
     public int getPersonalId() {
         return personalId;
     }

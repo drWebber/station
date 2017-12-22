@@ -1,5 +1,6 @@
 package station.dao.mysql;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,11 @@ import station.domain.user.Administrator;
 import station.exception.DaoException;
 
 public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
+
+    public AdministratorDaoImpl(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public Long create(Administrator administrator) throws DaoException {
         String query = "INSERT INTO `administrators` (`id`, `personalID`, "

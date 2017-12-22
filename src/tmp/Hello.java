@@ -38,11 +38,9 @@ public class Hello extends HttpServlet {
         try {
             conn = MysqlConnector.getConnection();
             
-            SubscriberDaoImpl subDao = new SubscriberDaoImpl();
-            subDao.setConnection(conn);
+            SubscriberDaoImpl subDao = new SubscriberDaoImpl(conn);
             
-            UserDaoImpl userDao = new UserDaoImpl();
-            userDao.setConnection(conn);
+            UserDaoImpl userDao = new UserDaoImpl(conn);
             
             SubscriberServiceImpl service = new SubscriberServiceImpl();
             service.setSubscriberDao(subDao);

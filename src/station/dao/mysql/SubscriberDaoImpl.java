@@ -1,5 +1,6 @@
 package station.dao.mysql;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,11 @@ import station.domain.user.Subscriber;
 import station.exception.DaoException;
 
 public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
+
+    public SubscriberDaoImpl(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public Long create(Subscriber subscriber) throws DaoException {
         String query = "INSERT INTO `subscribers` (`id`, `passportID`, `dob`, "
