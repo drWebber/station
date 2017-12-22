@@ -1,7 +1,7 @@
 package station.domain;
 
 
-public abstract class NamedEntity extends Entity{
+public abstract class NamedEntity<T> extends Entity<T> {
     protected String name;
 
     public String getName() {

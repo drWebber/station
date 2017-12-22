@@ -6,22 +6,26 @@ import java.sql.SQLException;
 
 import station.dao.interfaces.user.SubscriberDao;
 import station.domain.user.Administrator;
+import station.domain.user.Prefix;
 import station.domain.user.Subscriber;
 import station.exception.DaoException;
 
 public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
     @Override
     public Long create(Subscriber subscriber) throws DaoException {
-        String query = "INSERT INTO `subscribers` (`id`, `address`, `phoneNum`, "
-                + "`DOB`, `administratorID`) VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `subscribers` (`id`, `passportID`, `dob`, "
+                + "`address`, `prefixID`, `phoneNum`, `administratorID`) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, subscriber.getId());
-            statement.setString(2, subscriber.getAddress());
-            statement.setLong(3, subscriber.getPhoneNum());
-            statement.setDate(4, subscriber.getBirthDay());
-            statement.setLong(5, subscriber.getAdministrator().getId());
+            statement.setString(2, subscriber.getPassportId());
+            statement.setDate(3, subscriber.getBirthDay());
+            statement.setString(4, subscriber.getAddress());
+            statement.setInt(5, subscriber.getPrefix().getId());
+            statement.setInt(6, subscriber.getPhoneNum());
+            statement.setLong(7, subscriber.getAdministrator().getId());
             statement.executeUpdate();
             return subscriber.getId();
         } catch (SQLException e) {
@@ -35,7 +39,8 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
 
     @Override
     public Subscriber read(Long id) throws DaoException {
-        String query = "SELECT `address`, `phoneNum`, `DOB`, `administratorID`"
+        String query = "SELECT `passportID`, `dob`, "
+                + "`address`, `prefixID`, `phoneNum`, `administratorID`"
                 + " FROM `subscribers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -47,9 +52,13 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             if (resultSet.next()) {
                 subscriber = new Subscriber();
                 subscriber.setId(id);
+                subscriber.setPassportId(resultSet.getString("passportID"));
+                subscriber.setBirthDay(resultSet.getDate("dob"));
                 subscriber.setAddress(resultSet.getString("address"));
-                subscriber.setPhoneNum(resultSet.getLong("phoneNum"));
-                subscriber.setBirthDay(resultSet.getDate("DOB"));
+                Prefix prefix = new Prefix();
+                prefix.setId(resultSet.getInt("prefixID"));
+                subscriber.setPrefix(prefix);
+                subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
                 Administrator administrator = new Administrator();
                 administrator.setId(resultSet.getLong("administratorID"));
                 subscriber.setAdministrator(administrator);
@@ -69,16 +78,19 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
 
     @Override
     public void update(Subscriber subscriber) throws DaoException {
-        String query = "UPDATE `subscribers` SET `address` = ?, `phoneNum` = ?"
-                + ", `DOB` = ?, `administratorID` = ? WHERE `id` = ?";
+        String query = "UPDATE `subscribers` SET `passportID` = ?, `dob` = ?, "
+                + "`address` = ?, `prefixID` = ?, `phoneNum` = ?, "
+                + "`administratorID` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setString(1, subscriber.getAddress());
-            statement.setLong(2, subscriber.getPhoneNum());
-            statement.setDate(3, subscriber.getBirthDay());
-            statement.setLong(4, subscriber.getAdministrator().getId());
-            statement.setLong(5, subscriber.getId());
+            statement.setString(1, subscriber.getPassportId());
+            statement.setDate(2, subscriber.getBirthDay());
+            statement.setString(3, subscriber.getAddress());
+            statement.setInt(4, subscriber.getPrefix().getId());
+            statement.setInt(5, subscriber.getPhoneNum());
+            statement.setLong(6, subscriber.getAdministrator().getId());
+            statement.setLong(7, subscriber.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

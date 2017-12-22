@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import station.domain.Entity;
 import station.domain.user.Subscriber;
 
-public class Invoice extends Entity {
+public class Invoice extends Entity<Long> {
     private Subscriber subscriber;
     private Timestamp invoicingDate;
     private Float amount;

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import station.domain.Entity;
 import station.domain.user.Subscriber;
 
-public class Service extends Entity {
+public class Service extends Entity<Long> {
     private Subscriber subscriber;
     private ProvidedService service;
     private Timestamp connected;

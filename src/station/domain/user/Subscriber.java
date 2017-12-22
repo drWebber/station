@@ -3,18 +3,30 @@ package station.domain.user;
 import java.sql.Date;
 
 public class Subscriber extends User {
-    private String address;
-    private Long phoneNum;
+    private String passportId;
     private Date birthDay;
+    private String address;
+    private Prefix prefix;
+    private int phoneNum;
     private Administrator administrator;
     
     public void setUser(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
         this.password = user.getPassword();
-        this.fullName = user.getFullName();
+        this.surname = user.getSurname();
+        this.name = user.getName();
+        this.patronymic = user.getPatronymic();
         this.role = user.getRole();
         this.activity = user.getActivityState();
+    }
+    
+    public String getPassportId() {
+        return passportId;
+    }
+
+    public void setPassportId(String passportId) {
+        this.passportId = passportId;
     }
     
     public String getAddress() {
@@ -25,11 +37,19 @@ public class Subscriber extends User {
         this.address = address;
     }
     
-    public Long getPhoneNum() {
+    public Prefix getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(Prefix prefix) {
+        this.prefix = prefix;
+    }
+
+    public int getPhoneNum() {
         return phoneNum;
     }
     
-    public void setPhoneNum(Long phoneNum) {
+    public void setPhoneNum(int phoneNum) {
         this.phoneNum = phoneNum;
     }
     
@@ -48,12 +68,15 @@ public class Subscriber extends User {
     public void setAdministrator(Administrator administrator) {
         this.administrator = administrator;
     }
-    
+
     @Override
     public String toString() {
-        return "Subscriber [address=" + address + ", phoneNum=" + phoneNum
-                + ", birthDay=" + birthDay + ", administrator=" + administrator
-                + ", login=" + login + ", password=" + password + ", fullName="
-                + fullName + ", role=" + role + ", id=" + id + "]";
+        return "Subscriber [passportId=" + passportId + ", birthDay="
+                + birthDay + ", address=" + address + ", prefix=" + prefix
+                + ", phoneNum=" + phoneNum + ", administrator=" + administrator
+                + ", login=" + login + ", password=" + password + ", surname="
+                + surname + ", patronymic=" + patronymic + ", role=" + role
+                + ", activity=" + activity + ", name=" + name + ", id=" + id
+                + "]";
     }
 }

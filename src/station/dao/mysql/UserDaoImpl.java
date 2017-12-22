@@ -12,8 +12,9 @@ import station.exception.DaoException;
 public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public Long create(User user) throws DaoException {
-        String query = "INSERT INTO `users` (`login`, `password`, `fullName`, "
-                + "`role`, `isActive`) VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `users` (`login`, `password`, `surname`, "
+                + "`name`, `patronymic`, `role`, `isActive`) VALUES(?, ?, ?, "
+                + "?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -21,9 +22,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
-            statement.setString(3, user.getFullName());
-            statement.setString(4, user.getRole().name());
-            statement.setBoolean(5, user.getActivityState());
+            statement.setString(3, user.getSurname());
+            statement.setString(4, user.getName());
+            statement.setString(5, user.getPatronymic());
+            statement.setString(6, user.getRole().name());
+            statement.setBoolean(7, user.getActivityState());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -42,8 +45,9 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public User read(Long id) throws DaoException {
-        String query = "SELECT `login`, `password`, `fullName`, `role`"
-                + ", `isActive` FROM `users` WHERE `id` = ?";
+        String query = "SELECT `login`, `password`, `surname`, `name`"
+                + ", `patronymic`, `role`, `isActive` FROM `users` "
+                + "WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -56,7 +60,9 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setId(id);
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
-                user.setFullName(resultSet.getString("fullName"));
+                user.setSurname(resultSet.getString("surname"));
+                user.setName(resultSet.getString("name"));
+                user.setPatronymic(resultSet.getString("patronymic"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
                 user.setActivityState(resultSet.getBoolean("isActive"));
             }
@@ -76,16 +82,19 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public void update(User user) throws DaoException {
         String query = "UPDATE `users` SET `login` = ?, `password` = ?, "
-                + "`fullName` = ?, `role` = ?, `isActive` = ? WHERE `id` = ?";
+                + "`surname` = ?, `name` = ?, `patronymic` = ?, `role` = ?, "
+                + "`isActive` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
-            statement.setString(3, user.getFullName());
-            statement.setString(4, String.valueOf(user.getRole().ordinal()));
-            statement.setBoolean(5, user.getActivityState());
-            statement.setLong(6, user.getId());
+            statement.setString(3, user.getSurname());
+            statement.setString(4, user.getName());
+            statement.setString(5, user.getPatronymic());
+            statement.setString(6, user.getRole().name());
+            statement.setBoolean(7, user.getActivityState());
+            statement.setLong(8, user.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

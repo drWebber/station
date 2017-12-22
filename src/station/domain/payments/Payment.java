@@ -3,7 +3,7 @@ package station.domain.payments;
 import java.sql.Timestamp;
 import station.domain.Entity;
 
-public class Payment extends Entity {
+public class Payment extends Entity<Long> {
     private Timestamp date;
     private String bankCode;
     private Invoice invoice;

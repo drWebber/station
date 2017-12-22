@@ -17,6 +17,7 @@ import station.dao.mysql.SubscriberDaoImpl;
 import station.dao.mysql.UserDaoImpl;
 import station.datasource.MysqlConnector;
 import station.domain.user.Administrator;
+import station.domain.user.Prefix;
 import station.domain.user.Role;
 import station.domain.user.Subscriber;
 import station.exception.ServiceException;
@@ -47,25 +48,32 @@ public class Hello extends HttpServlet {
             service.setSubscriberDao(subDao);
             service.setUserDao(userDao);
             
-            Subscriber subscriber = service.getById(2L);
+            Subscriber subscriber = service.getById(16L);
             writer.append(subscriber.toString());
             
-            subscriber.setFullName("Петров Петр Петрович");
+            subscriber.setSurname("Петров");
+            subscriber.setName("Петр");
+            subscriber.setPatronymic("Петрович");
             service.save(subscriber);
             
             Subscriber sub2 = new Subscriber();
             sub2.setActivityState(true);
             sub2.setAddress("ул. Ленинградская 88, оф. 6");
             Administrator admin = new Administrator();
-            admin.setId(3L);
+            admin.setId(14L);
             sub2.setAdministrator(admin);
+            sub2.setPassportId("12k3j");
             sub2.setBirthDay(new Date(1));
-            sub2.setFullName("Олегов Олег Олегович");
+            sub2.setSurname("Олегов");
+            sub2.setName("Олег");
+            sub2.setPatronymic("Олегович");
             sub2.setLogin("Oleg");
             sub2.setPassword("123");
-            sub2.setPhoneNum(212444444L);
+            Prefix prefix = new Prefix();
+            prefix.setId(212);
+            sub2.setPrefix(prefix);
+            sub2.setPhoneNum(240317);
             sub2.setRole(Role.SUBSCRIBER);
-            System.out.println(sub2.getRole().name());
             service.save(sub2);
             
         } catch (NamingException | SQLException | ServiceException e) {

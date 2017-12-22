@@ -2,7 +2,7 @@ package station.domain.services;
 
 import station.domain.NamedEntity;
 
-public class ProvidedService extends NamedEntity {
+public class ProvidedService extends NamedEntity<Integer> {
     private String description;
     private Float monthlyFee;
     private Float subscriptionRate;

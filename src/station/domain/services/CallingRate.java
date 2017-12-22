@@ -2,7 +2,7 @@ package station.domain.services;
 
 import station.domain.NamedEntity;
 
-public class CallingRate extends NamedEntity {
+public class CallingRate extends NamedEntity<Short> {
     private Float rate;
     
     public CallingRate() { }

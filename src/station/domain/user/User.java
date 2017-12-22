@@ -1,11 +1,12 @@
 package station.domain.user;
 
-import station.domain.Entity;
+import station.domain.NamedEntity;
 
-public class User extends Entity {
+public class User extends NamedEntity<Long> {
     protected String login;
     protected String password;
-    protected String fullName;
+    protected String surname;
+    protected String patronymic;
     protected Role role;
     protected boolean activity;
     
@@ -26,13 +27,21 @@ public class User extends Entity {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getFullName() {
-        return fullName;
+    
+    public String getSurname() {
+        return surname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 
     public Role getRole() {
@@ -53,8 +62,9 @@ public class User extends Entity {
 
     @Override
     public String toString() {
-        return "User [login=" + login + ", password=" + password
-                + ", fullName=" + fullName + ", role=" + role + ", activity="
-                + activity + "]";
+        return "User [login=" + login + ", password=" + password + ", surname="
+                + surname + ", patronymic=" + patronymic + ", role=" + role
+                + ", activity=" + activity + ", name=" + name + ", id=" + id
+                + "]";
     }
 }
