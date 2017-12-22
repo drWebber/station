@@ -14,6 +14,8 @@ import station.datasource.MysqlConnector;
 import station.exception.ServiceException;
 import station.service.impl.user.AdministratorServiceImpl;
 import station.service.impl.user.SubscriberServiceImpl;
+import station.service.interfaces.user.AdministratorService;
+import station.service.interfaces.user.SubscriberService;
 
 public class ServiceLocator {
     private Map<Class<?>, Object> services = new ConcurrentHashMap<>();
@@ -40,8 +42,8 @@ public class ServiceLocator {
             administratorService.setUserDao(userDao);
             
             /* регистрация сервисов */
-            services.put(SubscriberServiceImpl.class, subscriberService);
-            services.put(AdministratorServiceImpl.class, administratorService);
+            services.put(SubscriberService.class, subscriberService);
+            services.put(AdministratorService.class, administratorService);
         } catch (NamingException | SQLException e) {
             throw new  ServiceException(e);
         }

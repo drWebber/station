@@ -35,5 +35,5 @@
 	<Resource name="jdbc/station" auth="Container" type="javax.sql.DataSource"
                maxActive="15" maxIdle="5" maxWait="10000"
                username="station_user" password="123321" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://localhost:3307/station??useUnicode=true&amp;characterEncoding=UTF-8"/>
+               url="jdbc:mysql://localhost:3307/station?useUnicode=true&amp;characterEncoding=UTF-8"/>
 </Context>
