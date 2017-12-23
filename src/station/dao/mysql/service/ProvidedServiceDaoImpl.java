@@ -96,6 +96,7 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
             statement.setFloat(3, providedService.getMonthlyFee());
             statement.setFloat(4, providedService.getSubscriptionRate());
             statement.setBoolean(5, providedService.isRequired());
+            statement.setInt(6, providedService.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

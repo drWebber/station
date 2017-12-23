@@ -7,7 +7,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.NamingException;
 
+import station.dao.interfaces.service.CallDao;
+import station.dao.interfaces.service.CallingRateDao;
 import station.dao.interfaces.service.ServicesDao;
+import station.dao.mysql.service.CallDaoImpl;
+import station.dao.mysql.service.CallingRateDaoImpl;
 import station.dao.mysql.service.ProvidedServiceDaoImpl;
 import station.dao.mysql.service.ServicesDaoImpl;
 import station.dao.mysql.user.AdministratorDaoImpl;
@@ -15,10 +19,14 @@ import station.dao.mysql.user.SubscriberDaoImpl;
 import station.dao.mysql.user.UserDaoImpl;
 import station.datasource.MysqlConnector;
 import station.exception.ServiceException;
+import station.service.impl.service.CallServiceImpl;
+import station.service.impl.service.CallingRateServiceImpl;
 import station.service.impl.service.ProvidedServicesServiceImpl;
 import station.service.impl.service.ServicesServiceImpl;
 import station.service.impl.user.AdministratorServiceImpl;
 import station.service.impl.user.SubscriberServiceImpl;
+import station.service.interfaces.service.CallService;
+import station.service.interfaces.service.CallingRateService;
 import station.service.interfaces.service.ProvidedServicesService;
 import station.service.interfaces.service.ServicesService;
 import station.service.interfaces.user.AdministratorService;
@@ -40,6 +48,8 @@ public class ServiceLocator {
             ProvidedServiceDaoImpl providedServicesDao = 
                     new ProvidedServiceDaoImpl(connection);
             ServicesDao servicesDao = new ServicesDaoImpl(connection);
+            CallingRateDao rateDao = new CallingRateDaoImpl(connection);
+            CallDao callDao = new CallDaoImpl(connection);
             
             /* создание объектов слоя сервисов */
             SubscriberServiceImpl subscriberService = 
@@ -55,6 +65,10 @@ public class ServiceLocator {
             providedServicesService.setProvidedSrvDao(providedServicesDao);
             ServicesServiceImpl servicesService = new ServicesServiceImpl();
             servicesService.setServicesDao(servicesDao);
+            CallingRateServiceImpl rateService = new CallingRateServiceImpl();
+            rateService.setRateDao(rateDao);
+            CallServiceImpl callService = new CallServiceImpl();
+            callService.setCallDao(callDao);
             
             /* регистрация сервисов */
             services.put(SubscriberService.class, subscriberService);
@@ -62,6 +76,8 @@ public class ServiceLocator {
             services.put(ProvidedServicesService.class, 
                     providedServicesService);
             services.put(ServicesService.class, servicesService);
+            services.put(CallingRateService.class, rateService);
+            services.put(CallService.class, callService);
         } catch (NamingException | SQLException e) {
             throw new  ServiceException(e);
         }

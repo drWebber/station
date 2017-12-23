@@ -5,36 +5,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import station.dao.interfaces.service.ServicesDao;
+import station.dao.interfaces.service.CallingRateDao;
 import station.dao.mysql.BaseDao;
-import station.domain.service.ProvidedService;
-import station.domain.service.Service;
-import station.domain.user.Subscriber;
+import station.domain.service.CallingRate;
 import station.exception.DaoException;
 
-public class ServicesDaoImpl extends BaseDao implements ServicesDao {
+public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
 
-    public ServicesDaoImpl(Connection connection) {
+    public CallingRateDaoImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Long create(Service service) throws DaoException {
-        String query = "INSERT INTO `services`(`subscriberID`, `serviceID`, "
-                + "`connected`, `disconnected`) VALUES(?, ?, ?, ?)";
+    public Short create(CallingRate rate) throws DaoException {
+        String query = "INSERT INTO `calling_rates` (`name`, `rate`) "
+                + "VALUES(?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query, 
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, service.getSubscriber().getId());
-            statement.setInt(2, service.getService().getId());
-            statement.setTimestamp(3, service.getConnected());
-            statement.setTimestamp(4, service.getDisconnected());
+            statement.setString(1, rate.getName());
+            statement.setFloat(2, rate.getRate());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
-            return resultSet.getLong(1);
+            return resultSet.getShort(1);
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -48,28 +44,23 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public Service read(Long id) throws DaoException {
-        String query = "SELECT `subscriberID`, `serviceID`, `connected`, "
-                + "`disconnected` FROM `services` WHERE `id` = ?";
+    public CallingRate read(Short id) throws DaoException {
+        String query = "SELECT `name`, `rate` FROM `calling_rates` "
+                + "WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setLong(1, id);
+            statement.setShort(1, id);
             resultSet = statement.executeQuery();
-            Service service = null;
+            CallingRate rate = null;
             if (resultSet.next()) {
-                service = new Service();
-                Subscriber subscriber = new Subscriber();
-                subscriber.setId(resultSet.getLong("subscriberID"));
-                service.setSubscriber(subscriber);
-                ProvidedService providedService = new ProvidedService();
-                providedService.setId(resultSet.getInt("serviceID"));
-                service.setService(providedService);
-                service.setConnected(resultSet.getTimestamp("connected"));
-                service.setDisconnected(resultSet.getTimestamp("disconnected"));
+                rate = new CallingRate();
+                rate.setId(id);
+                rate.setName(resultSet.getString("name"));
+                rate.setRate(resultSet.getFloat("rate"));
             }
-            return service;
+            return rate;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -83,18 +74,15 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public void update(Service service) throws DaoException {
-        String query = "UPDATE `services` SET `subscriberID` = ?, "
-                + "`serviceID` = ?, `connected` = ?, `disconnected` = ? "
-                + "WHERE `id` = ?";
+    public void update(CallingRate rate) throws DaoException {
+        String query = "UPDATE `calling_rates` SET `name` = ?, "
+                + "`rate` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setLong(1, service.getSubscriber().getId());
-            statement.setInt(2, service.getService().getId());
-            statement.setTimestamp(3, service.getConnected());
-            statement.setTimestamp(4, service.getDisconnected());
-            statement.setLong(5, service.getId());
+            statement.setString(1, rate.getName());
+            statement.setFloat(2, rate.getRate());
+            statement.setShort(3, rate.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
@@ -102,16 +90,16 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
             try { 
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
-        }  
+        }
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
-        String query = "DELETE FROM `services` WHERE `id` = ?";
+    public void delete(Short id) throws DaoException {
+        String query = "DELETE FROM `calling_rates` WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setLong(1, id);
+            statement.setShort(1, id);
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
@@ -121,5 +109,4 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
             } catch (NullPointerException | SQLException e) {}
         }
     }
-
 }

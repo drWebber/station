@@ -5,32 +5,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import station.dao.interfaces.service.ServicesDao;
+import station.dao.interfaces.service.CallDao;
 import station.dao.mysql.BaseDao;
-import station.domain.service.ProvidedService;
-import station.domain.service.Service;
+import station.domain.service.Call;
+import station.domain.service.CallingRate;
 import station.domain.user.Subscriber;
 import station.exception.DaoException;
 
-public class ServicesDaoImpl extends BaseDao implements ServicesDao {
+public class CallDaoImpl extends BaseDao implements CallDao {
 
-    public ServicesDaoImpl(Connection connection) {
+    public CallDaoImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Long create(Service service) throws DaoException {
-        String query = "INSERT INTO `services`(`subscriberID`, `serviceID`, "
-                + "`connected`, `disconnected`) VALUES(?, ?, ?, ?)";
+    public Long create(Call call) throws DaoException {
+        String query = "INSERT INTO `calls` (`subscriberID`, `phoneNum`, "
+                + "`begin`, `finish`, `rateID`) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query, 
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setLong(1, service.getSubscriber().getId());
-            statement.setInt(2, service.getService().getId());
-            statement.setTimestamp(3, service.getConnected());
-            statement.setTimestamp(4, service.getDisconnected());
+            statement.setLong(1, call.getSubscriber().getId());
+            statement.setInt(2, call.getPhoneNum());
+            statement.setTimestamp(3, call.getBeginTime());
+            statement.setTimestamp(4, call.getFinishTime());
+            statement.setShort(5, call.getRate().getId());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -48,28 +49,30 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public Service read(Long id) throws DaoException {
-        String query = "SELECT `subscriberID`, `serviceID`, `connected`, "
-                + "`disconnected` FROM `services` WHERE `id` = ?";
+    public Call read(Long id) throws DaoException {
+        String query = "SELECT `subscriberID`, `phoneNum`, `begin`, `finish`, "
+                + "`rateID` FROM `calls` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Service service = null;
+            Call call = null;
             if (resultSet.next()) {
-                service = new Service();
+                call = new Call();
+                call.setId(id);
                 Subscriber subscriber = new Subscriber();
                 subscriber.setId(resultSet.getLong("subscriberID"));
-                service.setSubscriber(subscriber);
-                ProvidedService providedService = new ProvidedService();
-                providedService.setId(resultSet.getInt("serviceID"));
-                service.setService(providedService);
-                service.setConnected(resultSet.getTimestamp("connected"));
-                service.setDisconnected(resultSet.getTimestamp("disconnected"));
+                call.setSubscriber(subscriber);
+                call.setPhoneNum(resultSet.getInt("phoneNum"));
+                call.setBeginTime(resultSet.getTimestamp("begin"));
+                call.setFinishTime(resultSet.getTimestamp("finish"));
+                CallingRate rate = new CallingRate();
+                rate.setId(resultSet.getShort("rateID"));
+                call.setRate(rate);
             }
-            return service;
+            return call;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -83,18 +86,19 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public void update(Service service) throws DaoException {
-        String query = "UPDATE `services` SET `subscriberID` = ?, "
-                + "`serviceID` = ?, `connected` = ?, `disconnected` = ? "
+    public void update(Call call) throws DaoException {
+        String query = "UPDATE `calls` SET `subscriberID` = ?, "
+                + "`phoneNum` = ?, `begin` = ?, `finish` = ?, `rateID` = ? "
                 + "WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setLong(1, service.getSubscriber().getId());
-            statement.setInt(2, service.getService().getId());
-            statement.setTimestamp(3, service.getConnected());
-            statement.setTimestamp(4, service.getDisconnected());
-            statement.setLong(5, service.getId());
+            statement.setLong(1, call.getSubscriber().getId());
+            statement.setInt(2, call.getPhoneNum());
+            statement.setTimestamp(3, call.getBeginTime());
+            statement.setTimestamp(4, call.getFinishTime());
+            statement.setShort(5, call.getRate().getId());
+            statement.setLong(6, call.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
@@ -102,12 +106,12 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
             try { 
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
-        }  
+        }
     }
 
     @Override
     public void delete(Long id) throws DaoException {
-        String query = "DELETE FROM `services` WHERE `id` = ?";
+        String query = "DELETE FROM `calls` WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
@@ -121,5 +125,4 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
             } catch (NullPointerException | SQLException e) {}
         }
     }
-
 }

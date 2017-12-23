@@ -7,7 +7,7 @@ import station.domain.user.Subscriber;
 
 public class Call extends Entity<Long> {
     private Subscriber subscriber;
-    private Long phoneNum;
+    private Integer phoneNum;
     private Timestamp beginTime;
     private Timestamp finishTime;
     private CallingRate rate;
@@ -22,11 +22,11 @@ public class Call extends Entity<Long> {
         this.subscriber = subscriber;
     }
 
-    public Long getPhoneNum() {
+    public Integer getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(Long phoneNum) {
+    public void setPhoneNum(Integer phoneNum) {
         this.phoneNum = phoneNum;
     }
 
