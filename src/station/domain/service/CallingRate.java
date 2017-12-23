@@ -1,4 +1,4 @@
-package station.domain.services;
+package station.domain.service;
 
 import station.domain.NamedEntity;
 

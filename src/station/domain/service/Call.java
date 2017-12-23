@@ -1,4 +1,4 @@
-package station.domain.services;
+package station.domain.service;
 
 import java.sql.Timestamp;
 

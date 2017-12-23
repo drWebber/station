@@ -36,10 +36,10 @@ public class AdministratorServiceImpl implements AdministratorService {
     public void save(Administrator administrator) throws ServiceException {
         try {
             if(administrator.getId() != null) {
-                userDao.update(administrator);
+                userDao.update(administrator.getUser());
                 administratorDao.update(administrator);
             } else {
-                Long id = userDao.create(administrator);
+                Long id = userDao.create(administrator.getUser());
                 administrator.setId(id);
                 administratorDao.create(administrator);
             }

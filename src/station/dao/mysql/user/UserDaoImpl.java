@@ -1,4 +1,4 @@
-package station.dao.mysql;
+package station.dao.mysql.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import station.dao.interfaces.user.UserDao;
+import station.dao.mysql.BaseDao;
 import station.domain.user.Role;
 import station.domain.user.User;
 import station.exception.DaoException;

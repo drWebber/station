@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.NamingException;
 
-import station.dao.mysql.AdministratorDaoImpl;
-import station.dao.mysql.SubscriberDaoImpl;
-import station.dao.mysql.UserDaoImpl;
+import station.dao.mysql.user.AdministratorDaoImpl;
+import station.dao.mysql.user.SubscriberDaoImpl;
+import station.dao.mysql.user.UserDaoImpl;
 import station.datasource.MysqlConnector;
 import station.exception.ServiceException;
 import station.service.impl.user.AdministratorServiceImpl;

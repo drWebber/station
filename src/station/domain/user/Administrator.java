@@ -1,20 +1,18 @@
 package station.domain.user;
 
-public class Administrator extends User {
+import station.domain.Entity;
+
+public class Administrator extends Entity<Long> {
+    private User user;
     private int personalId;
     private String position;
 
-    public Administrator() { }
+    public User getUser() {
+        return user;
+    }
 
     public void setUser(User user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
-        this.password = user.getPassword();
-        this.surname = user.getSurname();
-        this.name = user.getName();
-        this.patronymic = user.getPatronymic();
-        this.role = user.getRole();
-        this.activity = user.getActivityState();
+        this.user = user;
     }
 
     public int getPersonalId() {
@@ -34,11 +32,39 @@ public class Administrator extends User {
     }
 
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + personalId;
+        result = prime * result
+                + ((position == null) ? 0 : position.hashCode());
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        //TODO удалить equals & hashCode
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Administrator other = (Administrator) obj;
+        if (personalId != other.personalId)
+            return false;
+        if (position == null) {
+            if (other.position != null)
+                return false;
+        } else if (!position.equals(other.position))
+            return false;
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "Administrator [personalId=" + personalId + ", position="
-                + position + ", login=" + login + ", password=" + password
-                + ", surname=" + surname + ", patronymic=" + patronymic
-                + ", role=" + role + ", activity=" + activity + ", name="
-                + name + ", id=" + id + "]";
+        return "Administrator [user=" + user + ", personalId=" + personalId
+                + ", position=" + position + ", id=" + id + "]";
     }
 }

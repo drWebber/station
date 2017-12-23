@@ -36,10 +36,10 @@ public class SubscriberServiceImpl implements SubscriberService {
     public void save(Subscriber subscriber) throws ServiceException {
         try {
             if(subscriber.getId() != null) {
-                userDao.update(subscriber);
+                userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);
             } else {
-                Long id = userDao.create(subscriber);
+                Long id = userDao.create(subscriber.getUser());
                 subscriber.setId(id);
                 subscriberDao.create(subscriber);
             }

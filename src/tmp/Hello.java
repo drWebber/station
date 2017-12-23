@@ -14,6 +14,7 @@ import station.domain.user.Administrator;
 import station.domain.user.Prefix;
 import station.domain.user.Role;
 import station.domain.user.Subscriber;
+import station.domain.user.User;
 import station.exception.ServiceException;
 import station.service.ServiceLocator;
 import station.service.interfaces.user.SubscriberService;
@@ -35,20 +36,22 @@ public class Hello extends HttpServlet {
             SubscriberService service = locator
                     .getService(SubscriberService.class);
             Subscriber subscriber = new Subscriber();
-            subscriber.setLogin("vasiya93");
-            subscriber.setPassword("qwerty");
-            subscriber.setSurname("Васильев");
-            subscriber.setName("Василий");
-            subscriber.setPatronymic("Васильевич");
-            subscriber.setRole(Role.SUBSCRIBER);
-            subscriber.setActivityState(true);
+            User user = new User();
+            user.setLogin("vasiya93"); /* UQ */
+            user.setPassword("qwerty");
+            user.setSurname("Васильев");
+            user.setName("Василий");
+            user.setPatronymic("Васильевич");
+            user.setRole(Role.SUBSCRIBER);
+            user.setActivityState(true);
+            subscriber.setUser(user);
             subscriber.setPassportId("040689AE");
             subscriber.setBirthDay(new Date(0));
             subscriber.setAddress("210033, ул. Гагарина 10, кв. 7");
             Prefix pref = new Prefix();
             pref.setId(212);
             subscriber.setPrefix(pref);
-            subscriber.setPhoneNum(240003);
+            subscriber.setPhoneNum(240003); /* UQ (PREFIX+NUM)  */
             Administrator admin = new Administrator();
             admin.setId(14L);
             subscriber.setAdministrator(admin);

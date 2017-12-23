@@ -1,4 +1,4 @@
-package station.domain.payments;
+package station.domain.payment;
 
 import java.sql.Timestamp;
 import station.domain.Entity;

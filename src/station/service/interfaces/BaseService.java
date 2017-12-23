@@ -1,4 +1,4 @@
-package station.service;
+package station.service.interfaces;
 
 import station.domain.Entity;
 import station.exception.ServiceException;
