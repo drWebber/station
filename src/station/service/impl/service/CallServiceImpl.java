@@ -42,10 +42,12 @@ public class CallServiceImpl implements CallService {
 
     @Override
     public void delete(Long id) throws ServiceException {
-        try {
-            callDao.delete(id);
-        } catch(DaoException e) {
-            throw new ServiceException(e);
-        }
+        throw new ServiceException("Restricted operation");
+        //TODO Удалить код ниже (если не нужен):
+//        try {
+//            callDao.delete(id);
+//        } catch(DaoException e) {
+//            throw new ServiceException(e);
+//        }
     }
 }

@@ -111,18 +111,20 @@ public class CallDaoImpl extends BaseDao implements CallDao {
 
     @Override
     public void delete(Long id) throws DaoException {
-        String query = "DELETE FROM `calls` WHERE `id` = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(query);
-            statement.setLong(1, id);
-            statement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (NullPointerException | SQLException e) {}
-        }
+        throw new DaoException("not implemented");
+        //TODO Удалить код ниже (если не нужен):
+//        String query = "DELETE FROM `calls` WHERE `id` = ?";
+//        PreparedStatement statement = null;
+//        try {
+//            statement = getConnection().prepareStatement(query);
+//            statement.setLong(1, id);
+//            statement.executeUpdate();
+//        } catch(SQLException e) {
+//            throw new DaoException(e);
+//        } finally {
+//            try {
+//                statement.close();
+//            } catch (NullPointerException | SQLException e) {}
+//        }
     }
 }
