@@ -12,6 +12,7 @@ import station.dao.interfaces.payment.PaymentDao;
 import station.dao.interfaces.service.CallDao;
 import station.dao.interfaces.service.CallingRateDao;
 import station.dao.interfaces.service.ServicesDao;
+import station.dao.interfaces.user.PrefixDao;
 import station.dao.mysql.payment.InvoiceDaoImpl;
 import station.dao.mysql.payment.PaymentDaoImpl;
 import station.dao.mysql.service.CallDaoImpl;
@@ -19,6 +20,7 @@ import station.dao.mysql.service.CallingRateDaoImpl;
 import station.dao.mysql.service.ProvidedServiceDaoImpl;
 import station.dao.mysql.service.ServicesDaoImpl;
 import station.dao.mysql.user.AdministratorDaoImpl;
+import station.dao.mysql.user.PrefixDaoImpl;
 import station.dao.mysql.user.SubscriberDaoImpl;
 import station.dao.mysql.user.UserDaoImpl;
 import station.datasource.MysqlConnector;
@@ -30,6 +32,7 @@ import station.service.impl.service.CallingRateServiceImpl;
 import station.service.impl.service.ProvidedServicesServiceImpl;
 import station.service.impl.service.ServicesServiceImpl;
 import station.service.impl.user.AdministratorServiceImpl;
+import station.service.impl.user.PrefixServiceImpl;
 import station.service.impl.user.SubscriberServiceImpl;
 import station.service.interfaces.payment.InvoiceService;
 import station.service.interfaces.payment.PaymentService;
@@ -38,6 +41,7 @@ import station.service.interfaces.service.CallingRateService;
 import station.service.interfaces.service.ProvidedServicesService;
 import station.service.interfaces.service.ServicesService;
 import station.service.interfaces.user.AdministratorService;
+import station.service.interfaces.user.PrefixService;
 import station.service.interfaces.user.SubscriberService;
 
 public class ServiceLocator {
@@ -60,6 +64,7 @@ public class ServiceLocator {
             CallDao callDao = new CallDaoImpl(connection);
             InvoiceDao invoiceDao = new InvoiceDaoImpl(connection);
             PaymentDao paymentDao = new PaymentDaoImpl(connection);
+            PrefixDao prefixDao = new PrefixDaoImpl(connection);
             
             /* создание объектов слоя сервисов */
             SubscriberServiceImpl subscriberService = 
@@ -83,6 +88,8 @@ public class ServiceLocator {
             invoiceService.setInvoiceDao(invoiceDao);
             PaymentServiceImpl paymentService = new PaymentServiceImpl();
             paymentService.setPaymentDao(paymentDao);
+            PrefixServiceImpl prefixService = new PrefixServiceImpl();
+            prefixService.setPrefixDao(prefixDao);
             
             /* регистрация сервисов */
             services.put(SubscriberService.class, subscriberService);
@@ -94,6 +101,7 @@ public class ServiceLocator {
             services.put(CallService.class, callService);
             services.put(InvoiceService.class, invoiceService);
             services.put(PaymentService.class, paymentService);
+            services.put(PrefixService.class, prefixService);
         } catch (NamingException | SQLException e) {
             throw new  ServiceException(e);
         }

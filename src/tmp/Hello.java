@@ -57,7 +57,6 @@ public class Hello extends HttpServlet {
             subscriber.setAdministrator(admin);
             service.save(subscriber);
         } catch (ServiceException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } 
 	    
