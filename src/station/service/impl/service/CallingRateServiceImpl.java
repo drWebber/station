@@ -20,8 +20,7 @@ public class CallingRateServiceImpl implements CallingRateService {
     @Override
     public CallingRate getById(Short id) throws ServiceException {
         try {
-            CallingRate rate = rateDao.read(id);
-            return rate;
+            return rateDao.read(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

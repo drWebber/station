@@ -20,8 +20,7 @@ public class ProvidedServicesServiceImpl implements ProvidedServicesService {
     @Override
     public ProvidedService getById(Integer id) throws ServiceException {
         try {
-            ProvidedService service = providedSrvDao.read(id);
-            return service;
+            return providedSrvDao.read(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

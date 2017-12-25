@@ -1,9 +1,9 @@
 package station.service.interfaces.service;
 
 import station.domain.service.ProvidedService;
-import station.service.interfaces.BaseService;
+import station.service.interfaces.CompleteService;
 
 public interface ProvidedServicesService 
-        extends BaseService<Integer, ProvidedService> {
+        extends CompleteService<Integer, ProvidedService> {
 
 }

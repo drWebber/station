@@ -20,8 +20,7 @@ public class ServicesServiceImpl implements ServicesService {
     @Override
     public Service getById(Long id) throws ServiceException {
         try {
-            Service service = servicesDao.read(id);
-            return service;
+            return servicesDao.read(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }
@@ -38,16 +37,5 @@ public class ServicesServiceImpl implements ServicesService {
         } catch(DaoException e) {
             throw new ServiceException(e);
         }
-    }
-
-    @Override
-    public void delete(Long id) throws ServiceException {
-        throw new ServiceException("Restricted operation");
-        //TODO Удалить код ниже (если не нужен):
-//        try {
-//            servicesDao.delete(id);
-//        } catch(DaoException e) {
-//            throw new ServiceException(e);
-//        }
     }
 }

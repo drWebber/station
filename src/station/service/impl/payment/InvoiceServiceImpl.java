@@ -20,8 +20,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public Invoice getById(Long id) throws ServiceException {
         try {
-            Invoice invoice = invoiceDao.read(id);
-            return invoice;
+            return invoiceDao.read(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

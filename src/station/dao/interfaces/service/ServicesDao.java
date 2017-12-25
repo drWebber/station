@@ -1,8 +1,8 @@
 package station.dao.interfaces.service;
 
-import station.dao.Dao;
+import station.dao.UpdatableDao;
 import station.domain.service.Service;
 
-public interface ServicesDao extends Dao<Long, Service> {
+public interface ServicesDao extends UpdatableDao<Long, Service> {
 
 }

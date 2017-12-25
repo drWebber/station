@@ -1,8 +1,8 @@
 package station.dao.interfaces.user;
 
-import station.dao.Dao;
+import station.dao.CompleteDao;
 import station.domain.user.Subscriber;
 
-public interface SubscriberDao extends Dao<Long, Subscriber> {
+public interface SubscriberDao extends CompleteDao<Long, Subscriber> {
 
 }

@@ -20,8 +20,7 @@ public class CallServiceImpl implements CallService {
     @Override
     public Call getById(Long id) throws ServiceException {
         try {
-            Call call = callDao.read(id);
-            return call;
+            return callDao.read(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }
@@ -38,16 +37,5 @@ public class CallServiceImpl implements CallService {
         } catch(DaoException e) {
             throw new ServiceException(e);
         }
-    }
-
-    @Override
-    public void delete(Long id) throws ServiceException {
-        throw new ServiceException("Restricted operation");
-        //TODO Удалить код ниже (если не нужен):
-//        try {
-//            callDao.delete(id);
-//        } catch(DaoException e) {
-//            throw new ServiceException(e);
-//        }
     }
 }
