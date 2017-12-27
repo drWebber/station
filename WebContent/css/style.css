@@ -1,0 +1,44 @@
+html, body {
+	background-color: #EEE;
+	height: 100%;
+}
+
+.sidebar ul {
+	list-style-type: none;
+}
+
+.wrapper {
+	display: table;
+	height: 100%;
+}
+.main-layout {
+	display: table-row;
+	height: 100%;
+}
+
+.content-layout {
+	margin: 0 auto;
+}
+
+.content {
+	text-align: justify;
+}
+
+footer {
+	height: 2em;
+	padding: .5em;
+}
+
+footer p {
+	font-size: .8em;
+	color: #E3E3E3;
+	text-align: right;
+	margin: 0;
+	padding-right: 2em;
+}
+
+@media screen and (min-width:961px) {
+	.content-layout {
+		width: 80%;
+	}
+}

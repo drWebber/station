@@ -1,4 +1,4 @@
-package station.datasource;
+package station.util;
 
 import java.sql.SQLException;
 import java.sql.Connection;
