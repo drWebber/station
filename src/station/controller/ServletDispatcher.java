@@ -43,7 +43,8 @@ public class ServletDispatcher extends HttpServlet {
                 if(forwarder != null && forwarder.getUrl() != null) {
                     url = forwarder.getUrl();
                 }
-                req.getRequestDispatcher("/WEB-INF/jsp" + url + ".jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/jsp" + url + ".jsp")
+                        .forward(req, resp);
             }
         } catch (Exception e) {
             throw new ServletException(e);

@@ -1,5 +1,7 @@
 package station.service.impl.user;
 
+import java.util.List;
+
 import station.dao.interfaces.user.SubscriberDao;
 import station.dao.interfaces.user.UserDao;
 import station.domain.user.Subscriber;
@@ -28,6 +30,20 @@ public class SubscriberServiceImpl implements SubscriberService {
             subscriber.setUser(user);
             return subscriber;
         } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Subscriber> getAll() throws ServiceException {
+        try {
+            List<Subscriber> subscribers = subscriberDao.readAll();
+            for (Subscriber subscriber : subscribers) {
+                User user = userDao.read(subscriber.getId());
+                subscriber.setUser(user);
+            }
+            return subscribers;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

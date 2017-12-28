@@ -7,15 +7,6 @@ html, body {
 	list-style-type: none;
 }
 
-.wrapper {
-	display: table;
-	height: 100%;
-}
-.main-layout {
-	display: table-row;
-	height: 100%;
-}
-
 .content-layout {
 	margin: 0 auto;
 }

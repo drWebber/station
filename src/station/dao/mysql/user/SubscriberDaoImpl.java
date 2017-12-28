@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import station.dao.interfaces.user.SubscriberDao;
 import station.dao.mysql.BaseDao;
@@ -80,6 +83,39 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public List<Subscriber> readAll() throws DaoException {
+        String query = "SELECT * FROM `subscribers`";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            List<Subscriber> subscribers = new ArrayList<>();
+            while (resultSet.next()){
+                Subscriber subscriber = new Subscriber();
+                subscriber.setId(resultSet.getLong("id"));
+                subscriber.setPassportId(resultSet.getString("passportID"));
+                subscriber.setBirthDay(resultSet.getDate("dob"));
+                subscriber.setAddress(resultSet.getString("address"));
+                Prefix prefix = new Prefix();
+                prefix.setId(resultSet.getInt("prefixID"));
+                subscriber.setPrefix(prefix);
+                subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
+                Administrator administrator = new Administrator();
+                administrator.setId(resultSet.getLong("administratorID"));
+                subscriber.setAdministrator(administrator);
+                subscribers.add(subscriber);
+            }
+            return subscribers;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { resultSet.close(); } catch (SQLException e) { }
+            try { statement.close(); } catch (SQLException e) { }
         }
     }
 

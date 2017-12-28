@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.ServletException;
 
 import station.controller.subscriber.SubscriberEditAction;
+import station.controller.subscriber.SubscriberListAction;
 
 
 public class ActionFactory {
@@ -14,6 +15,7 @@ public class ActionFactory {
     
     static {
         actions.put("/subscriber/edit", SubscriberEditAction.class);
+        actions.put("/subscriber/list", SubscriberListAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {
