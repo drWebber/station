@@ -33,7 +33,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement.setString(4, user.getName());
             statement.setString(5, user.getPatronymic());
             statement.setString(6, user.getRole().name());
-            statement.setBoolean(7, user.getActivityState());
+            statement.setBoolean(7, user.isActive());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -71,7 +71,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setName(resultSet.getString("name"));
                 user.setPatronymic(resultSet.getString("patronymic"));
                 user.setRole(Role.valueOf(resultSet.getString("role")));
-                user.setActivityState(resultSet.getBoolean("isActive"));
+                user.setActive(resultSet.getBoolean("isActive"));
             }
             return user;
         } catch (SQLException e) {
@@ -88,20 +88,21 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public void update(User user) throws DaoException {
-        String query = "UPDATE `users` SET `login` = ?, `password` = ?, "
-                + "`surname` = ?, `name` = ?, `patronymic` = ?, `role` = ?, "
-                + "`isActive` = ? WHERE `id` = ?";
+        //TODO: удалить если не нужно: `login` = ?, `password` = ?, 
+        String query = "UPDATE `users` SET `surname` = ?, `name` = ?, "
+                + "`patronymic` = ?, `role` = ?, `isActive` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getSurname());
-            statement.setString(4, user.getName());
-            statement.setString(5, user.getPatronymic());
-            statement.setString(6, user.getRole().name());
-            statement.setBoolean(7, user.getActivityState());
-            statement.setLong(8, user.getId());
+            //TODO: удалить, если не нужно, НЕ ПЕРЕПУТАТЬ НОМЕРАЦИЮ!!!, surname без логина+пароля начинается с ЕДИНИЦЫ:
+            //statement.setString(1, user.getLogin());
+            //statement.setString(2, user.getPassword());
+            statement.setString(1, user.getSurname());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getPatronymic());
+            statement.setString(4, user.getRole().name());
+            statement.setBoolean(5, user.isActive());
+            statement.setLong(6, user.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

@@ -1,5 +1,7 @@
 package station.service.impl.user;
 
+import java.util.List;
+
 import station.dao.interfaces.user.PrefixDao;
 import station.domain.user.Prefix;
 import station.exception.DaoException;
@@ -21,6 +23,15 @@ public class PrefixServiceImpl implements PrefixService {
     public Prefix getById(Integer id) throws ServiceException {
         try {
             return prefixDao.read(id);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Prefix> getAll() throws ServiceException {
+        try {
+            return prefixDao.readAll();
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

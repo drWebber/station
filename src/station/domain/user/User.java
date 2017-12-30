@@ -8,7 +8,7 @@ public class User extends NamedEntity<Long> {
     protected String surname;
     protected String patronymic;
     protected Role role;
-    protected boolean activity;
+    protected boolean isActive;
     
     public User() { }
 
@@ -52,19 +52,19 @@ public class User extends NamedEntity<Long> {
         this.role = role;
     }
     
-    public boolean getActivityState() {
-        return activity;
+    public boolean isActive() {
+        return isActive;
     }
     
-    public void setActivityState(boolean active) {
-        this.activity = active;
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (activity ? 1231 : 1237);
+        result = prime * result + (isActive ? 1231 : 1237);
         result = prime * result + ((login == null) ? 0 : login.hashCode());
         result = prime * result
                 + ((password == null) ? 0 : password.hashCode());
@@ -85,7 +85,7 @@ public class User extends NamedEntity<Long> {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (activity != other.activity)
+        if (isActive != other.isActive)
             return false;
         if (login == null) {
             if (other.login != null)
@@ -126,7 +126,7 @@ public class User extends NamedEntity<Long> {
     public String toString() {
         return "User [login=" + login + ", password=" + password + ", surname="
                 + surname + ", patronymic=" + patronymic + ", role=" + role
-                + ", activity=" + activity + ", name=" + name + ", id=" + id
+                + ", isActive=" + isActive + ", name=" + name + ", id=" + id
                 + "]";
     }
 }

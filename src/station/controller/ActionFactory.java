@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 
 import station.controller.subscriber.SubscriberEditAction;
 import station.controller.subscriber.SubscriberListAction;
+import station.controller.subscriber.SubscriberSaveAction;
 
 
 public class ActionFactory {
@@ -16,6 +17,7 @@ public class ActionFactory {
     static {
         actions.put("/subscriber/edit", SubscriberEditAction.class);
         actions.put("/subscriber/list", SubscriberListAction.class);
+        actions.put("/subscriber/save", SubscriberSaveAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

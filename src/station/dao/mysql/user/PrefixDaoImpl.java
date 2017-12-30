@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import station.dao.interfaces.user.PrefixDao;
 import station.dao.mysql.BaseDao;
@@ -38,7 +41,7 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
 
     @Override
     public Prefix read(Integer id) throws DaoException {
-        String query = "SELECT `city` FROM `prefixes` WHERE `id` = ?";
+        String query = "SELECT `city` FROM `prefixes` WHERE `prefix` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -65,8 +68,36 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
     }
 
     @Override
+    public List<Prefix> readAll() throws DaoException {
+        String query = "SELECT * FROM `prefixes`";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            List<Prefix> prefixes = new ArrayList<>();
+            while (resultSet.next()) {
+                Prefix prefix = new Prefix();
+                prefix.setId(resultSet.getInt("prefix"));
+                prefix.setCity(resultSet.getString("city"));
+                prefixes.add(prefix);
+            }
+            return prefixes;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
+
+    @Override
     public void update(Prefix prefix) throws DaoException {
-        String query = "UPDATE `prefixes` SET `city` = ? WHERE `id` = ?";
+        String query = "UPDATE `prefixes` SET `city` = ? WHERE `prefix` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
@@ -84,7 +115,7 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
 
     @Override
     public void delete(Integer id) throws DaoException {
-        String query = "DELETE FROM `prefixes` WHERE `id` = ?";
+        String query = "DELETE FROM `prefixes` WHERE `prefix` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);

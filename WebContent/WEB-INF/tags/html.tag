@@ -1,19 +1,38 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@attribute name="title" required="true" rtexprvalue="true"
 	type="java.lang.String"%>
+<%@attribute name="pageHeading" required="true" rtexprvalue="true"
+	type="java.lang.String"%>
 <%@attribute name="stylesheet" required="false" rtexprvalue="true"
 	type="java.lang.String"%>
+<%@attribute name="useDatePicker" required="false" rtexprvalue="true"
+	type="java.lang.Boolean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url var="bsCssUrl" value="/css/bootstrap.min.css" />
+<c:url var="stylesheetCssUrl" value="/css/style.css" />
+<c:url var="bsCssDatePicker" value="/css/bootstrap-datetimepicker.min.css" />
+<c:url var="jqJsUrl" value="/js/jquery.min.js" />
+<c:url var="bsJsUrl" value="/js/bootstrap.min.js" />
+<c:url var="momentJsUrl" value="/js/moment-with-locales.js" />
+<c:url var="datePickerJsUrl" value="/js/bootstrap-datetimepicker.js" />
+<c:url var="root" value="/" />
+
+
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Page title</title>
-		<c:url var="bootstrapCssUrl" value="/css/bootstrap.min.css" />
-		<c:url var="stylesheetCssUrl" value="/css/style.css" />
-		<link rel="stylesheet" href="${bootstrapCssUrl}">
-		<link rel="stylesheet" href="${stylesheetCssUrl}">
+		<title>${title} | Telephone Exchange 51</title>
+		<link rel="stylesheet" href="${bsCssUrl}">
+		<link rel="stylesheet" href="${stylesheetCssUrl}">		
+		<c:if test="${useDatePicker == true}">
+			<link rel="stylesheet" href="${bsCssDatePicker}">
+			<script src="${jqJsUrl}"></script>
+			<script src="${bsJsUrl}"></script>
+			<script src="${momentJsUrl}"></script>
+			<script src="${datePickerJsUrl}"></script>
+		</c:if>
 	</head>
 	<body class="container-fluid">
 		<header class="row">
@@ -51,7 +70,7 @@
 				<h4>Главное меню</h4>
 				<ul>
 					<li><a href="#">Главная</a></li>
-					<li><a href="#">Абоненты</a></li>
+					<li><a href="${root}subscriber/list.html">Абоненты</a></li>
 				</ul>
 			</aside>
 		</section>
@@ -60,7 +79,5 @@
 				<p>©2017-2018 "Station 51"</p>
 			</footer>
 		</div>
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
 	</body>
 </html>
