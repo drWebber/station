@@ -8,8 +8,8 @@
         <thead>
 	        <tr>
 	            <th>Логин</th>
-	            <th>Имя</th>
-	            <th>Паспорт</th>
+	            <th>Фамилия</th>
+	            <th>Идентификационный номер</th>
 	            <th>Префикс</th>
 	            <th>Телефон</th>
 	            <th></th>
@@ -19,7 +19,7 @@
 	        <c:forEach var="subscriber" items="${subscribers}">
 	            <tr>
 	                <td>${subscriber.user.login}</td>
-	                <td>${subscriber.user.name}</td>
+	                <td>${subscriber.user.surname}</td>
 	                <td>${subscriber.passportId}</td>
 	                <td>${subscriber.prefix.id}</td>
 	                <td>${subscriber.phoneNum}</td>

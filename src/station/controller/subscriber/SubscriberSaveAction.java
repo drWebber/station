@@ -74,7 +74,6 @@ public class SubscriberSaveAction extends Action {
         Administrator administrator = new Administrator();
         administrator.setId(adminId);
         subscriber.setAdministrator(administrator);
-        System.out.println(subscriber);
         try {
             SubscriberService service = getServiceFactory().getSubscriberService();
             service.save(subscriber);

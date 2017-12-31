@@ -8,10 +8,12 @@
     <c:when test="${empty subscriber}">
 		<jsp:useBean id="subscriber" class="station.domain.user.Subscriber" />
 		<c:set var = "pageHeading" value = "Создание абонента" />
+		<c:set var = "isCreation" value = "true" />
     </c:when>
     <c:otherwise>
 		<c:set var = "pageHeading" value = "Редактирование абонента ${subscriber.user.login}" />
 		<c:set var = "disabled" value = "disabled" />    	
+		<c:set var = "isCreation" value = "false" />
     </c:otherwise>
 </c:choose>
 
@@ -98,11 +100,14 @@
 					</p>
 				</div>
 			</div>
-        	<c:if test="${not empty subscriber.id}">
+        	<c:if test="${not isCreation}">
         		<input name="id" value="${subscriber.id}" type="hidden">
         	</c:if>
 			<div class="form-group">
 					<button type="submit" class="btn btn-info">Сохранить</button>
+					<c:if test="${not isCreation}">
+						<button type="submit" class="btn btn-danger" formaction="${pageContext.request.contextPath}/subscriber/delete.html">Удалить</button>
+					</c:if>
 					<button type="reset" class="btn btn-default">Сброс</button>
 					<input type="button" class="btn btn-default" onclick="history.back();" value="Назад"/>
 			</div>
