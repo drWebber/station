@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import station.dao.interfaces.user.AdministratorDao;
 import station.dao.mysql.BaseDao;
@@ -64,6 +67,28 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public List<Administrator> readAll() throws DaoException {
+        String query = "SELECT * FROM `administrators`";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            List<Administrator> administrators = new ArrayList<>();
+            while (resultSet.next()) {
+                Administrator administrator = new Administrator();
+                administrator.setId(resultSet.getLong("id"));
+                administrator.setPersonalId(resultSet.getInt("personalID"));
+                administrator.setPosition(resultSet.getString("position"));
+                administrators.add(administrator);
+            }
+            return administrators;
+        } catch (SQLException e) {
+            throw new DaoException(e);
         }
     }
 

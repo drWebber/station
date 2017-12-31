@@ -1,5 +1,7 @@
 package station.service.impl.user;
 
+import java.util.List;
+
 import station.dao.interfaces.user.AdministratorDao;
 import station.dao.interfaces.user.UserDao;
 import station.domain.user.Administrator;
@@ -27,6 +29,20 @@ public class AdministratorServiceImpl implements AdministratorService {
             Administrator administrator = administratorDao.read(id);
             administrator.setUser(user);
             return administrator;
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Administrator> getAll() throws ServiceException {
+        try {
+            List<Administrator> administrators = administratorDao.readAll();
+            for (Administrator administrator : administrators) {
+                User user = userDao.read(administrator.getId());
+                administrator.setUser(user);
+            }
+            return administrators;
         } catch(DaoException e) {
             throw new ServiceException(e);
         }
