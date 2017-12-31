@@ -23,9 +23,9 @@ public class SubscriberListAction extends Action {
                     .getSubscriberService();
             List<Subscriber> subscribers = service.getAll();
             request.setAttribute("subscribers", subscribers);
-            return null;
         } catch (FactoryException | ServiceException e) {
             throw new ServletException(e);
         }
+        return null;
     }
 }

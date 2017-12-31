@@ -92,7 +92,7 @@
 				<label class="control-label col-sm-3">Администратор</label>
 				<div class="col-sm-7">
 					<p class="form-control-static">
-						<a href="#">
+						<a href="${pageContext.request.contextPath}/administrator/view.html?id=${subscriber.administrator.id}">
 							${subscriber.administrator.user.surname} 
 							${subscriber.administrator.user.name} 
 							${subscriber.administrator.user.patronymic}
