@@ -12,6 +12,7 @@
 	            <th>Идентификационный номер</th>
 	            <th>Префикс</th>
 	            <th>Телефон</th>
+	            <th>Статус</th>
 	            <th></th>
 	        </tr>
         </thead>
@@ -23,6 +24,9 @@
 	                <td>${subscriber.passportId}</td>
 	                <td>${subscriber.prefix.id}</td>
 	                <td>${subscriber.phoneNum}</td>
+	                <td>
+	                	${subscriber.user.active ? "Активен" : "Заблокирован"}
+	                </td>
 	                <td>
 	                    <c:url var="urlUserEdit" value="/subscriber/edit.html">
 	                        <c:param name="id" value="${subscriber.id}"/>
