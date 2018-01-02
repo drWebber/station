@@ -5,17 +5,17 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
-import station.dao.interfaces.user.PrefixDao;
-import station.dao.interfaces.user.SubscriberDao;
-import station.dao.interfaces.user.UserDao;
+import station.dao.mysql.service.ProvidedServiceDaoImpl;
 import station.dao.mysql.user.AdministratorDaoImpl;
 import station.dao.mysql.user.PrefixDaoImpl;
 import station.dao.mysql.user.SubscriberDaoImpl;
 import station.dao.mysql.user.UserDaoImpl;
 import station.exception.FactoryException;
+import station.service.impl.service.ProvidedServicesServiceImpl;
 import station.service.impl.user.AdministratorServiceImpl;
 import station.service.impl.user.PrefixServiceImpl;
 import station.service.impl.user.SubscriberServiceImpl;
+import station.service.interfaces.service.ProvidedServicesService;
 import station.service.interfaces.user.AdministratorService;
 import station.service.interfaces.user.PrefixService;
 import station.service.interfaces.user.SubscriberService;
@@ -65,6 +65,14 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public PrefixService getPrefixService() throws FactoryException {
         PrefixServiceImpl service = new PrefixServiceImpl();
         service.setPrefixDao(new PrefixDaoImpl(getConnection()));
+        return service;
+    }
+
+    @Override
+    public ProvidedServicesService getProvidedServicesService()
+            throws FactoryException {
+        ProvidedServicesServiceImpl service = new ProvidedServicesServiceImpl();
+        service.setProvidedSrvDao(new ProvidedServiceDaoImpl(getConnection()));
         return service;
     }
 }

@@ -48,7 +48,7 @@
 			</div>
 			<div class="input-group">
 				<span class="input-group-addon">Личное дело</span>
-				<input type="text" class="form-control" name="personalId"
+				<input type="number" class="form-control" name="personalId"
 					value="${administrator.personalId}">
 			</div>
 			<div class='input-group'>

@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import station.dao.interfaces.service.ProvidedServicesDao;
 import station.dao.mysql.BaseDao;
@@ -50,8 +53,7 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
 
     @Override
     public ProvidedService read(Integer id) throws DaoException {
-        String query = "SELECT `name`, `description`, `monthlyFee`, "
-                + "`subscriptionRate`, `required` FROM `provided_services` "
+        String query = "SELECT * FROM `provided_services` "
                 + "WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -61,14 +63,7 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
             resultSet = statement.executeQuery();
             ProvidedService service = null;
             if (resultSet.next()) {
-                service = new ProvidedService();
-                service.setId(id);
-                service.setName(resultSet.getString("name"));
-                service.setDescription(resultSet.getString("description"));
-                service.setMonthlyFee(resultSet.getFloat("monthlyFee"));
-                service.setSubscriptionRate(resultSet
-                        .getFloat("subscriptionRate"));
-                service.setRequired(resultSet.getBoolean("required"));
+                service = getService(resultSet);
             }
             return service;
         } catch (SQLException e) {
@@ -80,6 +75,23 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public List<ProvidedService> readAll() throws DaoException {
+        String query = "SELECT * FROM `provided_services`";
+        try {
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            List<ProvidedService> services = new ArrayList<>();
+            while (resultSet.next()) {
+                ProvidedService service = getService(resultSet);
+                services.add(service);
+            }
+            return services;
+        } catch (SQLException e) {
+            throw new DaoException(e);
         }
     }
 
@@ -122,5 +134,18 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+    }
+    
+    private ProvidedService getService(ResultSet resultSet) 
+            throws SQLException {
+        ProvidedService service = new ProvidedService();
+        service.setId(resultSet.getInt("id"));
+        service.setName(resultSet.getString("name"));
+        service.setDescription(resultSet.getString("description"));
+        service.setMonthlyFee(resultSet.getFloat("monthlyFee"));
+        service.setSubscriptionRate(resultSet
+                .getFloat("subscriptionRate"));
+        service.setRequired(resultSet.getBoolean("required"));
+        return service;
     }
 }

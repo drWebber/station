@@ -1,5 +1,7 @@
 package station.service.impl.service;
 
+import java.util.List;
+
 import station.dao.interfaces.service.ProvidedServicesDao;
 import station.domain.service.ProvidedService;
 import station.exception.DaoException;
@@ -21,6 +23,15 @@ public class ProvidedServicesServiceImpl implements ProvidedServicesService {
     public ProvidedService getById(Integer id) throws ServiceException {
         try {
             return providedSrvDao.read(id);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<ProvidedService> getAll() throws ServiceException {
+        try {
+            return providedSrvDao.readAll();
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

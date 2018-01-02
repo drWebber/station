@@ -69,6 +69,7 @@
 					<li><a href="#">Главная</a></li>
 					<li><a href="${root}subscriber/list.html">Абоненты</a></li>
 					<li><a href="${root}administrator/list.html">Администраторы</a></li>
+					<li><a href="${root}provided-service/list.html">Предоставляемые услуги</a></li>
 				</ul>
 			</aside>
 		</section>

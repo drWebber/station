@@ -10,6 +10,10 @@ import station.controller.administrator.AdministratorEditAction;
 import station.controller.administrator.AdministratorListAction;
 import station.controller.administrator.AdministratorSaveAction;
 import station.controller.administrator.AdministratorViewAction;
+import station.controller.providedService.ProvidedServiceDeleteAction;
+import station.controller.providedService.ProvidedServiceEditAction;
+import station.controller.providedService.ProvidedServiceListAction;
+import station.controller.providedService.ProvidedServiceSaveAction;
 import station.controller.subscriber.SubscriberDeleteAction;
 import station.controller.subscriber.SubscriberEditAction;
 import station.controller.subscriber.SubscriberListAction;
@@ -21,8 +25,8 @@ public class ActionFactory {
             actions = new ConcurrentHashMap<>();
     
     static {
-        actions.put("/subscriber/edit", SubscriberEditAction.class);
         actions.put("/subscriber/list", SubscriberListAction.class);
+        actions.put("/subscriber/edit", SubscriberEditAction.class);
         actions.put("/subscriber/save", SubscriberSaveAction.class);
         actions.put("/subscriber/delete", SubscriberDeleteAction.class);
         actions.put("/administrator/view", AdministratorViewAction.class);
@@ -30,6 +34,11 @@ public class ActionFactory {
         actions.put("/administrator/edit", AdministratorEditAction.class);
         actions.put("/administrator/save", AdministratorSaveAction.class);
         actions.put("/administrator/delete", AdministratorDeleteAction.class);
+        actions.put("/provided-service/list", ProvidedServiceListAction.class);
+        actions.put("/provided-service/edit", ProvidedServiceEditAction.class);
+        actions.put("/provided-service/save", ProvidedServiceSaveAction.class);
+        actions.put("/provided-service/delete", 
+                ProvidedServiceDeleteAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {
