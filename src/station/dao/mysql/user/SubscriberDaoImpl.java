@@ -49,9 +49,7 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
 
     @Override
     public Subscriber read(Long id) throws DaoException {
-        String query = "SELECT `passportID`, `dob`, "
-                + "`address`, `prefixID`, `phoneNum`, `administratorID`"
-                + " FROM `subscribers` WHERE `id` = ?";
+        String query = "SELECT * FROM `subscribers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -60,18 +58,7 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             resultSet = statement.executeQuery();
             Subscriber subscriber = null;
             if (resultSet.next()) {
-                subscriber = new Subscriber();
-                subscriber.setId(id);
-                subscriber.setPassportId(resultSet.getString("passportID"));
-                subscriber.setBirthDay(resultSet.getDate("dob"));
-                subscriber.setAddress(resultSet.getString("address"));
-                Prefix prefix = new Prefix();
-                prefix.setId(resultSet.getInt("prefixID"));
-                subscriber.setPrefix(prefix);
-                subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
-                Administrator administrator = new Administrator();
-                administrator.setId(resultSet.getLong("administratorID"));
-                subscriber.setAdministrator(administrator);
+                subscriber = getSubscriber(resultSet);
             }
             return subscriber;
         } catch (SQLException e) {
@@ -96,19 +83,7 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             resultSet = statement.executeQuery(query);
             List<Subscriber> subscribers = new ArrayList<>();
             while (resultSet.next()){
-                Subscriber subscriber = new Subscriber();
-                subscriber.setId(resultSet.getLong("id"));
-                subscriber.setPassportId(resultSet.getString("passportID"));
-                subscriber.setBirthDay(resultSet.getDate("dob"));
-                subscriber.setAddress(resultSet.getString("address"));
-                Prefix prefix = new Prefix();
-                prefix.setId(resultSet.getInt("prefixID"));
-                subscriber.setPrefix(prefix);
-                subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
-                Administrator administrator = new Administrator();
-                administrator.setId(resultSet.getLong("administratorID"));
-                subscriber.setAdministrator(administrator);
-                subscribers.add(subscriber);
+                subscribers.add(getSubscriber(resultSet));
             }
             return subscribers;
         } catch (SQLException e) {
@@ -159,5 +134,21 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+    }
+
+    private Subscriber getSubscriber(ResultSet resultSet) throws SQLException {
+        Subscriber subscriber = new Subscriber();
+        subscriber.setId(resultSet.getLong("id"));
+        subscriber.setPassportId(resultSet.getString("passportID"));
+        subscriber.setBirthDay(resultSet.getDate("dob"));
+        subscriber.setAddress(resultSet.getString("address"));
+        Prefix prefix = new Prefix();
+        prefix.setId(resultSet.getInt("prefixID"));
+        subscriber.setPrefix(prefix);
+        subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
+        Administrator administrator = new Administrator();
+        administrator.setId(resultSet.getLong("administratorID"));
+        subscriber.setAdministrator(administrator);
+        return subscriber;
     }
 }

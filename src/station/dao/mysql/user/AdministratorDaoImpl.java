@@ -42,8 +42,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
 
     @Override
     public Administrator read(Long id) throws DaoException {
-        String query = "SELECT `personalID`, `position` "
-                + " FROM `administrators` WHERE `id` = ?";
+        String query = "SELECT * FROM `administrators` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -52,10 +51,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             resultSet = statement.executeQuery();
             Administrator administrator = null;
             if (resultSet.next()) {
-                administrator = new Administrator();
-                administrator.setId(id);
-                administrator.setPersonalId(resultSet.getInt("personalID"));
-                administrator.setPosition(resultSet.getString("position"));
+                administrator = getAdministrator(resultSet);
             }
             return administrator;
         } catch (SQLException e) {
@@ -80,11 +76,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             resultSet = statement.executeQuery(query);
             List<Administrator> administrators = new ArrayList<>();
             while (resultSet.next()) {
-                Administrator administrator = new Administrator();
-                administrator.setId(resultSet.getLong("id"));
-                administrator.setPersonalId(resultSet.getInt("personalID"));
-                administrator.setPosition(resultSet.getString("position"));
-                administrators.add(administrator);
+                administrators.add(getAdministrator(resultSet));
             }
             return administrators;
         } catch (SQLException e) {
@@ -127,5 +119,14 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+    }
+    
+    private Administrator getAdministrator(ResultSet resultSet) 
+            throws SQLException {
+        Administrator administrator = new Administrator();
+        administrator.setId(resultSet.getLong("id"));
+        administrator.setPersonalId(resultSet.getInt("personalID"));
+        administrator.setPosition(resultSet.getString("position"));
+        return administrator;
     }
 }
