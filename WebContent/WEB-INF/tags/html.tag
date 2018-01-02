@@ -3,8 +3,6 @@
 	type="java.lang.String"%>
 <%@attribute name="pageHeading" required="true" rtexprvalue="true"
 	type="java.lang.String"%>
-<%@attribute name="stylesheet" required="false" rtexprvalue="true"
-	type="java.lang.String"%>
 <%@attribute name="useDatePicker" required="false" rtexprvalue="true"
 	type="java.lang.Boolean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,7 +14,6 @@
 <c:url var="momentJsUrl" value="/js/moment-with-locales.js" />
 <c:url var="datePickerJsUrl" value="/js/bootstrap-datetimepicker.js" />
 <c:url var="root" value="/" />
-
 
 <!DOCTYPE html>
 <html lang="ru">

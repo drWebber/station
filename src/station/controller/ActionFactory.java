@@ -5,7 +5,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
 
+import station.controller.administrator.AdministratorDeleteAction;
+import station.controller.administrator.AdministratorEditAction;
 import station.controller.administrator.AdministratorListAction;
+import station.controller.administrator.AdministratorSaveAction;
 import station.controller.administrator.AdministratorViewAction;
 import station.controller.subscriber.SubscriberDeleteAction;
 import station.controller.subscriber.SubscriberEditAction;
@@ -24,6 +27,9 @@ public class ActionFactory {
         actions.put("/subscriber/delete", SubscriberDeleteAction.class);
         actions.put("/administrator/view", AdministratorViewAction.class);
         actions.put("/administrator/list", AdministratorListAction.class);
+        actions.put("/administrator/edit", AdministratorEditAction.class);
+        actions.put("/administrator/save", AdministratorSaveAction.class);
+        actions.put("/administrator/delete", AdministratorDeleteAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {
