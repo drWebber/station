@@ -14,6 +14,8 @@ import station.controller.providedService.ProvidedServiceDeleteAction;
 import station.controller.providedService.ProvidedServiceEditAction;
 import station.controller.providedService.ProvidedServiceListAction;
 import station.controller.providedService.ProvidedServiceSaveAction;
+import station.controller.service.ServiceListAction;
+import station.controller.service.ServiceSubscribeAction;
 import station.controller.subscriber.SubscriberDeleteAction;
 import station.controller.subscriber.SubscriberEditAction;
 import station.controller.subscriber.SubscriberListAction;
@@ -39,6 +41,8 @@ public class ActionFactory {
         actions.put("/provided-service/save", ProvidedServiceSaveAction.class);
         actions.put("/provided-service/delete", 
                 ProvidedServiceDeleteAction.class);
+        actions.put("/service/list", ServiceListAction.class);
+        actions.put("/service/subscribe", ServiceSubscribeAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

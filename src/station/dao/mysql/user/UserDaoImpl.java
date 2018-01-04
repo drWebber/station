@@ -88,15 +88,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public void update(User user) throws DaoException {
-        //TODO: удалить если не нужно: `login` = ?, `password` = ?, 
         String query = "UPDATE `users` SET `surname` = ?, `name` = ?, "
                 + "`patronymic` = ?, `role` = ?, `isActive` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            //TODO: удалить, если не нужно, НЕ ПЕРЕПУТАТЬ НОМЕРАЦИЮ!!!, surname без логина+пароля начинается с ЕДИНИЦЫ:
-            //statement.setString(1, user.getLogin());
-            //statement.setString(2, user.getPassword());
             statement.setString(1, user.getSurname());
             statement.setString(2, user.getName());
             statement.setString(3, user.getPatronymic());

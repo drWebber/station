@@ -3,39 +3,79 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 
-<u:html title="Перечень предоставляемых услуг" pageHeading="Предоставляемые услуги">
-    <table class="table table-striped table-bordered">
-        <thead>
-	        <tr>
-	            <th>Наименование</th>
-	            <th>Описание</th>
-	            <th>Ежемесячный платеж</th>
-	            <th>Стоимость подключения</th>
-	            <th>Является обязательной</th>
-	            <th></th>
-	        </tr>
-        </thead>
-        <tbody>
-	        <c:forEach var="service" items="${providedServices}">
-	            <tr>
-	                <td>${service.name}</td>
-	                <td>${service.description}</td>
-	                <td>${service.monthlyFee}</td>
-	                <td>${service.subscriptionRate}</td>
-	                <td>${service.required ? "да" : "нет"}</td>
-	                <td>
-	                    <c:url var="editUrl" value="/provided-service/edit.html">
-	                        <c:param name="id" value="${service.id}"/>
-	                    </c:url>
-	                	<a href="${editUrl}">
-	                		<span class="glyphicon glyphicon-edit"></span>
-	                	</a>
-	                </td>
-	            </tr>
-	        </c:forEach>
-        </tbody>
-    </table>
-    <form action="${pageContext.request.contextPath}/provided-service/edit.html">
-    	<button type="submit" class="btn btn-info">Создать услугу</button>
-	</form>
+<u:html title="Перечень предоставляемых услуг"
+    pageHeading="Предоставляемые услуги">
+<form
+    action="${pageContext.request.contextPath}/provided-service/edit.html">
+    <button type="submit" class="btn btn-info">Создать услугу</button>
+</form>
+<h3>Дополнительные услуги</h3>
+<div class="container-fluid">
+    <c:set var="count" value="0" />
+    <c:forEach var="service" items="${additionalServices}">
+			${count % 2 == 0 ? '<div class="row">' : ''}
+			<div class="col-sm-6 provided-services">
+            <h4>${service.name}
+                <c:url var="editUrl" value="/provided-service/edit.html">
+                    <c:param name="id" value="${service.id}" />
+                </c:url>
+                <a href="${editUrl}"><span
+                    class="glyphicon glyphicon-edit"></span></a>
+            </h4>
+            <p>${service.description}</p>
+            <div class="row text-right">
+                <div class="col-sm-12 subscription-conditions">
+                    <p class="small">
+                        Абонентская плата: ${service.monthlyFee}<span
+                            class="glyphicon glyphicon-ruble"></span>
+                    </p>
+                    <p class="small">
+                        Стоимость подключения:
+                        <c:choose>
+                            <c:when
+                                test="${service.subscriptionRate > 0}">
+							        ${service.subscriptionRate}
+							        <span class="glyphicon glyphicon-ruble"></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="text-info">Бесплатно</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                </div>
+                <c:url var="subscribeUrl" value="/service/subscribe.html">
+                    <c:param name="id" value="15" />
+                    <c:param name="serviceId" value="${service.id}" />
+                </c:url>
+                <form action="${subscribeUrl}" method="post">
+                    <button type="submit" class="btn btn-success">Подключить</button>
+                </form>
+            </div>
+        </div>
+        <c:set var="count" value="${count + 1}" />
+			${count % 2 == 0 ? '</div>' : ''}
+		</c:forEach>
+    ${count % 2 == 0 ? '' : '</div>'}
+</div>
+<h3>Установка и пользование телефоном</h3>
+<div class="container-fluid">
+    <div class="row">
+        <c:forEach var="service" items="${requiredServices}">
+            <c:url var="editUrl" value="/provided-service/edit.html">
+                <c:param name="id" value="${service.id}" />
+            </c:url>
+            <div class="col-sm-12">
+                <h4>${service.name}
+                    <a href="${editUrl}"><span
+                        class="glyphicon glyphicon-edit"></span></a>
+                </h4>
+                <p>${service.description}
+                    Абонентская плата ${service.monthlyFee}
+                    <span class="glyphicon glyphicon-ruble"></span> в
+                    месяц.
+                </p>
+            </div>
+        </c:forEach>
+    </div>
+</div>
 </u:html>

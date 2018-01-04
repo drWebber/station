@@ -7,7 +7,7 @@ import station.domain.user.Subscriber;
 
 public class Service extends Entity<Long> {
     private Subscriber subscriber;
-    private ProvidedService service;
+    private ProvidedService providedService;
     private Timestamp connected;
     private Timestamp disconnected;
     
@@ -21,12 +21,12 @@ public class Service extends Entity<Long> {
         this.subscriber = subscriber;
     }
 
-    public ProvidedService getService() {
-        return service;
+    public ProvidedService getProvidedService() {
+        return providedService;
     }
 
-    public void setService(ProvidedService service) {
-        this.service = service;
+    public void setProvidedService(ProvidedService service) {
+        this.providedService = service;
     }
 
     public Timestamp getConnected() {
@@ -47,7 +47,7 @@ public class Service extends Entity<Long> {
 
     @Override
     public String toString() {
-        return "Service [subscriber=" + subscriber + ", service=" + service
+        return "Service [subscriber=" + subscriber + ", service=" + providedService
                 + ", connected=" + connected + ", disconnected=" + disconnected
                 + ", id=" + id + "]";
     }

@@ -38,6 +38,16 @@ public class ProvidedServicesServiceImpl implements ProvidedServicesService {
     }
 
     @Override
+    public List<ProvidedService> getByRequirement(boolean require) 
+            throws ServiceException {
+        try {
+            return providedSrvDao.readByRequirement(require);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public void save(ProvidedService service) throws ServiceException {
         try {
             if(service.getId() != null) {

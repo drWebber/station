@@ -81,9 +81,11 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
     @Override
     public List<ProvidedService> readAll() throws DaoException {
         String query = "SELECT * FROM `provided_services`";
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
             List<ProvidedService> services = new ArrayList<>();
             while (resultSet.next()) {
                 ProvidedService service = getService(resultSet);
@@ -92,6 +94,41 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
             return services;
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public List<ProvidedService> readByRequirement(boolean require)
+            throws DaoException {
+        String query = "SELECT * FROM `provided_services` WHERE `required` = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setBoolean(1, require);
+            resultSet = statement.executeQuery();
+            List<ProvidedService> services = new ArrayList<>();
+            while (resultSet.next()) {
+                ProvidedService service = getService(resultSet);
+                services.add(service);
+            }
+            return services;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
         }
     }
 

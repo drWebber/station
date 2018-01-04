@@ -81,6 +81,13 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             return administrators;
         } catch (SQLException e) {
             throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
         }
     }
 

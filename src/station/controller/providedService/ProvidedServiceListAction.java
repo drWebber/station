@@ -21,8 +21,12 @@ public class ProvidedServiceListAction extends Action {
         try {
             ProvidedServicesService service = getServiceFactory()
                     .getProvidedServicesService();
-            List<ProvidedService> services = service.getAll();
-            request.setAttribute("providedServices", services);
+            List<ProvidedService> additionalServices = 
+                    service.getByRequirement(false);
+            request.setAttribute("additionalServices", additionalServices);
+            List<ProvidedService> requiredServices = 
+                    service.getByRequirement(true);
+            request.setAttribute("requiredServices", requiredServices);
         } catch (FactoryException | ServiceException e) {
             throw new ServletException(e);
         }

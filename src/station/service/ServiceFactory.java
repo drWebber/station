@@ -5,6 +5,7 @@ import java.sql.Connection;
 
 import station.exception.FactoryException;
 import station.service.interfaces.service.ProvidedServicesService;
+import station.service.interfaces.service.ServicesService;
 import station.service.interfaces.user.AdministratorService;
 import station.service.interfaces.user.PrefixService;
 import station.service.interfaces.user.SubscriberService;
@@ -19,6 +20,8 @@ public interface ServiceFactory extends AutoCloseable {
     
     ProvidedServicesService getProvidedServicesService() 
             throws FactoryException;
+    
+    ServicesService getServicesService() throws FactoryException;
     
     Connection getConnection() throws FactoryException;
 }

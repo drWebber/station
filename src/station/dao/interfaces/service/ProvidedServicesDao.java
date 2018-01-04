@@ -8,4 +8,6 @@ import station.exception.DaoException;
 
 public interface ProvidedServicesDao extends CompleteDao<Integer, ProvidedService> {
     List<ProvidedService> readAll() throws DaoException;
+    List<ProvidedService> readByRequirement(boolean require) 
+            throws DaoException;
 }

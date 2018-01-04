@@ -9,4 +9,6 @@ import station.service.interfaces.CompleteService;
 public interface ProvidedServicesService 
         extends CompleteService<Integer, ProvidedService> {
     List<ProvidedService> getAll() throws ServiceException;
+    List<ProvidedService> getByRequirement(boolean require) 
+            throws ServiceException;
 }

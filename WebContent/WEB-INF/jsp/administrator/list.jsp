@@ -3,45 +3,45 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 
-<u:html title="Список администраторов" pageHeading="Список администраторов">
-    <table class="table table-striped table-bordered">
-        <thead>
-	        <tr>
-	            <th>Логин</th>
-	            <th>Фамилия</th>
-	            <th>Имя</th>
-	            <th>Отчество</th>
-	            <th>Личное дело</th>
-	            <th>Должность</th>
-	            <th>Статус</th>
-	            <th></th>
-	        </tr>
-        </thead>
-        <tbody>
-	        <c:forEach var="administrator" items="${administrators}">
-	            <tr>
-	                <td>${administrator.user.login}</td>
-	                <td>${administrator.user.surname}</td>
-	                <td>${administrator.user.name}</td>
-	                <td>${administrator.user.patronymic}</td>
-	                <td>${administrator.personalId}</td>
-	                <td>${administrator.position}</td>
-	                <td>
-	                	${administrator.user.active ? "Активен" : "Заблокирован"}
-	                </td>
-	                <td>
-	                    <c:url var="urlAdminEdit" value="/administrator/edit.html">
-	                        <c:param name="id" value="${administrator.id}"/>
-	                    </c:url>
-	                	<a href="${urlAdminEdit}">
-	                		<span class="glyphicon glyphicon-edit"></span>
-	                	</a>
-	                </td>
-	            </tr>
-	        </c:forEach>
-        </tbody>
-    </table>
-    <form action="${pageContext.request.contextPath}/administrator/edit.html">
-    	<button type="submit" class="btn btn-info">Создать администратора</button>
-	</form>
+<u:html title="Список администраторов"
+    pageHeading="Список администраторов">
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Логин</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Личное дело</th>
+            <th>Должность</th>
+            <th>Статус</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="administrator" items="${administrators}">
+            <tr>
+                <td>${administrator.user.login}</td>
+                <td>${administrator.user.surname}</td>
+                <td>${administrator.user.name}</td>
+                <td>${administrator.user.patronymic}</td>
+                <td>${administrator.personalId}</td>
+                <td>${administrator.position}</td>
+                <td>${administrator.user.active ? "Активен" : "Заблокирован"}
+                </td>
+                <td><c:url var="urlAdminEdit"
+                        value="/administrator/edit.html">
+                        <c:param name="id" value="${administrator.id}" />
+                    </c:url> <a href="${urlAdminEdit}"> <span
+                        class="glyphicon glyphicon-edit"></span>
+                </a></td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+<form
+    action="${pageContext.request.contextPath}/administrator/edit.html">
+    <button type="submit" class="btn btn-info">Создать
+        администратора</button>
+</form>
 </u:html>
