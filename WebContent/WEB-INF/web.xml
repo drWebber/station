@@ -18,7 +18,7 @@
 
 	<servlet>
 		<servlet-name>ServletDispatcher</servlet-name>
-		<servlet-class>station.controller.ServletDispatcher</servlet-class>
+		<servlet-class>controller.ServletDispatcher</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

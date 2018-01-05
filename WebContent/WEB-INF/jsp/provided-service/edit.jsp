@@ -7,7 +7,7 @@
 <c:choose>
     <c:when test="${empty providedService}">
         <jsp:useBean id="providedService"
-            class="station.domain.service.ProvidedService" />
+            class="domain.service.ProvidedService" />
         <c:set var="pageHeading" value="Создание услуги" />
         <c:set var="isCreation" value="true" />
     </c:when>

@@ -7,7 +7,7 @@
 <c:choose>
     <c:when test="${empty administrator}">
         <jsp:useBean id="administrator"
-            class="station.domain.user.Administrator" />
+            class="domain.user.Administrator" />
         <c:set var="pageHeading" value="Создание администратора" />
         <c:set var="isCreation" value="true" />
     </c:when>

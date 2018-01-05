@@ -7,7 +7,7 @@
 <c:choose>
     <c:when test="${empty subscriber}">
         <jsp:useBean id="subscriber"
-            class="station.domain.user.Subscriber" />
+            class="domain.user.Subscriber" />
         <c:set var="pageHeading" value="Создание абонента" />
         <c:set var="isCreation" value="true" />
     </c:when>

@@ -4,7 +4,7 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 
 <c:if test="${empty subscriber}">
-	<jsp:useBean id="subscriber" class="station.domain.user.Subscriber" />
+	<jsp:useBean id="subscriber" class="domain.user.Subscriber" />
 </c:if>
 
 <u:html title="Перечень предоставляемых услуг"
