@@ -46,9 +46,32 @@ footer p {
     padding-right: 2em;
 }
 
+/* login form */
+.login-layout {
+	margin: 40% auto;
+	width: 70%;
+}
+
+.login-input-wrapper {
+	padding: 1em;
+	background: #FFF;
+}
+
+.login-input-wrapper .input-group {
+	margin-bottom: .8em;
+}
+
+.login-input-wrapper .form-group:last-child {
+	margin-bottom: 0;
+}
+
 /* media-queries */
 @media screen and (min-width:961px) {
     .content-layout {
         width: 80%;
     }
+	.login-layout {
+		margin: 10% auto;
+		width: 25%;
+	}
 }

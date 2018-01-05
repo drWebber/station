@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import station.controller.Action;
 import station.controller.Forwarder;
@@ -18,15 +19,12 @@ public class ServiceListAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        //TODO: Заменить парсинг по ID на взятие пользователя из сессии!!!
-        Long id = null;
-        try {
-            id = Long.parseLong(request.getParameter("id"));
-        } catch (NumberFormatException e) {
-            throw new ServletException(e);
+        //TODO: проверить извлечение из сессии
+        HttpSession httpSession = request.getSession(false); 
+        Subscriber subscriber = null;
+        if(httpSession != null){
+            subscriber = (Subscriber) httpSession.getAttribute("currentUser");
         }
-        Subscriber subscriber = new Subscriber();
-        subscriber.setId(id);
         try {
             ServicesService service = getServiceFactory().getServicesService();
             List<Service> services = service.getSubscriberServices(subscriber);

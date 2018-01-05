@@ -25,9 +25,27 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public Administrator getById(Long id) throws ServiceException {
         try {
-            User user = userDao.read(id);
             Administrator administrator = administratorDao.read(id);
-            administrator.setUser(user);
+            if (administrator != null) {
+                administrator.setUser(userDao.read(id));
+            }
+            return administrator;
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Administrator getByLoginAndPassword(String login, String password) 
+            throws ServiceException {
+        try {
+            User user = userDao.readByLoginAndPassword(login, password);
+            Administrator administrator = null;
+            if (user != null) {
+                administrator = administratorDao.read(user.getId());
+                administrator.setUser(user);
+            } else {
+            }
             return administrator;
         } catch(DaoException e) {
             throw new ServiceException(e);
@@ -39,8 +57,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         try {
             List<Administrator> administrators = administratorDao.readAll();
             for (Administrator administrator : administrators) {
-                User user = userDao.read(administrator.getId());
-                administrator.setUser(user);
+                administrator.setUser(userDao.read(administrator.getId()));
             }
             return administrators;
         } catch(DaoException e) {

@@ -25,12 +25,30 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public Subscriber getById(Long id) throws ServiceException {
         try {
-            User user = userDao.read(id);
             Subscriber subscriber = subscriberDao.read(id);
-            subscriber.setUser(user);
+            if (subscriber != null) {
+                subscriber.setUser(userDao.read(id));
+            }
             return subscriber;
         } catch(DaoException e) {
             throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Subscriber getByLoginAndPassword(String login, String password)
+            throws DaoException {
+        try {
+            Subscriber subscriber = null;
+            User user = userDao.readByLoginAndPassword(login, password);
+            System.out.println(user);
+            if (user != null) {
+                subscriber = subscriberDao.read(user.getId());
+                subscriber.setUser(user);
+            }
+            return subscriber;
+        } catch (DaoException e) {
+            throw new DaoException(e);
         }
     }
 
@@ -39,8 +57,7 @@ public class SubscriberServiceImpl implements SubscriberService {
         try {
             List<Subscriber> subscribers = subscriberDao.readAll();
             for (Subscriber subscriber : subscribers) {
-                User user = userDao.read(subscriber.getId());
-                subscriber.setUser(user);
+                subscriber.setUser(userDao.read(subscriber.getId()));
             }
             return subscribers;
         } catch (DaoException e) {
