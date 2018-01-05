@@ -41,10 +41,11 @@ public class SubscriberServiceImpl implements SubscriberService {
         try {
             Subscriber subscriber = null;
             User user = userDao.readByLoginAndPassword(login, password);
-            System.out.println(user);
             if (user != null) {
                 subscriber = subscriberDao.read(user.getId());
-                subscriber.setUser(user);
+                if (subscriber != null) {
+                    subscriber.setUser(user);
+                }
             }
             return subscriber;
         } catch (DaoException e) {

@@ -43,7 +43,9 @@ public class AdministratorServiceImpl implements AdministratorService {
             Administrator administrator = null;
             if (user != null) {
                 administrator = administratorDao.read(user.getId());
-                administrator.setUser(user);
+                if (administrator != null) {
+                    administrator.setUser(user);
+                }
             } else {
             }
             return administrator;

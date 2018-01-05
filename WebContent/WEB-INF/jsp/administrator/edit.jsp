@@ -13,7 +13,7 @@
     </c:when>
     <c:otherwise>
         <c:set var="pageHeading"
-            value="Редактирование администратора ${administrator.user.login}" />
+            value="Редактирование администратора ${administrator.login}" />
         <c:set var="disabled" value="disabled" />
         <c:set var="isCreation" value="false" />
     </c:otherwise>
@@ -27,7 +27,7 @@
         <div class="input-group">
             <span class="input-group-addon">Логин</span>
             <input type="text" class="form-control" name="login"
-                value="${administrator.user.login}" ${disabled}>
+                value="${administrator.login}" ${disabled}>
         </div>
         <c:if test="${empty administrator.id}">
             <div class="input-group">
@@ -38,17 +38,17 @@
         <div class="input-group">
             <span class="input-group-addon">Фамилия</span>
             <input type="text" class="form-control" name="surname"
-                value="${administrator.user.surname}">
+                value="${administrator.surname}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Имя</span>
             <input type="text" class="form-control" name="name"
-                value="${administrator.user.name}">
+                value="${administrator.name}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Отчество</span>
             <input type="text" class="form-control" name="patronymic"
-                value="${administrator.user.patronymic}">
+                value="${administrator.patronymic}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Личное дело</span>
@@ -63,11 +63,11 @@
         <div class="radio">
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="true"
-                ${administrator.user.active != false ? "checked": ""}>Активен
+                ${administrator.active != false ? "checked": ""}>Активен
             </label>
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="false"
-                ${administrator.user.active == "false" ? "checked": ""}>Заблокирован
+                ${administrator.active == "false" ? "checked": ""}>Заблокирован
             </label>
         </div>
         <c:if test="${not isCreation}">

@@ -64,5 +64,4 @@ public class LoginAction extends Action {
         }
         return result;
     }
-
 }

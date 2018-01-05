@@ -100,7 +100,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, administrator.getPersonalId());
             statement.setString(2, administrator.getPosition());
-            statement.setLong(3, administrator.getUser().getId());
+            statement.setLong(3, administrator.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

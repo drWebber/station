@@ -13,7 +13,7 @@
     </c:when>
     <c:otherwise>
         <c:set var="pageHeading"
-            value="Редактирование абонента ${subscriber.user.login}" />
+            value="Редактирование абонента ${subscriber.login}" />
         <c:set var="disabled" value="disabled" />
         <c:set var="isCreation" value="false" />
     </c:otherwise>
@@ -28,7 +28,7 @@
         <div class="input-group">
             <span class="input-group-addon">Логин</span> <input
                 type="text" class="form-control" name="login"
-                value="${subscriber.user.login}" ${disabled}>
+                value="${subscriber.login}" ${disabled}>
         </div>
         <c:if test="${empty subscriber.id}">
             <div class="input-group">
@@ -39,17 +39,17 @@
         <div class="input-group">
             <span class="input-group-addon">Фамилия</span>
             <input type="text" class="form-control" name="surname"
-                value="${subscriber.user.surname}">
+                value="${subscriber.surname}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Имя</span>
             <input type="text" class="form-control" name="name"
-                value="${subscriber.user.name}">
+                value="${subscriber.name}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Отчество</span>
             <input type="text" class="form-control" name="patronymic"
-                value="${subscriber.user.patronymic}">
+                value="${subscriber.patronymic}">
         </div>
         <div class="input-group">
             <span class="input-group-addon">Личный номер</span>
@@ -76,11 +76,11 @@
         <div class="radio">
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="true"
-                ${subscriber.user.active != false ? "checked": ""}>Активен
+                ${subscriber.active != false ? "checked": ""}>Активен
             </label>
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="false"
-                ${subscriber.user.active == "false" ? "checked": ""}>Заблокирован
+                ${subscriber.active == "false" ? "checked": ""}>Заблокирован
             </label>
         </div>
         <div class="input-group row">
@@ -105,9 +105,9 @@
                 <p class="form-control-static">
                     <a
                         href="${pageContext.request.contextPath}/administrator/view.html?id=${subscriber.administrator.id}">
-                        ${subscriber.administrator.user.surname}
-                        ${subscriber.administrator.user.name}
-                        ${subscriber.administrator.user.patronymic} </a>
+                        ${subscriber.administrator.surname}
+                        ${subscriber.administrator.name}
+                        ${subscriber.administrator.patronymic} </a>
                 </p>
             </div>
         </div>

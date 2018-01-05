@@ -22,6 +22,11 @@
         </div>
         <div class="row">
             <div class="login-input-wrapper">
+            	<c:if test="${not empty message}">
+					<div class="row login-error text-danger bg-danger">
+						<p><span class="glyphicon glyphicon-remove-circle"></span> Authorisation fail</p>
+					</div>
+				</c:if>
                 <form method="post">
                     <div class="input-group">
                         <span class="input-group-addon">

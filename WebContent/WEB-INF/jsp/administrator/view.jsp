@@ -13,11 +13,11 @@
     <tbody>
         <tr>
             <td>Логин</td>
-            <td>${administrator.user.login}</td>
+            <td>${administrator.login}</td>
         </tr>
         <tr>
             <td>ФИО</td>
-            <td>${administrator.user.surname} ${administrator.user.name} ${administrator.user.patronymic}</td>
+            <td>${administrator.surname} ${administrator.name} ${administrator.patronymic}</td>
         </tr>
         <tr>
             <td>Личное дело</td>
@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td>Состояние</td>
-            <td>${administrator.user.active ? "Активен" : "Заблокирован"}</td>
+            <td>${administrator.active ? "Активен" : "Заблокирован"}</td>
         </tr>
     </tbody>
 </table>

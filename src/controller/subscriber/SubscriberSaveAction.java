@@ -25,6 +25,7 @@ public class SubscriberSaveAction extends Action {
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         try {
+            //TODO: заменить энкодинг на фильтр
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e1) { }
         Subscriber subscriber = new Subscriber();

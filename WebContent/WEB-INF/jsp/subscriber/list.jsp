@@ -19,12 +19,12 @@
     <tbody>
         <c:forEach var="subscriber" items="${subscribers}">
             <tr>
-                <td>${subscriber.user.login}</td>
-                <td>${subscriber.user.surname}</td>
+                <td>${subscriber.login}</td>
+                <td>${subscriber.surname}</td>
                 <td>${subscriber.passportId}</td>
                 <td>${subscriber.prefix.id}</td>
                 <td>${subscriber.phoneNum}</td>
-                <td>${subscriber.user.active ? "Активен" : "Заблокирован"}
+                <td>${subscriber.active ? "Активен" : "Заблокирован"}
                 </td>
                 <td><c:url var="urlUserEdit"
                         value="/subscriber/edit.html">

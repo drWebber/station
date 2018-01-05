@@ -21,13 +21,13 @@
     <tbody>
         <c:forEach var="administrator" items="${administrators}">
             <tr>
-                <td>${administrator.user.login}</td>
-                <td>${administrator.user.surname}</td>
-                <td>${administrator.user.name}</td>
-                <td>${administrator.user.patronymic}</td>
+                <td>${administrator.login}</td>
+                <td>${administrator.surname}</td>
+                <td>${administrator.name}</td>
+                <td>${administrator.patronymic}</td>
                 <td>${administrator.personalId}</td>
                 <td>${administrator.position}</td>
-                <td>${administrator.user.active ? "Активен" : "Заблокирован"}
+                <td>${administrator.active ? "Активен" : "Заблокирован"}
                 </td>
                 <td><c:url var="urlAdminEdit"
                         value="/administrator/edit.html">

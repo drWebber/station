@@ -60,6 +60,20 @@ public class User extends NamedEntity<Long> {
         this.isActive = active;
     }
 
+    public void setUser(User user) {
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.surname = user.getSurname();
+        this.name = user.getName();
+        this.patronymic = user.getPatronymic();
+        this.role = user.getRole();
+        this.isActive = user.isActive();
+    }
+
+    public User getUser() {
+        return this;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -20,6 +20,7 @@ public class AdministratorSaveAction extends Action {
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         try {
+            //TODO: заменить энкодинг на фильтр
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e1) { }
         Administrator administrator = new Administrator();
@@ -36,7 +37,7 @@ public class AdministratorSaveAction extends Action {
         user.setSurname(request.getParameter("surname"));
         user.setName(request.getParameter("name"));
         user.setPatronymic(request.getParameter("patronymic"));
-        user.setRole(Role.SUBSCRIBER);
+        user.setRole(Role.ADMINISTRATOR);
         user.setActive(Boolean.parseBoolean(request.getParameter("isActive")));
         administrator.setUser(user);
 
