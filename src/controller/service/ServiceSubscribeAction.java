@@ -12,22 +12,28 @@ import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
 import service.interfaces.service.ServicesService;
+import util.user.UserRetriever;
 
 public class ServiceSubscribeAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        //TODO: Заменить парсинг по ID на взятие пользователя из сессии!!!
-        Long id = null;
         Integer serviceId = null;
         try {
-            id = Long.parseLong(request.getParameter("id"));
             serviceId = Integer.parseInt(request.getParameter("serviceId"));
         } catch (NumberFormatException e) {
             throw new ServletException(e);
         }
-        Subscriber subscriber = new Subscriber();
-        subscriber.setId(id);
+        
+        //TODO: проверить извлечение из сессии
+        Subscriber subscriber = null;
+        try {
+            subscriber = 
+                    new UserRetriever<Subscriber>(request).getCurrentUser();
+        } catch (ClassCastException e) {
+            throw new ServletException(e);
+        }
+        
         Service subscriberService = new Service();
         subscriberService.setSubscriber(subscriber);
         ProvidedService providedSrv = new ProvidedService();

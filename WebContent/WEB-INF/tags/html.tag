@@ -10,11 +10,16 @@
 <c:url var="stylesheetCssUrl" value="/css/style.css" />
 <c:url var="bsCssDatePicker"
     value="/css/bootstrap-datetimepicker.min.css" />
-<c:url var="jqJsUrl" value="/js/jquery.min.js" />
-<c:url var="bsJsUrl" value="/js/bootstrap.min.js" />
-<c:url var="momentJsUrl" value="/js/moment-with-locales.js" />
-<c:url var="datePickerJsUrl" value="/js/bootstrap-datetimepicker.js" />
-<c:url var="root" value="/" />
+<c:url var="urlJqueryJs" value="/js/jquery.min.js" />
+<c:url var="urlBsMinJs" value="/js/bootstrap.min.js" />
+<c:url var="urlMomentJs" value="/js/moment-with-locales.js" />
+<c:url var="urlDatePickerJs" value="/js/bootstrap-datetimepicker.js" />
+<c:url var="urlHome" value="/" />
+<c:url var="urlLogin" value="/login.html" />
+<c:url var="urlSubscriberList" value="/subscriber/list.html" />
+<c:url var="urlAdministratorList" value="/administrator/list.html" />
+<c:url var="urlProvidedServiceList" value="/provided-service/list.html" />
+<c:url var="urlServiceList" value="/service/list.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,10 +31,10 @@
 <link rel="stylesheet" href="${stylesheetCssUrl}">
 <c:if test="${useDatePicker == true}">
     <link rel="stylesheet" href="${bsCssDatePicker}">
-    <script src="${jqJsUrl}"></script>
-    <script src="${bsJsUrl}"></script>
-    <script src="${momentJsUrl}"></script>
-    <script src="${datePickerJsUrl}"></script>
+    <script src="${urlJqueryJs}"></script>
+    <script src="${urlBsMinJs}"></script>
+    <script src="${urlMomentJs}"></script>
+    <script src="${urlDatePickerJs}"></script>
 </c:if>
 </head>
 <body class="container-fluid">
@@ -44,15 +49,15 @@
                             class="icon-bar"></span> <span
                             class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Station 51</a>
+                    <a class="navbar-brand" href="${urlHome}">Station 51</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="${root}">Главная</a></li>
+                        <li class="active"><a href="${urlHome}">Главная</a></li>
                         <li><a href="#">Услуги</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="${root}login.html"><span
+                        <li><a href="${urlLogin}"><span
                                 class="glyphicon glyphicon-log-in"></span>
                                 Вход</a></li>
                     </ul>
@@ -71,11 +76,11 @@
             <h4>Главное меню</h4>
             <ul>
                 <li><a href="#">Главная</a></li>
-                <li><a href="${root}subscriber/list.html">Абоненты</a></li>
-                <li><a href="${root}administrator/list.html">Администраторы</a></li>
-                <li><a href="${root}provided-service/list.html">Предоставляемые
+                <li><a href="${urlSubscriberList}">Абоненты</a></li>
+                <li><a href="${urlAdministratorList}">Администраторы</a></li>
+                <li><a href="${urlProvidedServiceList}">Предоставляемые
                         услуги</a></li>
-				<li><a href="${root}service/list.html">Мои услуги</a></li>
+				<li><a href="${urlServiceList}">Мои услуги</a></li>
             </ul>
         </aside>
     </section>

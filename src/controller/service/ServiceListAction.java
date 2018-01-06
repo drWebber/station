@@ -5,31 +5,28 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import service.interfaces.service.ServicesService;
+import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
 import domain.service.Service;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.service.ServicesService;
 
 public class ServiceListAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        //TODO: проверить извлечение из сессии
-        HttpSession httpSession = request.getSession(false); 
-        Subscriber subscriber = null;
-        if(httpSession != null){
-            subscriber = (Subscriber) httpSession.getAttribute("currentUser");
-        }
         try {
+            //TODO: проверить извлечение из сессии
+            Subscriber subscriber = 
+                    new UserRetriever<Subscriber>(request).getCurrentUser();
             ServicesService service = getServiceFactory().getServicesService();
             List<Service> services = service.getSubscriberServices(subscriber);
             request.setAttribute("services", services);
-        } catch (FactoryException | ServiceException e) {
+        } catch (FactoryException | ServiceException | ClassCastException e) {
             throw new ServletException(e);
         }
         return null;

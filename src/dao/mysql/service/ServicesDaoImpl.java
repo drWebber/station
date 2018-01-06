@@ -103,13 +103,12 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
 
     @Override
     public void update(Service service) throws DaoException {
-        String query = "UPDATE `services` SET `disconnected` = ? "
-                + "WHERE `id` = ?";
+        String query = "UPDATE `services` SET `disconnected` "
+                + "= CURRENT_TIMESTAMP WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setTimestamp(1, service.getDisconnected());
-            statement.setLong(2, service.getId());
+            statement.setLong(1, service.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
@@ -122,6 +121,7 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
 
     private Service getService(ResultSet resultSet) throws SQLException {
         Service service = new Service();
+        service.setId(resultSet.getLong("id"));
         Subscriber subscriber = new Subscriber();
         subscriber.setId(resultSet.getLong("subscriberID"));
         service.setSubscriber(subscriber);

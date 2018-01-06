@@ -10,6 +10,7 @@
             <th>Наименование услуги</th>
             <th>Ежемесячный платеж</th>
             <th>Дата подключения</th>
+            <th>Дата отключения</th>
             <th></th>
         </tr>
     </thead>
@@ -19,12 +20,15 @@
                 <td>${service.providedService.name}</td>
                 <td>${service.providedService.monthlyFee}</td>
                 <td>${service.connected}</td>
-                <!-- <td><c:url var="urlUserEdit"
-                        value="/subscriber/edit.html">
-                        <c:param name="id" value="${subscriber.id}" />
-                    </c:url> <a href="${urlUserEdit}"> <span
-                        class="glyphicon glyphicon-edit"></span>
-                </a></td> -->
+                <td>${service.disconnected}</td>
+                <td>
+                    <c:url var="urlUnsubscribe" value="/service/unsubscribe.html">
+                        <c:param name="id" value="${service.id}"></c:param>
+                    </c:url>
+                    <form action="${urlUnsubscribe}" method="post">
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-edit"></span></button>
+                    </form>
+	           </td>
             </tr>
         </c:forEach>
     </tbody>
