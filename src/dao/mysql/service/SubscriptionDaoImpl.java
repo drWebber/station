@@ -15,7 +15,6 @@ import domain.user.Subscriber;
 import exception.DaoException;
 
 public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
-
     public SubscriptionDaoImpl(Connection connection) {
         super(connection);
     }
@@ -74,9 +73,14 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
     }
 
     @Override
-    public List<Subscription> readSubscriberServices(Subscriber subscriber)
+    public List<Subscription> readSubscriptions(Subscriber subscriber, boolean readArchieved)
             throws DaoException {
-        String query = "SELECT * FROM `subscriptions` WHERE `subscriberID` = ?";
+        String operator = "IS";
+        if (readArchieved) {
+            operator += " NOT";
+        }
+        String query = String.format("SELECT * FROM `subscriptions` WHERE "
+                + "`subscriberID` = ? AND `disconnected` %s NULL", operator);
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {

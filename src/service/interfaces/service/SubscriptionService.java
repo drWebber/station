@@ -8,6 +8,6 @@ import domain.user.Subscriber;
 import exception.ServiceException;
 
 public interface SubscriptionService extends BaseService<Long, Subscription> {
-    List<Subscription> getSubscriptions(Subscriber subscriber)
-        throws ServiceException;
+    List<Subscription> getSubscriptions(Subscriber subscriber, 
+            boolean readArchieved) throws ServiceException;
 }

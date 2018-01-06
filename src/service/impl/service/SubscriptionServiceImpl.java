@@ -42,11 +42,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<Subscription> getSubscriptions(Subscriber subscriber)
-            throws ServiceException {
+    public List<Subscription> getSubscriptions(Subscriber subscriber, 
+            boolean readArchieved) throws ServiceException {
         try {
             List<Subscription> services = new ArrayList<>();
-            services = subscriptionDao.readSubscriberServices(subscriber);
+            services = subscriptionDao.readSubscriptions(subscriber, 
+                    readArchieved);
             for (Subscription service : services) {
                 Offer providedSrv = 
                         OfferDao.read(service.getOffer().getId());

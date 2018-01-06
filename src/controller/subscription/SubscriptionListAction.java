@@ -25,10 +25,15 @@ public class SubscriptionListAction extends Action {
                     new UserRetriever<Subscriber>(request).getCurrentUser();
             SubscriptionService subscriptionService = 
                     getServiceFactory().getSubscriptionService();
-            List<Subscription> subscriptions = 
-                    subscriptionService.getSubscriptions(subscriber);
-            request.setAttribute("subscriptions", subscriptions);
-        } catch (FactoryException | ServiceException | ClassCastException e) {
+            List<Subscription> activeSubscriptions = 
+                    subscriptionService.getSubscriptions(subscriber, false);
+            request.setAttribute("activeSubscriptions", activeSubscriptions);
+            List<Subscription> archievedSubscriptions =
+                    subscriptionService.getSubscriptions(subscriber, true);
+            request.setAttribute("archievedSubscriptions", 
+                    archievedSubscriptions);
+        } catch (FactoryException | ServiceException | 
+                ClassCastException | NullPointerException e) {
             throw new ServletException(e);
         }
         return null;
