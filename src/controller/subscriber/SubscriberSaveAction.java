@@ -1,14 +1,16 @@
 package controller.subscriber;
 
-import java.util.Date;
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
@@ -18,7 +20,6 @@ import domain.user.Subscriber;
 import domain.user.User;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.SubscriberService;
 
 public class SubscriberSaveAction extends Action {
     @Override
@@ -38,6 +39,11 @@ public class SubscriberSaveAction extends Action {
         if (subscriber.getId() == null) {
             user.setLogin(request.getParameter("login"));
             user.setPassword(request.getParameter("password"));
+            try {
+                user.cryptPassword();
+            } catch (NoSuchAlgorithmException e) {
+                throw new ServletException(e);
+            }
         }
         user.setSurname(request.getParameter("surname"));
         user.setName(request.getParameter("name"));

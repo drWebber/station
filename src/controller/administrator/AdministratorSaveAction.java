@@ -1,11 +1,13 @@
 package controller.administrator;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.interfaces.user.AdministratorService;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
@@ -13,7 +15,6 @@ import domain.user.Role;
 import domain.user.User;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.AdministratorService;
 
 public class AdministratorSaveAction extends Action {
     @Override
@@ -33,6 +34,11 @@ public class AdministratorSaveAction extends Action {
         if (administrator.getId() == null) {
             user.setLogin(request.getParameter("login"));
             user.setPassword(request.getParameter("password"));
+            try {
+                user.cryptPassword();
+            } catch (NoSuchAlgorithmException e) {
+                throw new ServletException(e);
+            }
         }
         user.setSurname(request.getParameter("surname"));
         user.setName(request.getParameter("name"));

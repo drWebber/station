@@ -1,10 +1,12 @@
 package dao.mysql.user;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import util.user.PasswordCryptographer;
 import dao.interfaces.user.UserDao;
 import dao.mysql.BaseDao;
 import domain.user.Role;
@@ -84,6 +86,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
+            password = new PasswordCryptographer(login, password)
+                .getCryptedPassword();
             statement.setString(1, login);
             statement.setString(2, password);
             resultSet = statement.executeQuery();
@@ -92,7 +96,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user = getUser(resultSet);
             }
             return user;
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DaoException(e);
         } finally {
             try { 
@@ -104,7 +108,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         }
     }
 
-    private User getUser(ResultSet resultSet) throws SQLException {
+    private User getUser(ResultSet resultSet)
+            throws SQLException, DaoException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
         user.setLogin(resultSet.getString("login"));

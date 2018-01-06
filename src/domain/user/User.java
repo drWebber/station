@@ -1,5 +1,8 @@
 package domain.user;
 
+import java.security.NoSuchAlgorithmException;
+
+import util.user.PasswordCryptographer;
 import domain.NamedEntity;
 
 public class User extends NamedEntity<Long> {
@@ -26,6 +29,11 @@ public class User extends NamedEntity<Long> {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void cryptPassword() throws NoSuchAlgorithmException {
+        PasswordCryptographer pc = new PasswordCryptographer(login, password);
+        password = pc.getCryptedPassword();
     }
     
     public String getSurname() {
