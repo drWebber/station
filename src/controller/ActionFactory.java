@@ -29,6 +29,7 @@ public class ActionFactory {
     
     static {
         actions.put("/login", LoginAction.class);
+        actions.put("/logout", LogoutAction.class);
         actions.put("/subscriber/list", SubscriberListAction.class);
         actions.put("/subscriber/edit", SubscriberEditAction.class);
         actions.put("/subscriber/save", SubscriberSaveAction.class);

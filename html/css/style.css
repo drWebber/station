@@ -17,6 +17,17 @@ html, body {
     text-align: justify;
     padding-bottom: 3em;
 }
+/* login */
+.login-lable {
+	color: #888;
+	padding-left: 15px;
+}
+
+.login-navlink {
+    height: 50px;
+    color: #ccc;
+    border: none;
+}
 
 /* offers */
 .subscription-conditions p {

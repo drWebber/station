@@ -16,6 +16,7 @@
 <c:url var="urlDatePickerJs" value="/js/bootstrap-datetimepicker.js" />
 <c:url var="urlHome" value="/" />
 <c:url var="urlLogin" value="/login.html" />
+<c:url var="urlLogout" value="/logout.html" />
 <c:url var="urlSubscriberList" value="/subscriber/list.html" />
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
 <c:url var="urlOfferList" value="/offer/list.html" />
@@ -29,10 +30,10 @@
 <title>${title}| Telephone Exchange 51</title>
 <link rel="stylesheet" href="${bsCssUrl}">
 <link rel="stylesheet" href="${stylesheetCssUrl}">
+<script src="${urlJqueryJs}"></script>
+<script src="${urlBsMinJs}"></script>
 <c:if test="${useDatePicker == true}">
     <link rel="stylesheet" href="${bsCssDatePicker}">
-    <script src="${urlJqueryJs}"></script>
-    <script src="${urlBsMinJs}"></script>
     <script src="${urlMomentJs}"></script>
     <script src="${urlDatePickerJs}"></script>
 </c:if>
@@ -52,15 +53,31 @@
                     <a class="navbar-brand" href="${urlHome}">Station 51</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="${urlHome}">Главная</a></li>
-                        <li><a href="#">Услуги</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="${urlLogin}"><span
-                                class="glyphicon glyphicon-log-in"></span>
-                                Вход</a></li>
-                    </ul>
+	               <ul class="nav navbar-nav">
+	                   <li class="active"><a href="${urlHome}">Главная</a></li>
+	                   <li><a href="#">Услуги</a></li>
+	               </ul>
+	               <c:choose>
+	                   <c:when test="${empty currentUser}">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+        	                       <a href="${urlLogin}">
+        	                           <span class="glyphicon glyphicon-log-in"></span> Вход
+        	                       </a>
+                                </li>
+                            </ul>
+	                   </c:when>
+	                   <c:otherwise>
+	                       <div class="nav navbar-nav navbar-right">
+	                           <span class="login-lable">Вы вошли как: </span>
+	                           <button class="navbar-inverse dropdown-toggle login-navlink" type="button" data-toggle="dropdown">senya
+	                           <span class="caret"></span></button>
+	                           <ul class="dropdown-menu">
+	                               <li><a href="${urlLogout}">Выход</a></li>
+	                           </ul>
+	                       </div>
+                       </c:otherwise>
+	               </c:choose>
                 </div>
             </div>
         </nav>
