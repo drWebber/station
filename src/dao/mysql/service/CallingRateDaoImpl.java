@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.interfaces.service.CallingRateDao;
 import dao.mysql.BaseDao;
@@ -11,7 +14,6 @@ import domain.service.CallingRate;
 import exception.DaoException;
 
 public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
-
     public CallingRateDaoImpl(Connection connection) {
         super(connection);
     }
@@ -45,8 +47,7 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
 
     @Override
     public CallingRate read(Short id) throws DaoException {
-        String query = "SELECT `name`, `rate` FROM `calling_rates` "
-                + "WHERE `id` = ?";
+        String query = "SELECT * FROM `calling_rates` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -55,10 +56,7 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
             resultSet = statement.executeQuery();
             CallingRate rate = null;
             if (resultSet.next()) {
-                rate = new CallingRate();
-                rate.setId(id);
-                rate.setName(resultSet.getString("name"));
-                rate.setRate(resultSet.getFloat("rate"));
+                rate = getCallingRate(resultSet);
             }
             return rate;
         } catch (SQLException e) {
@@ -71,6 +69,40 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+    }
+
+    @Override
+    public List<CallingRate> readAll() throws DaoException {
+        String query = "SELECT * FROM `calling_rates`";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            List<CallingRate> rates = new ArrayList<>();
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                rates.add(getCallingRate(resultSet));
+            }
+            return rates;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    private CallingRate getCallingRate(ResultSet resultSet) 
+            throws SQLException {
+        CallingRate rate = new CallingRate();
+        rate.setId(resultSet.getShort("id"));
+        rate.setName(resultSet.getString("name"));
+        rate.setRate(resultSet.getFloat("rate"));
+        return rate;
     }
 
     @Override

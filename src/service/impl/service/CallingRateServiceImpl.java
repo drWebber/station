@@ -1,5 +1,7 @@
 package service.impl.service;
 
+import java.util.List;
+
 import dao.interfaces.service.CallingRateDao;
 import domain.service.CallingRate;
 import exception.DaoException;
@@ -21,6 +23,15 @@ public class CallingRateServiceImpl implements CallingRateService {
     public CallingRate getById(Short id) throws ServiceException {
         try {
             return rateDao.read(id);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<CallingRate> getAll() throws ServiceException {
+        try {
+            return rateDao.readAll();
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

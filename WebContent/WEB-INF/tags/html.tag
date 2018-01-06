@@ -21,13 +21,14 @@
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
 <c:url var="urlOfferList" value="/offer/list.html" />
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
+<c:url var="urlCallingRateList" value="/calling-rate/list.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title}| Telephone Exchange 51</title>
+<title>${title} | Telephone Exchange 51</title>
 <link rel="stylesheet" href="${bsCssUrl}">
 <link rel="stylesheet" href="${stylesheetCssUrl}">
 <script src="${urlJqueryJs}"></script>
@@ -97,6 +98,7 @@
                 <li><a href="${urlAdministratorList}">Администраторы</a></li>
                 <li><a href="${urlOfferList}">Предоставляемые
                         услуги</a></li>
+                <li><a href="${urlCallingRateList}">Тарифные планы</a></li>
 				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
             </ul>
         </aside>

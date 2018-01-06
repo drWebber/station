@@ -4,6 +4,7 @@ package service;
 import java.sql.Connection;
 
 import exception.FactoryException;
+import service.interfaces.service.CallingRateService;
 import service.interfaces.service.OfferService;
 import service.interfaces.service.SubscriptionService;
 import service.interfaces.user.AdministratorService;
@@ -11,6 +12,8 @@ import service.interfaces.user.PrefixService;
 import service.interfaces.user.SubscriberService;
 
 public interface ServiceFactory extends AutoCloseable {
+    
+    Connection getConnection() throws FactoryException;
     
     AdministratorService getAdministratorService() throws FactoryException;
     
@@ -22,6 +25,6 @@ public interface ServiceFactory extends AutoCloseable {
             throws FactoryException;
     
     SubscriptionService getSubscriptionService() throws FactoryException;
-    
-    Connection getConnection() throws FactoryException;
+
+    CallingRateService getCallingRateService() throws FactoryException;
 }
