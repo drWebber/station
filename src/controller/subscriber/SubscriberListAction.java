@@ -14,7 +14,6 @@ import exception.ServiceException;
 import service.interfaces.user.SubscriberService;
 
 public class SubscriberListAction extends Action {
-
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

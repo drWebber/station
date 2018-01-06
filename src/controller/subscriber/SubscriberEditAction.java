@@ -37,9 +37,7 @@ public class SubscriberEditAction extends Action {
                         administratorService.getById(subscriber
                                 .getAdministrator().getId());
                 subscriber.setAdministrator(administrator);
-
                 request.setAttribute("subscriber", subscriber);
-
             }
             PrefixService prefixService = 
                     getServiceFactory().getPrefixService();

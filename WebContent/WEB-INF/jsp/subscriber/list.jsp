@@ -29,14 +29,17 @@
                 <td><c:url var="urlUserEdit"
                         value="/subscriber/edit.html">
                         <c:param name="id" value="${subscriber.id}" />
-                    </c:url> <a href="${urlUserEdit}"> <span
-                        class="glyphicon glyphicon-edit"></span>
-                </a></td>
+                    </c:url>
+                    <a href="${urlUserEdit}"  
+                        title="Редактировать профиль абонента">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                </td>
             </tr>
         </c:forEach>
     </tbody>
 </table>
 <form action="${pageContext.request.contextPath}/subscriber/edit.html">
-    <button type="submit" class="btn btn-info">Создать абонента</button>
+    <button type="submit" class="btn btn-info" title="Создать абонента">Создать абонента</button>
 </form>
 </u:html>

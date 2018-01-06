@@ -25,7 +25,10 @@
                         <c:param name="id" value="${subscription.id}"></c:param>
                     </c:url>
                     <form action="${urlReject}" method="post">
-                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button type="submit" class="btn btn-danger btn-xs"
+                            title="Отписаться">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
                     </form>
 	           </td>
             </tr>

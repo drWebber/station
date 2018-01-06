@@ -52,7 +52,8 @@
                     <div class="form-group text-right">
                         <input type="button" class="btn btn-link"
                             onclick="history.back();" value="Назад" />
-                        <button type="submit" class="btn btn-info">Вход</button>
+                        <button type="submit" title="Войти в систему" 
+                            class="btn btn-info">Вход</button>
                     </div>
                 </form>
             </div>

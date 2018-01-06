@@ -90,6 +90,15 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             } catch (NullPointerException | SQLException e) {}
         }
     }
+    
+    private Administrator getAdministrator(ResultSet resultSet) 
+            throws SQLException {
+        Administrator administrator = new Administrator();
+        administrator.setId(resultSet.getLong("id"));
+        administrator.setPersonalId(resultSet.getInt("personalID"));
+        administrator.setPosition(resultSet.getString("position"));
+        return administrator;
+    }
 
     @Override
     public void update(Administrator administrator) throws DaoException {
@@ -126,14 +135,5 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
-    }
-    
-    private Administrator getAdministrator(ResultSet resultSet) 
-            throws SQLException {
-        Administrator administrator = new Administrator();
-        administrator.setId(resultSet.getLong("id"));
-        administrator.setPersonalId(resultSet.getInt("personalID"));
-        administrator.setPosition(resultSet.getString("position"));
-        return administrator;
     }
 }

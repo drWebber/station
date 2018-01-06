@@ -31,7 +31,8 @@
                                 value="/calling-rate/edit.html">
                                 <c:param name="id" value="${rate.id}" />
                             </c:url>
-                            <a href="${urlEdit}">
+                            <a href="${urlEdit}"
+                                title="Редактировать тарифный план">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
         	           </td>
@@ -42,7 +43,7 @@
     </table>
 	<c:if test="${isAdmin}">
         <form action="${urlCreate}">
-            <button type="submit" class="btn btn-info">Создать тариф</button>
+            <button type="submit" class="btn btn-info" title="Создать тарифный план">Создать тариф</button>
         </form>
     </c:if>
 </u:html>

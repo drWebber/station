@@ -94,6 +94,22 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
         }
     }
 
+    private Subscriber getSubscriber(ResultSet resultSet) throws SQLException {
+        Subscriber subscriber = new Subscriber();
+        subscriber.setId(resultSet.getLong("id"));
+        subscriber.setPassportId(resultSet.getString("passportID"));
+        subscriber.setBirthDay(resultSet.getDate("dob"));
+        subscriber.setAddress(resultSet.getString("address"));
+        Prefix prefix = new Prefix();
+        prefix.setId(resultSet.getInt("prefixID"));
+        subscriber.setPrefix(prefix);
+        subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
+        Administrator administrator = new Administrator();
+        administrator.setId(resultSet.getLong("administratorID"));
+        subscriber.setAdministrator(administrator);
+        return subscriber;
+    }
+
     @Override
     public void update(Subscriber subscriber) throws DaoException {
         String query = "UPDATE `subscribers` SET `passportID` = ?, `dob` = ?, "
@@ -134,21 +150,5 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
-    }
-
-    private Subscriber getSubscriber(ResultSet resultSet) throws SQLException {
-        Subscriber subscriber = new Subscriber();
-        subscriber.setId(resultSet.getLong("id"));
-        subscriber.setPassportId(resultSet.getString("passportID"));
-        subscriber.setBirthDay(resultSet.getDate("dob"));
-        subscriber.setAddress(resultSet.getString("address"));
-        Prefix prefix = new Prefix();
-        prefix.setId(resultSet.getInt("prefixID"));
-        subscriber.setPrefix(prefix);
-        subscriber.setPhoneNum(resultSet.getInt("phoneNum"));
-        Administrator administrator = new Administrator();
-        administrator.setId(resultSet.getLong("administratorID"));
-        subscriber.setAdministrator(administrator);
-        return subscriber;
     }
 }

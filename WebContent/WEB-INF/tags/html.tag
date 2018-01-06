@@ -71,7 +71,7 @@
 	                   <c:otherwise>
 	                       <div class="nav navbar-nav navbar-right">
 	                           <span class="login-lable">Вы вошли как: </span>
-	                           <button class="navbar-inverse dropdown-toggle login-navlink" type="button" data-toggle="dropdown">senya
+	                           <button class="navbar-inverse dropdown-toggle login-navlink" type="button" data-toggle="dropdown">${currentUser.login}
 	                           <span class="caret"></span></button>
 	                           <ul class="dropdown-menu">
 	                               <li><a href="${urlLogout}">Выход</a></li>
