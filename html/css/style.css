@@ -18,12 +18,12 @@ html, body {
     padding-bottom: 3em;
 }
 
-/* provided-services */
+/* offers */
 .subscription-conditions p {
     margin: 0;
 }
 
-.provided-services button {
+.offers button {
     margin: 10px 10px 0 0;
 }
 

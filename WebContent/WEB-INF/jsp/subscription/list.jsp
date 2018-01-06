@@ -15,17 +15,17 @@
         </tr>
     </thead>
     <tbody>
-        <c:forEach var="service" items="${services}">
+        <c:forEach var="subscription" items="${subscriptions}">
             <tr>
-                <td>${service.providedService.name}</td>
-                <td>${service.providedService.monthlyFee}</td>
-                <td>${service.connected}</td>
-                <td>${service.disconnected}</td>
+                <td>${subscription.offer.name}</td>
+                <td>${subscription.offer.monthlyFee}</td>
+                <td>${subscription.connected}</td>
+                <td>${subscription.disconnected}</td>
                 <td>
-                    <c:url var="urlUnsubscribe" value="/service/unsubscribe.html">
-                        <c:param name="id" value="${service.id}"></c:param>
+                    <c:url var="urlReject" value="/subscription/reject.html">
+                        <c:param name="id" value="${subscription.id}"></c:param>
                     </c:url>
-                    <form action="${urlUnsubscribe}" method="post">
+                    <form action="${urlReject}" method="post">
                         <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-edit"></span></button>
                     </form>
 	           </td>

@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 import domain.Entity;
 import domain.user.Subscriber;
 
-public class Service extends Entity<Long> {
+public class Subscription extends Entity<Long> {
     private Subscriber subscriber;
-    private ProvidedService providedService;
+    private Offer offer;
     private Timestamp connected;
     private Timestamp disconnected;
     
-    public Service() { }
+    public Subscription() { }
 
     public Subscriber getSubscriber() {
         return subscriber;
@@ -21,12 +21,12 @@ public class Service extends Entity<Long> {
         this.subscriber = subscriber;
     }
 
-    public ProvidedService getProvidedService() {
-        return providedService;
+    public Offer getOffer() {
+        return offer;
     }
 
-    public void setProvidedService(ProvidedService service) {
-        this.providedService = service;
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 
     public Timestamp getConnected() {
@@ -47,7 +47,7 @@ public class Service extends Entity<Long> {
 
     @Override
     public String toString() {
-        return "Service [subscriber=" + subscriber + ", service=" + providedService
+        return "Service [subscriber=" + subscriber + ", service=" + offer
                 + ", connected=" + connected + ", disconnected=" + disconnected
                 + ", id=" + id + "]";
     }

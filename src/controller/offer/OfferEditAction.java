@@ -1,4 +1,4 @@
-package controller.providedService;
+package controller.offer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Action;
 import controller.Forwarder;
-import domain.service.ProvidedService;
+import domain.service.Offer;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.service.ProvidedServicesService;
+import service.interfaces.service.OfferService;
 
-public class ProvidedServiceEditAction extends Action {
+public class OfferEditAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request, 
             HttpServletResponse response) throws ServletException {
@@ -21,11 +21,11 @@ public class ProvidedServiceEditAction extends Action {
         } catch (NumberFormatException e) { }
         try {
             if (id != null) {
-                ProvidedServicesService service =
-                        getServiceFactory().getProvidedServicesService();
-                ProvidedService providedService = 
-                        service.getById(id);
-                request.setAttribute("providedService", providedService);
+                OfferService offerService =
+                        getServiceFactory().getOfferService();
+                Offer offer = 
+                        offerService.getById(id);
+                request.setAttribute("offer", offer);
 
             }
         } catch (FactoryException | ServiceException e) {

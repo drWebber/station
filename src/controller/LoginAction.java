@@ -42,7 +42,7 @@ public class LoginAction extends Action {
                     Subscriber subscriber =
                             service.getByLoginAndPassword(login, password);
                     if (authorize(request, subscriber)) {
-                        return new Forwarder("/service/list.html"); //TODO :перенаправить на нужную страницу
+                        return new Forwarder("/subscription/list.html"); //TODO :перенаправить на нужную страницу
                     }
                 } catch (FactoryException | DaoException e) {
                     throw new ServletException(e);

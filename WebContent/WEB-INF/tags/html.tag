@@ -18,8 +18,8 @@
 <c:url var="urlLogin" value="/login.html" />
 <c:url var="urlSubscriberList" value="/subscriber/list.html" />
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
-<c:url var="urlProvidedServiceList" value="/provided-service/list.html" />
-<c:url var="urlServiceList" value="/service/list.html" />
+<c:url var="urlOfferList" value="/offer/list.html" />
+<c:url var="urlSubscriptionList" value="/subscription/list.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -78,9 +78,9 @@
                 <li><a href="#">Главная</a></li>
                 <li><a href="${urlSubscriberList}">Абоненты</a></li>
                 <li><a href="${urlAdministratorList}">Администраторы</a></li>
-                <li><a href="${urlProvidedServiceList}">Предоставляемые
+                <li><a href="${urlOfferList}">Предоставляемые
                         услуги</a></li>
-				<li><a href="${urlServiceList}">Мои услуги</a></li>
+				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
             </ul>
         </aside>
     </section>

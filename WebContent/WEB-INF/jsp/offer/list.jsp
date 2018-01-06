@@ -15,38 +15,38 @@
 <u:html title="Перечень предоставляемых услуг"
     pageHeading="Предоставляемые услуги">
 <c:if test="${isAdmin}">
-	<c:url var="serviceEditUrl" value="/service/subscribe.html" />
-	<form action="${serviceEditUrl}">
+	<c:url var="offerEditUrl" value="/offer/edit.html" />
+	<form action="${offerEditUrl}">
 	    <button type="submit" class="btn btn-info">Создать услугу</button>
 	</form>
 </c:if>
 <h3>Дополнительные услуги</h3>
 <div class="container-fluid">
     <c:set var="count" value="0" />
-    <c:forEach var="service" items="${additionalServices}">
+    <c:forEach var="offer" items="${additionalOffers}">
 			${count % 2 == 0 ? '<div class="row">' : ''}
-			<div class="col-sm-6 provided-services">
-            <h4>${service.name}
+			<div class="col-sm-6 offers">
+            <h4>${offer.name}
             	<c:if test="${isAdmin}">
-	                <c:url var="editUrl" value="/provided-service/edit.html">
-	                    <c:param name="id" value="${service.id}" />
+	                <c:url var="editUrl" value="/offer/edit.html">
+	                    <c:param name="id" value="${offer.id}" />
 	                </c:url>
 	                <a href="${editUrl}"><span
 	                    class="glyphicon glyphicon-edit"></span></a>
                 </c:if>
             </h4>
-            <p>${service.description}</p>
+            <p>${offer.description}</p>
             <div class="row text-right">
                 <div class="col-sm-12 subscription-conditions">
                     <p class="small">
-                        Абонентская плата: ${service.monthlyFee}<span
+                        Абонентская плата: ${offer.monthlyFee}<span
                             class="glyphicon glyphicon-ruble"></span>
                     </p>
                     <p class="small">
                         Стоимость подключения:
                         <c:choose>
-                            <c:when test="${service.subscriptionRate > 0}">
-							        ${service.subscriptionRate}
+                            <c:when test="${offer.subscriptionRate > 0}">
+							        ${offer.subscriptionRate}
 								<span class="glyphicon glyphicon-ruble"></span>
                             </c:when>
                             <c:otherwise>
@@ -56,9 +56,9 @@
                     </p>
                 </div>
                 <c:if test="${isUser}">
-	                <c:url var="subscribeUrl" value="/service/subscribe.html">
+	                <c:url var="subscribeUrl" value="/subscription/accept.html">
 	                    <c:param name="id" value="${currentUser.id}" />
-	                    <c:param name="serviceId" value="${service.id}" />
+	                    <c:param name="offerId" value="${offer.id}" />
 	                </c:url>
 	                <form action="${subscribeUrl}" method="post">
 	                    <button type="submit" class="btn btn-success">
@@ -76,20 +76,20 @@
 <h3>Установка и пользование телефоном</h3>
 <div class="container-fluid">
     <div class="row">
-        <c:forEach var="service" items="${requiredServices}">
+        <c:forEach var="offer" items="${requiredOffers}">
             <div class="col-sm-12">
-                <h4>${service.name}
+                <h4>${offer.name}
                 	<c:if test="${isAdmin}">
-			            <c:url var="editUrl" value="/provided-service/edit.html">
-			                <c:param name="id" value="${service.id}" />
+			            <c:url var="editUrl" value="/offer/edit.html">
+			                <c:param name="id" value="${offer.id}" />
 			            </c:url>
                     	<a href="${editUrl}">
                     		<span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </c:if>
                 </h4>
-                <p>${service.description}
-                    Абонентская плата ${service.monthlyFee}
+                <p>${offer.description}
+                    Абонентская плата ${offer.monthlyFee}
                     <span class="glyphicon glyphicon-ruble"></span> в
                     месяц.
                 </p>

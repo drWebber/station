@@ -1,19 +1,19 @@
-package controller.service;
+package controller.subscription;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.interfaces.service.ServicesService;
+import service.interfaces.service.SubscriptionService;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
-import domain.service.Service;
+import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
 
-public class ServiceUnsubscribeAction extends Action {
+public class SubscriptionRejectAction extends Action {
 
     @Override
     public Forwarder execute(HttpServletRequest request,
@@ -35,16 +35,16 @@ public class ServiceUnsubscribeAction extends Action {
                 throw new ServletException(e);
             }
             try {
-                ServicesService service = 
-                        getServiceFactory().getServicesService();
-                Service subscriberService = new Service();
-                subscriberService.setId(id);
-                subscriberService.setSubscriber(subscriber);
-                service.save(subscriberService);
+                SubscriptionService service = 
+                        getServiceFactory().getSubscriptionService();
+                Subscription subscription = new Subscription();
+                subscription.setId(id);
+                subscription.setSubscriber(subscriber);
+                service.save(subscription);
             } catch (FactoryException | ServiceException e) {
                 throw new ServletException(e);
             }
         }
-        return new Forwarder("/service/list.html");
+        return new Forwarder("/subscription/list.html");
     }
 }

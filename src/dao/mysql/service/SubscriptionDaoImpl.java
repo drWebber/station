@@ -7,22 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.interfaces.service.ServicesDao;
+import dao.interfaces.service.SubscriptionDao;
 import dao.mysql.BaseDao;
-import domain.service.ProvidedService;
-import domain.service.Service;
+import domain.service.Offer;
+import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.DaoException;
 
-public class ServicesDaoImpl extends BaseDao implements ServicesDao {
+public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
 
-    public ServicesDaoImpl(Connection connection) {
+    public SubscriptionDaoImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Long create(Service service) throws DaoException {
-        String query = "INSERT INTO `services`(`subscriberID`, `serviceID`) "
+    public Long create(Subscription service) throws DaoException {
+        String query = "INSERT INTO `subscriptions`(`subscriberID`, `offerID`) "
                 + "VALUES(?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -30,7 +30,7 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
             statement = getConnection().prepareStatement(query, 
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, service.getSubscriber().getId());
-            statement.setInt(2, service.getProvidedService().getId());
+            statement.setInt(2, service.getOffer().getId());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -48,15 +48,15 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public Service read(Long id) throws DaoException {
-        String query = "SELECT * FROM `services` WHERE `id` = ?";
+    public Subscription read(Long id) throws DaoException {
+        String query = "SELECT * FROM `subscriptions` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Service service = null;
+            Subscription service = null;
             if (resultSet.next()) {
                 service = getService(resultSet);
             }
@@ -74,18 +74,18 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public List<Service> readSubscriberServices(Subscriber subscriber)
+    public List<Subscription> readSubscriberServices(Subscriber subscriber)
             throws DaoException {
-        String query = "SELECT * FROM `services` WHERE `subscriberID` = ?";
+        String query = "SELECT * FROM `subscriptions` WHERE `subscriberID` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, subscriber.getId());
             resultSet = statement.executeQuery();
-            List<Service> services = new ArrayList<>();
+            List<Subscription> services = new ArrayList<>();
             while (resultSet.next()) {
-                Service service = getService(resultSet);
+                Subscription service = getService(resultSet);
                 services.add(service);
             }
             return services;
@@ -102,8 +102,8 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
     }
 
     @Override
-    public void update(Service service) throws DaoException {
-        String query = "UPDATE `services` SET `disconnected` "
+    public void update(Subscription service) throws DaoException {
+        String query = "UPDATE `subscriptions` SET `disconnected` "
                 + "= CURRENT_TIMESTAMP WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
@@ -119,15 +119,15 @@ public class ServicesDaoImpl extends BaseDao implements ServicesDao {
         }  
     }
 
-    private Service getService(ResultSet resultSet) throws SQLException {
-        Service service = new Service();
+    private Subscription getService(ResultSet resultSet) throws SQLException {
+        Subscription service = new Subscription();
         service.setId(resultSet.getLong("id"));
         Subscriber subscriber = new Subscriber();
         subscriber.setId(resultSet.getLong("subscriberID"));
         service.setSubscriber(subscriber);
-        ProvidedService providedService = new ProvidedService();
-        providedService.setId(resultSet.getInt("serviceID"));
-        service.setProvidedService(providedService);
+        Offer offer = new Offer();
+        offer.setId(resultSet.getInt("offerID"));
+        service.setOffer(offer);
         service.setConnected(resultSet.getTimestamp("connected"));
         service.setDisconnected(resultSet.getTimestamp("disconnected"));
         return service;

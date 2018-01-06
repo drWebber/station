@@ -2,13 +2,13 @@ package domain.service;
 
 import domain.NamedEntity;
 
-public class ProvidedService extends NamedEntity<Integer> {
+public class Offer extends NamedEntity<Integer> {
     private String description;
     private Float monthlyFee;
     private Float subscriptionRate;
     private boolean required;
     
-    public ProvidedService() { }
+    public Offer() { }
 
     public String getDescription() {
         return description;

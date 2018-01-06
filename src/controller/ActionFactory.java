@@ -10,17 +10,17 @@ import controller.administrator.AdministratorEditAction;
 import controller.administrator.AdministratorListAction;
 import controller.administrator.AdministratorSaveAction;
 import controller.administrator.AdministratorViewAction;
-import controller.providedService.ProvidedServiceDeleteAction;
-import controller.providedService.ProvidedServiceEditAction;
-import controller.providedService.ProvidedServiceListAction;
-import controller.providedService.ProvidedServiceSaveAction;
-import controller.service.ServiceListAction;
-import controller.service.ServiceSubscribeAction;
-import controller.service.ServiceUnsubscribeAction;
+import controller.offer.OfferDeleteAction;
+import controller.offer.OfferEditAction;
+import controller.offer.OfferListAction;
+import controller.offer.OfferSaveAction;
 import controller.subscriber.SubscriberDeleteAction;
 import controller.subscriber.SubscriberEditAction;
 import controller.subscriber.SubscriberListAction;
 import controller.subscriber.SubscriberSaveAction;
+import controller.subscription.SubscriptionListAction;
+import controller.subscription.SubscriptionAcceptAction;
+import controller.subscription.SubscriptionRejectAction;
 
 
 public class ActionFactory {
@@ -38,14 +38,13 @@ public class ActionFactory {
         actions.put("/administrator/edit", AdministratorEditAction.class);
         actions.put("/administrator/save", AdministratorSaveAction.class);
         actions.put("/administrator/delete", AdministratorDeleteAction.class);
-        actions.put("/provided-service/list", ProvidedServiceListAction.class);
-        actions.put("/provided-service/edit", ProvidedServiceEditAction.class);
-        actions.put("/provided-service/save", ProvidedServiceSaveAction.class);
-        actions.put("/provided-service/delete", 
-                ProvidedServiceDeleteAction.class);
-        actions.put("/service/list", ServiceListAction.class);
-        actions.put("/service/subscribe", ServiceSubscribeAction.class);
-        actions.put("/service/unsubscribe", ServiceUnsubscribeAction.class);
+        actions.put("/offer/list", OfferListAction.class);
+        actions.put("/offer/edit", OfferEditAction.class);
+        actions.put("/offer/save", OfferSaveAction.class);
+        actions.put("/offer/delete", OfferDeleteAction.class);
+        actions.put("/subscription/list", SubscriptionListAction.class);
+        actions.put("/subscription/accept", SubscriptionAcceptAction.class);
+        actions.put("/subscription/reject", SubscriptionRejectAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

@@ -1,4 +1,4 @@
-package controller.service;
+package controller.subscription;
 
 import java.util.List;
 
@@ -6,16 +6,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.interfaces.service.ServicesService;
+import service.interfaces.service.SubscriptionService;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
-import domain.service.Service;
+import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
 
-public class ServiceListAction extends Action {
+public class SubscriptionListAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -23,9 +23,11 @@ public class ServiceListAction extends Action {
             //TODO: проверить извлечение из сессии
             Subscriber subscriber = 
                     new UserRetriever<Subscriber>(request).getCurrentUser();
-            ServicesService service = getServiceFactory().getServicesService();
-            List<Service> services = service.getSubscriberServices(subscriber);
-            request.setAttribute("services", services);
+            SubscriptionService subscriptionService = 
+                    getServiceFactory().getSubscriptionService();
+            List<Subscription> subscriptions = 
+                    subscriptionService.getSubscriptions(subscriber);
+            request.setAttribute("subscriptions", subscriptions);
         } catch (FactoryException | ServiceException | ClassCastException e) {
             throw new ServletException(e);
         }

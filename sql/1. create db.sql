@@ -175,13 +175,13 @@ LOCK TABLES `payments` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `provided_services`
+-- Table structure for table `offers`
 --
 
-DROP TABLE IF EXISTS `provided_services`;
+DROP TABLE IF EXISTS `offers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `provided_services` (
+CREATE TABLE `offers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -194,42 +194,42 @@ CREATE TABLE `provided_services` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `provided_services`
+-- Dumping data for table `offers`
 --
 
-LOCK TABLES `provided_services` WRITE;
-/*!40000 ALTER TABLE `provided_services` DISABLE KEYS */;
-/*!40000 ALTER TABLE `provided_services` ENABLE KEYS */;
+LOCK TABLES `offers` WRITE;
+/*!40000 ALTER TABLE `offers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `offers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `services`
+-- Table structure for table `subscriptions`
 --
 
-DROP TABLE IF EXISTS `services`;
+DROP TABLE IF EXISTS `subscriptions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `services` (
+CREATE TABLE `subscriptions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `subscriberID` bigint(20) NOT NULL,
-  `serviceID` int(11) NOT NULL,
+  `offerID` int(11) NOT NULL,
   `connected` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `disconnected` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_services_providedServices_idx` (`serviceID`),
-  KEY `fk_services_subscribers_idx` (`subscriberID`),
-  CONSTRAINT `fk_services_providedServices` FOREIGN KEY (`serviceID`) REFERENCES `provided_services` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_services_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `fk_subscriptions_offers_idx` (`offerID`),
+  KEY `fk_subscriptions_subscribers_idx` (`subscriberID`),
+  CONSTRAINT `fk_subscriptions_offers` FOREIGN KEY (`offerID`) REFERENCES `offers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_subscriptions_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `services`
+-- Dumping data for table `subscriptions`
 --
 
-LOCK TABLES `services` WRITE;
-/*!40000 ALTER TABLE `services` DISABLE KEYS */;
-/*!40000 ALTER TABLE `services` ENABLE KEYS */;
+LOCK TABLES `subscriptions` WRITE;
+/*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

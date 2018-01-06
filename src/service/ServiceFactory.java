@@ -4,8 +4,8 @@ package service;
 import java.sql.Connection;
 
 import exception.FactoryException;
-import service.interfaces.service.ProvidedServicesService;
-import service.interfaces.service.ServicesService;
+import service.interfaces.service.OfferService;
+import service.interfaces.service.SubscriptionService;
 import service.interfaces.user.AdministratorService;
 import service.interfaces.user.PrefixService;
 import service.interfaces.user.SubscriberService;
@@ -18,10 +18,10 @@ public interface ServiceFactory extends AutoCloseable {
     
     PrefixService getPrefixService() throws FactoryException;
     
-    ProvidedServicesService getProvidedServicesService() 
+    OfferService getOfferService() 
             throws FactoryException;
     
-    ServicesService getServicesService() throws FactoryException;
+    SubscriptionService getSubscriptionService() throws FactoryException;
     
     Connection getConnection() throws FactoryException;
 }

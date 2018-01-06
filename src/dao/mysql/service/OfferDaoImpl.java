@@ -8,21 +8,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.interfaces.service.ProvidedServicesDao;
+import dao.interfaces.service.OfferDao;
 import dao.mysql.BaseDao;
-import domain.service.ProvidedService;
+import domain.service.Offer;
 import exception.DaoException;
 
-public class ProvidedServiceDaoImpl extends BaseDao implements
-        ProvidedServicesDao {
+public class OfferDaoImpl extends BaseDao implements
+        OfferDao {
 
-    public ProvidedServiceDaoImpl(Connection connection) {
+    public OfferDaoImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Integer create(ProvidedService providedService) throws DaoException {
-        String query = "INSERT INTO `provided_services` (`name`, "
+    public Integer create(Offer providedService) throws DaoException {
+        String query = "INSERT INTO `offers` (`name`, "
                 + "`description`, `monthlyFee`, `subscriptionRate`, "
                 + "`required`) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
@@ -52,16 +52,15 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
     }
 
     @Override
-    public ProvidedService read(Integer id) throws DaoException {
-        String query = "SELECT * FROM `provided_services` "
-                + "WHERE `id` = ?";
+    public Offer read(Integer id) throws DaoException {
+        String query = "SELECT * FROM `offers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-            ProvidedService service = null;
+            Offer service = null;
             if (resultSet.next()) {
                 service = getService(resultSet);
             }
@@ -79,16 +78,16 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
     }
 
     @Override
-    public List<ProvidedService> readAll() throws DaoException {
-        String query = "SELECT * FROM `provided_services`";
+    public List<Offer> readAll() throws DaoException {
+        String query = "SELECT * FROM `offers`";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<ProvidedService> services = new ArrayList<>();
+            List<Offer> services = new ArrayList<>();
             while (resultSet.next()) {
-                ProvidedService service = getService(resultSet);
+                Offer service = getService(resultSet);
                 services.add(service);
             }
             return services;
@@ -105,18 +104,18 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
     }
 
     @Override
-    public List<ProvidedService> readByRequirement(boolean require)
+    public List<Offer> readByRequirement(boolean require)
             throws DaoException {
-        String query = "SELECT * FROM `provided_services` WHERE `required` = ?";
+        String query = "SELECT * FROM `offers` WHERE `required` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setBoolean(1, require);
             resultSet = statement.executeQuery();
-            List<ProvidedService> services = new ArrayList<>();
+            List<Offer> services = new ArrayList<>();
             while (resultSet.next()) {
-                ProvidedService service = getService(resultSet);
+                Offer service = getService(resultSet);
                 services.add(service);
             }
             return services;
@@ -133,8 +132,8 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
     }
 
     @Override
-    public void update(ProvidedService providedService) throws DaoException {
-        String query = "UPDATE `provided_services` SET `name` = ?, "
+    public void update(Offer providedService) throws DaoException {
+        String query = "UPDATE `offers` SET `name` = ?, "
                 + "`description` = ?, `monthlyFee` = ?, "
                 + "`subscriptionRate` = ?, `required` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
@@ -158,7 +157,7 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
 
     @Override
     public void delete(Integer id) throws DaoException {
-        String query = "DELETE FROM `provided_services` WHERE `id` = ?";
+        String query = "DELETE FROM `offers` WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
@@ -173,9 +172,9 @@ public class ProvidedServiceDaoImpl extends BaseDao implements
         }
     }
     
-    private ProvidedService getService(ResultSet resultSet) 
+    private Offer getService(ResultSet resultSet) 
             throws SQLException {
-        ProvidedService service = new ProvidedService();
+        Offer service = new Offer();
         service.setId(resultSet.getInt("id"));
         service.setName(resultSet.getString("name"));
         service.setDescription(resultSet.getString("description"));
