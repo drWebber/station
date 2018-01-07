@@ -19,8 +19,8 @@ html, body {
 }
 /* login */
 .login-lable {
-	color: #888;
-	padding-left: 15px;
+    color: #888;
+    padding-left: 15px;
 }
 
 .login-navlink {
@@ -59,34 +59,59 @@ footer p {
 
 /* login form */
 .login-layout {
-	margin: 40% auto;
-	width: 70%;
+    margin: 40% auto;
+    width: 70%;
 }
 
 .login-input-wrapper {
-	padding: 1em;
-	background: #FFF;
+    padding: 1em;
+    background: #FFF;
 }
 
 .login-input-wrapper .input-group {
-	margin-bottom: .8em;
+    margin-bottom: .8em;
 }
 
 .login-input-wrapper .form-group:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .login-error {
-	width: 80%;
-	margin: 0 auto;
-	margin-bottom: 1em;
-	height: 2em;
-	text-align: center;
-	font-size: 1.1em;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    height: 2em;
+    text-align: center;
+    font-size: 1.1em;
 }
 
 .login-error p {
-	line-height: 2em;
+    line-height: 2em;
+}
+
+
+/* call form */
+.call-wrapper .radio-inline {
+    padding: 0;
+    margin-bottom: 1.5em;
+}
+
+
+.call-wrapper input[type="radio"] {
+    display: none;
+}
+
+.call-wrapper input[type="radio"] + span {
+    background-color: #FFF;
+    padding: .5em;
+    width: 3em;
+    border: 1px solid #ccc;
+}
+
+.call-wrapper input[type="radio"]:checked + span {
+    background-color: #398439;
+    color: #FFF;
+    border-color: #398439;
 }
 
 /* media-queries */
@@ -94,8 +119,8 @@ footer p {
     .content-layout {
         width: 80%;
     }
-	.login-layout {
-		margin: 10% auto;
-		width: 25%;
-	}
+    .login-layout {
+        margin: 10% auto;
+        width: 25%;
+    }
 }
