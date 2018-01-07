@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:url var="urlCreate" value="/calling-rate/edit.html" />
 <c:if test="${not empty currentUser}">
@@ -15,7 +16,8 @@
         <thead>
             <tr>
                 <th>Наименование</th>
-                <th>Стоимость мин. разговора</th>
+                <th>Дата начала действия</th>
+                <th>Тариф, руб/мин</th>
                 <c:if test="${isAdmin}">
                     <th></th>
                 </c:if>
@@ -24,11 +26,17 @@
         <tbody>
             <c:forEach var="rate" items="${rates}">
                 <tr>
-                    <td>${rate.name}</td>
-                    <td>${rate.rate}</td>
+                    <td>${rate.type}</td>
+                    <c:set var="introdutionDate" 
+                        value="${rate.introdutionDate}"/>
+                    <fmt:parseDate var="dateTime" value="${introdutionDate}"
+                                    pattern="yyyy-MM-dd HH:mm:ss" />
+                    <td><fmt:formatDate value="${dateTime}" 
+                        pattern="dd-MM-yyyy HH:mm:ss" /></td>
+                    <td>${rate.tariff}</td>
                     <c:if test="${isAdmin}">
                         <td><c:url var="urlEdit"
-                                value="/calling-rate/edit.html">
+                                value="/rate/edit.html">
                                 <c:param name="id" value="${rate.id}" />
                             </c:url>
                             <a href="${urlEdit}"
@@ -41,9 +49,4 @@
             </c:forEach>
         </tbody>
     </table>
-	<c:if test="${isAdmin}">
-        <form action="${urlCreate}">
-            <button type="submit" class="btn btn-info" title="Создать тарифный план">Создать тариф</button>
-        </form>
-    </c:if>
 </u:html>

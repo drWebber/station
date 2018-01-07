@@ -8,31 +8,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.interfaces.service.CallingRateDao;
+import dao.interfaces.service.RateDao;
 import dao.mysql.BaseDao;
-import domain.service.CallingRate;
+import domain.service.Rate;
+import domain.service.RateType;
 import exception.DaoException;
 
-public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
-    public CallingRateDaoImpl(Connection connection) {
+public class RateDaoImpl extends BaseDao implements RateDao {
+    public RateDaoImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Short create(CallingRate rate) throws DaoException {
-        String query = "INSERT INTO `calling_rates` (`name`, `rate`) "
+    public Long create(Rate rate) throws DaoException {
+        String query = "INSERT INTO `rates` (`type`, `tariff`) "
                 + "VALUES(?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query, 
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, rate.getName());
-            statement.setFloat(2, rate.getRate());
+            statement.setString(1, rate.getType().toString());
+            statement.setFloat(2, rate.getTariff());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
-            return resultSet.getShort(1);
+            return resultSet.getLong(1);
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -46,15 +47,15 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
     }
 
     @Override
-    public CallingRate read(Short id) throws DaoException {
-        String query = "SELECT * FROM `calling_rates` WHERE `id` = ?";
+    public Rate read(Long id) throws DaoException {
+        String query = "SELECT * FROM `rates` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setShort(1, id);
+            statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            CallingRate rate = null;
+            Rate rate = null;
             if (resultSet.next()) {
                 rate = getCallingRate(resultSet);
             }
@@ -72,12 +73,31 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
     }
 
     @Override
-    public List<CallingRate> readAll() throws DaoException {
-        String query = "SELECT * FROM `calling_rates`";
+    public List<Rate> readCurrentRates() throws DaoException {
+        String query = ""
+                + "(SELECT * FROM `rates` WHERE `type` = 'LOCAL_OUTGOING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1) "
+                + "UNION "
+                + "(SELECT * FROM `rates` WHERE `type` = 'LOCAL_INCOMING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1) "
+                + "UNION "
+                + "(SELECT * FROM `rates` WHERE `type` = "
+                    + "'LONG_DISTANCE_OUTGOING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1) "
+                + "UNION "
+                + "(SELECT * FROM `rates` WHERE `type` = "
+                    + "'LONG_DISTANCE_INCOMING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1) "
+                + "UNION "
+                + "(SELECT * FROM `rates` WHERE `type` = 'MOBILE_OUTGOING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1) "
+                + "UNION "
+                + "(SELECT * FROM `rates` WHERE `type` = 'MOBILE_INCOMING' "
+                    + "ORDER BY `introdutionDate` DESC LIMIT 1)";
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            List<CallingRate> rates = new ArrayList<>();
+            List<Rate> rates = new ArrayList<>();
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -96,49 +116,13 @@ public class CallingRateDaoImpl extends BaseDao implements CallingRateDao {
         }
     }
 
-    private CallingRate getCallingRate(ResultSet resultSet) 
+    private Rate getCallingRate(ResultSet resultSet) 
             throws SQLException {
-        CallingRate rate = new CallingRate();
-        rate.setId(resultSet.getShort("id"));
-        rate.setName(resultSet.getString("name"));
-        rate.setRate(resultSet.getFloat("rate"));
+        Rate rate = new Rate();
+        rate.setId(resultSet.getLong("id"));
+        rate.setType(RateType.valueOf(resultSet.getString("type")));
+        rate.setIntrodutionDate(resultSet.getTimestamp("introdutionDate"));
+        rate.setTariff(resultSet.getFloat("tariff"));
         return rate;
-    }
-
-    @Override
-    public void update(CallingRate rate) throws DaoException {
-        String query = "UPDATE `calling_rates` SET `name` = ?, "
-                + "`rate` = ? WHERE `id` = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(query);
-            statement.setString(1, rate.getName());
-            statement.setFloat(2, rate.getRate());
-            statement.setShort(3, rate.getId());
-            statement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try { 
-                statement.close();
-            } catch (NullPointerException | SQLException e) {}
-        }
-    }
-
-    @Override
-    public void delete(Short id) throws DaoException {
-        String query = "DELETE FROM `calling_rates` WHERE `id` = ?";
-        PreparedStatement statement = null;
-        try {
-            statement = getConnection().prepareStatement(query);
-            statement.setShort(1, id);
-            statement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (NullPointerException | SQLException e) {}
-        }
     }
 }

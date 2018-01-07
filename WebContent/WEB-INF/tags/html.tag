@@ -21,7 +21,7 @@
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
 <c:url var="urlOfferList" value="/offer/list.html" />
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
-<c:url var="urlCallingRateList" value="/calling-rate/list.html" />
+<c:url var="urlCallingRateList" value="/rate/list.html" />
 
 <!DOCTYPE html>
 <html lang="ru">

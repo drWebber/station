@@ -66,27 +66,28 @@ LOCK TABLES `prefixes` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `calling_rates`
+-- Table structure for table `rates`
 --
 
-DROP TABLE IF EXISTS `calling_rates`;
+DROP TABLE IF EXISTS `rates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `calling_rates` (
-  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `rate` float NOT NULL,
+CREATE TABLE `rates` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` enum('LOCAL_OUTGOING','LOCAL_INCOMING','LONG_DISTANCE_OUTGOING','LONG_DISTANCE_INCOMING','MOBILE_OUTGOING','MOBILE_INCOMING') NOT NULL,
+  `introdutionDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tariff` float NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `calling_rates`
+-- Dumping data for table `rates`
 --
 
-LOCK TABLES `calling_rates` WRITE;
-/*!40000 ALTER TABLE `calling_rates` DISABLE KEYS */;
-/*!40000 ALTER TABLE `calling_rates` ENABLE KEYS */;
+LOCK TABLES `rates` WRITE;
+/*!40000 ALTER TABLE `rates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -99,15 +100,15 @@ DROP TABLE IF EXISTS `calls`;
 CREATE TABLE `calls` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `subscriberID` bigint(20) NOT NULL,
+  `prefixID` int(11) NOT NULL,
   `phoneNum` bigint(20) NOT NULL,
   `begin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `finish` timestamp NULL DEFAULT NULL,
-  `rateID` tinyint(4) NOT NULL,
+  `rateID`  bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_calls_subscribers_idx` (`subscriberID`),
-  KEY `fk_calls_callingRates_idx` (`rateID`),
-  CONSTRAINT `fk_calls_callingRates` FOREIGN KEY (`rateID`) REFERENCES `calling_rates` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_calls_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_calls_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_calls_prefixes` FOREIGN KEY (`prefixID`) REFERENCES `prefixes` (`prefix`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_calls_rates` FOREIGN KEY (`rateID`) REFERENCES `rates` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,7 +134,6 @@ CREATE TABLE `invoices` (
   `invoicingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` float NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_invoices_subscribers_idx` (`subscriberID`),
   CONSTRAINT `fk_invoices_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -160,7 +160,6 @@ CREATE TABLE `payments` (
   `bankCode` varchar(45) NOT NULL,
   `invoiceID` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_payments_invoices_idx` (`invoiceID`),
   CONSTRAINT `fk_payments_invoices` FOREIGN KEY (`invoiceID`) REFERENCES `invoices` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -216,8 +215,6 @@ CREATE TABLE `subscriptions` (
   `connected` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `disconnected` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_subscriptions_offers_idx` (`offerID`),
-  KEY `fk_subscriptions_subscribers_idx` (`subscriberID`),
   CONSTRAINT `fk_subscriptions_offers` FOREIGN KEY (`offerID`) REFERENCES `offers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_subscriptions_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -249,7 +246,6 @@ CREATE TABLE `subscribers` (
   `administratorID` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_phoneNum` (`prefixID`, `phoneNum`),
-  KEY `fk_subscribers_administrators_idx` (`administratorID`),
   CONSTRAINT `fk_subscribers_administrators` FOREIGN KEY (`administratorID`) REFERENCES `administrators` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_subscribers_users` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_subscribers_prefixes` FOREIGN KEY (`prefixID`) REFERENCES `prefixes` (`prefix`) ON DELETE RESTRICT ON UPDATE RESTRICT

@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import dao.interfaces.service.CallDao;
 import dao.mysql.BaseDao;
 import domain.service.Call;
-import domain.service.CallingRate;
+import domain.service.Rate;
+import domain.user.Prefix;
 import domain.user.Subscriber;
 import exception.DaoException;
 
@@ -20,18 +21,18 @@ public class CallDaoImpl extends BaseDao implements CallDao {
 
     @Override
     public Long create(Call call) throws DaoException {
-        String query = "INSERT INTO `calls` (`subscriberID`, `phoneNum`, "
-                + "`begin`, `finish`, `rateID`) VALUES(?, ?, ?, ?, ?)";
+        String query = "INSERT INTO `calls` (`subscriberID`, `prefixID`, "
+                + "`phoneNum`, `rateID`) "
+                + "VALUES(?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query, 
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, call.getSubscriber().getId());
-            statement.setInt(2, call.getPhoneNum());
-            statement.setTimestamp(3, call.getBeginTime());
-            statement.setTimestamp(4, call.getFinishTime());
-            statement.setShort(5, call.getRate().getId());
+            statement.setInt(2, call.getPrefix().getId());
+            statement.setInt(3, call.getPhoneNum());
+            statement.setLong(4, call.getRate().getId());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -50,8 +51,7 @@ public class CallDaoImpl extends BaseDao implements CallDao {
 
     @Override
     public Call read(Long id) throws DaoException {
-        String query = "SELECT `subscriberID`, `phoneNum`, `begin`, `finish`, "
-                + "`rateID` FROM `calls` WHERE `id` = ?";
+        String query = "SELECT * FROM `calls` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -60,17 +60,7 @@ public class CallDaoImpl extends BaseDao implements CallDao {
             resultSet = statement.executeQuery();
             Call call = null;
             if (resultSet.next()) {
-                call = new Call();
-                call.setId(id);
-                Subscriber subscriber = new Subscriber();
-                subscriber.setId(resultSet.getLong("subscriberID"));
-                call.setSubscriber(subscriber);
-                call.setPhoneNum(resultSet.getInt("phoneNum"));
-                call.setBeginTime(resultSet.getTimestamp("begin"));
-                call.setFinishTime(resultSet.getTimestamp("finish"));
-                CallingRate rate = new CallingRate();
-                rate.setId(resultSet.getShort("rateID"));
-                call.setRate(rate);
+                call = getCall(resultSet);
             }
             return call;
         } catch (SQLException e) {
@@ -85,20 +75,32 @@ public class CallDaoImpl extends BaseDao implements CallDao {
         }
     }
 
+    private Call getCall(ResultSet resultSet) throws SQLException {
+        Call call = new Call();
+        call.setId(resultSet.getLong("id"));
+        Subscriber subscriber = new Subscriber();
+        subscriber.setId(resultSet.getLong("subscriberID"));
+        call.setSubscriber(subscriber);
+        Prefix prefix = new Prefix();
+        prefix.setId(resultSet.getInt("prefixID"));
+        call.setPrefix(prefix);
+        call.setPhoneNum(resultSet.getInt("phoneNum"));
+        call.setBeginTime(resultSet.getTimestamp("begin"));
+        call.setFinishTime(resultSet.getTimestamp("finish"));
+        Rate rate = new Rate();
+        rate.setId(resultSet.getLong("rateID"));
+        call.setRate(rate);
+        return call;
+    }
+
     @Override
     public void update(Call call) throws DaoException {
-        String query = "UPDATE `calls` SET `subscriberID` = ?, "
-                + "`phoneNum` = ?, `begin` = ?, `finish` = ?, `rateID` = ? "
-                + "WHERE `id` = ?";
+        String query = "UPDATE `calls` SET `finish` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setLong(1, call.getSubscriber().getId());
-            statement.setInt(2, call.getPhoneNum());
-            statement.setTimestamp(3, call.getBeginTime());
-            statement.setTimestamp(4, call.getFinishTime());
-            statement.setShort(5, call.getRate().getId());
-            statement.setLong(6, call.getId());
+            statement.setTimestamp(1, call.getFinishTime());
+            statement.setLong(2, call.getId());
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);

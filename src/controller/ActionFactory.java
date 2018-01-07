@@ -10,14 +10,13 @@ import controller.administrator.AdministratorEditAction;
 import controller.administrator.AdministratorListAction;
 import controller.administrator.AdministratorSaveAction;
 import controller.administrator.AdministratorViewAction;
-import controller.callingRates.CallingRateDeleteAction;
-import controller.callingRates.CallingRateEditAction;
-import controller.callingRates.CallingRateListAction;
-import controller.callingRates.CallingRateSaveAction;
 import controller.offer.OfferDeleteAction;
 import controller.offer.OfferEditAction;
 import controller.offer.OfferListAction;
 import controller.offer.OfferSaveAction;
+import controller.rates.RateEditAction;
+import controller.rates.RateListAction;
+import controller.rates.RateSaveAction;
 import controller.subscriber.SubscriberDeleteAction;
 import controller.subscriber.SubscriberEditAction;
 import controller.subscriber.SubscriberListAction;
@@ -50,10 +49,9 @@ public class ActionFactory {
         actions.put("/subscription/list", SubscriptionListAction.class);
         actions.put("/subscription/accept", SubscriptionAcceptAction.class);
         actions.put("/subscription/reject", SubscriptionRejectAction.class);
-        actions.put("/calling-rate/edit", CallingRateEditAction.class);
-        actions.put("/calling-rate/list", CallingRateListAction.class);
-        actions.put("/calling-rate/save", CallingRateSaveAction.class);
-        actions.put("/calling-rate/delete", CallingRateDeleteAction.class);
+        actions.put("/rate/edit", RateEditAction.class);
+        actions.put("/rate/list", RateListAction.class);
+        actions.put("/rate/save", RateSaveAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

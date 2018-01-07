@@ -1,30 +1,30 @@
-package controller.callingRates;
+package controller.rates;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.interfaces.service.CallingRateService;
+import service.interfaces.service.RateService;
 import controller.Action;
 import controller.Forwarder;
-import domain.service.CallingRate;
+import domain.service.Rate;
 import exception.FactoryException;
 import exception.ServiceException;
 
-public class CallingRateEditAction extends Action {
+public class RateEditAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        Short id = null;
+        Long id = null;
         try {
-            id = Short.parseShort(request.getParameter("id"));
+            id = Long.parseLong(request.getParameter("id"));
         } catch (NumberFormatException e) { }
         if (id != null) {
             try {
-                CallingRateService service = 
-                        getServiceFactory().getCallingRateService();
-                CallingRate callingRate = service.getById(id);
-                request.setAttribute("callingRate", callingRate);
+                RateService service = 
+                        getServiceFactory().getRateService();
+                Rate rate = service.getById(id);
+                request.setAttribute("rate", rate);
             } catch (FactoryException | ServiceException e) {
                 throw new ServletException(e);
             }
