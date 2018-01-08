@@ -1,4 +1,4 @@
-package controller.rates;
+package controller.rate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

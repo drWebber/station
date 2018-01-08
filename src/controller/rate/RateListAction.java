@@ -1,4 +1,4 @@
-package controller.rates;
+package controller.rate;
 
 import java.util.List;
 

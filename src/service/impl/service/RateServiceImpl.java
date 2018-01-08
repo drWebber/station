@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.interfaces.service.RateDao;
 import domain.service.Rate;
+import domain.service.RateType;
 import exception.DaoException;
 import exception.ServiceException;
 import service.interfaces.service.RateService;
@@ -23,6 +24,16 @@ public class RateServiceImpl implements RateService {
     public Rate getById(Long id) throws ServiceException {
         try {
             return rateDao.read(id);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Rate getCurrentByType(RateType rateType)
+            throws ServiceException {
+        try {
+            return rateDao.readCurrentByType(rateType);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

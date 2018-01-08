@@ -10,13 +10,15 @@ import controller.administrator.AdministratorEditAction;
 import controller.administrator.AdministratorListAction;
 import controller.administrator.AdministratorSaveAction;
 import controller.administrator.AdministratorViewAction;
+import controller.call.CallDialAction;
+import controller.call.CallMakeAction;
 import controller.offer.OfferDeleteAction;
 import controller.offer.OfferEditAction;
 import controller.offer.OfferListAction;
 import controller.offer.OfferSaveAction;
-import controller.rates.RateEditAction;
-import controller.rates.RateListAction;
-import controller.rates.RateSaveAction;
+import controller.rate.RateEditAction;
+import controller.rate.RateListAction;
+import controller.rate.RateSaveAction;
 import controller.subscriber.SubscriberDeleteAction;
 import controller.subscriber.SubscriberEditAction;
 import controller.subscriber.SubscriberListAction;
@@ -52,6 +54,8 @@ public class ActionFactory {
         actions.put("/rate/edit", RateEditAction.class);
         actions.put("/rate/list", RateListAction.class);
         actions.put("/rate/save", RateSaveAction.class);
+        actions.put("/call/dial", CallDialAction.class);
+        actions.put("/call/make-call", CallMakeAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

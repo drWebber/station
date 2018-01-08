@@ -22,6 +22,7 @@
 <c:url var="urlOfferList" value="/offer/list.html" />
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
 <c:url var="urlCallingRateList" value="/rate/list.html" />
+<c:url var="urlCallDial" value="/call/dial.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -100,6 +101,7 @@
                         услуги</a></li>
                 <li><a href="${urlCallingRateList}">Тарифные планы</a></li>
 				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
+				<li><a href="${urlCallDial}">Совершить звонок</a></li>
             </ul>
         </aside>
     </section>

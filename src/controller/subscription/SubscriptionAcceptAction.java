@@ -40,7 +40,8 @@ public class SubscriptionAcceptAction extends Action {
         offer.setId(offerId);
         subscription.setOffer(offer);
         try {
-            SubscriptionService subscriptionService = getServiceFactory().getSubscriptionService();
+            SubscriptionService subscriptionService = 
+                    getServiceFactory().getSubscriptionService();
             subscriptionService.save(subscription);
         } catch (FactoryException | ServiceException e) {
             throw new ServletException(e);

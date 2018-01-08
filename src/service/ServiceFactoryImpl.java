@@ -5,12 +5,14 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import service.impl.service.CallServiceImpl;
 import service.impl.service.RateServiceImpl;
 import service.impl.service.OfferServiceImpl;
 import service.impl.service.SubscriptionServiceImpl;
 import service.impl.user.AdministratorServiceImpl;
 import service.impl.user.PrefixServiceImpl;
 import service.impl.user.SubscriberServiceImpl;
+import service.interfaces.service.CallService;
 import service.interfaces.service.RateService;
 import service.interfaces.service.OfferService;
 import service.interfaces.service.SubscriptionService;
@@ -18,6 +20,7 @@ import service.interfaces.user.AdministratorService;
 import service.interfaces.user.PrefixService;
 import service.interfaces.user.SubscriberService;
 import util.MysqlConnector;
+import dao.mysql.service.CallDaoImpl;
 import dao.mysql.service.RateDaoImpl;
 import dao.mysql.service.OfferDaoImpl;
 import dao.mysql.service.SubscriptionDaoImpl;
@@ -95,6 +98,13 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public RateService getRateService() throws FactoryException {
         RateServiceImpl service = new RateServiceImpl();
         service.setRateDao(new RateDaoImpl(getConnection()));
+        return service;
+    }
+
+    @Override
+    public CallService getCallService() throws FactoryException {
+        CallServiceImpl service = new CallServiceImpl();
+        service.setCallDao(new CallDaoImpl(getConnection()));
         return service;
     }
 }

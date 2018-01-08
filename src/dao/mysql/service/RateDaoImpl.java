@@ -73,6 +73,33 @@ public class RateDaoImpl extends BaseDao implements RateDao {
     }
 
     @Override
+    public Rate readCurrentByType(RateType rateType) throws DaoException {
+        String query = "SELECT * FROM `rates` WHERE `type` = ? "
+                + "ORDER BY `introdutionDate` DESC LIMIT 1";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1, rateType.toString());
+            resultSet = statement.executeQuery();
+            Rate rate = null;
+            if (resultSet.next()) {
+                rate = getCallingRate(resultSet);
+            }
+            return rate;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
     public List<Rate> readCurrentRates() throws DaoException {
         String query = ""
                 + "(SELECT * FROM `rates` WHERE `type` = 'LOCAL_OUTGOING' "

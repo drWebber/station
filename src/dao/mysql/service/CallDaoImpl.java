@@ -22,8 +22,8 @@ public class CallDaoImpl extends BaseDao implements CallDao {
     @Override
     public Long create(Call call) throws DaoException {
         String query = "INSERT INTO `calls` (`subscriberID`, `prefixID`, "
-                + "`phoneNum`, `rateID`) "
-                + "VALUES(?, ?, ?, ?)";
+                + "`phoneNum`, `begin`, `finish`, `rateID`) "
+                + "VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -32,7 +32,9 @@ public class CallDaoImpl extends BaseDao implements CallDao {
             statement.setLong(1, call.getSubscriber().getId());
             statement.setInt(2, call.getPrefix().getId());
             statement.setInt(3, call.getPhoneNum());
-            statement.setLong(4, call.getRate().getId());
+            statement.setTimestamp(4, call.getBeginTime());
+            statement.setTimestamp(5, call.getFinishTime());
+            statement.setLong(6, call.getRate().getId());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
