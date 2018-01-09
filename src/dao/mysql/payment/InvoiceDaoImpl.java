@@ -28,7 +28,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, invoice.getSubscriber().getId());
             statement.setTimestamp(2, invoice.getInvoicingDate());
-            statement.setFloat(3, invoice.getAmount());
+            statement.setBigDecimal(3, invoice.getAmount());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -64,7 +64,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 invoice.setSubscriber(subscriber);
                 invoice.setInvoicingDate(resultSet
                         .getTimestamp("invoicingDate"));
-                invoice.setAmount(resultSet.getFloat("amount"));
+                invoice.setAmount(resultSet.getBigDecimal("amount"));
             }
             return invoice;
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, invoice.getSubscriber().getId());
             statement.setTimestamp(2, invoice.getInvoicingDate());
-            statement.setFloat(3, invoice.getAmount());
+            statement.setBigDecimal(3, invoice.getAmount());
             statement.setLong(4, invoice.getId());
             statement.executeUpdate();
         } catch(SQLException e) {

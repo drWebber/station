@@ -132,7 +132,7 @@ CREATE TABLE `invoices` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `subscriberID` bigint(20) NOT NULL,
   `invoicingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `amount` float NOT NULL,
+  `amount` decimal(10,4) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_invoices_subscribers` FOREIGN KEY (`subscriberID`) REFERENCES `subscribers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
