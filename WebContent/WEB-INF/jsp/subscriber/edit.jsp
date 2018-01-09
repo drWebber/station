@@ -22,7 +22,7 @@
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
 <div class="row">
-    <form class="col-lg-5"
+    <form class="col-lg-7"
         action="${pageContext.request.contextPath}/subscriber/save.html"
         method="post">
         <div class="input-group">

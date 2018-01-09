@@ -11,6 +11,7 @@
 	   <div class="input-group">
 	       <span class="input-group-addon">Тариф, руб/мин</span>
 	       <input class="form-control" type="number" name="tariff"
+           pattern="[0-9]+([\.,][0-9]{,2})?"
 	           value="${rate.tariff}" step="0.01" />
         </div>
 	   <input type="hidden" name="type" value="${rate.type}" />
