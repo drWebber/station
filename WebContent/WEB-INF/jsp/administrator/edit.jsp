@@ -21,7 +21,7 @@
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
 <div class="row">
-    <form class="col-lg-7"
+    <form class="col-lg-8"
         action="${pageContext.request.contextPath}/administrator/save.html"
         method="post">
         <div class="input-group">

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import dao.interfaces.payment.PaymentDao;
 import dao.mysql.BaseDao;
@@ -71,6 +72,22 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
             try { 
                 resultSet.close(); 
             } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public void deleteAll() throws DaoException {
+        String query = "DELETE FROM `payments` WHERE 1";
+        Statement statement = null;
+        try {
+            statement = getConnection().createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}

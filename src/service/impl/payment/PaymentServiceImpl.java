@@ -39,4 +39,13 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteAll() throws ServiceException {
+        try {
+            paymentDao.deleteAll();
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

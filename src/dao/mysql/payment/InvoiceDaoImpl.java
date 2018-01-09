@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import dao.interfaces.payment.InvoiceDao;
 import dao.mysql.BaseDao;
@@ -15,6 +18,35 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
 
     public InvoiceDaoImpl(Connection connection) {
         super(connection);
+    }
+
+    @Override
+    public void createInvoices() throws DaoException {
+        String query = ""
+                + "INSERT INTO `invoices` (`subscriberID`, `invoicingDate`, "
+                    + "`amount`) "
+                + "SELECT t.`subscriberID`, CURRENT_TIMESTAMP, SUM(t.`sum`) "
+                    + "AS total "
+                + "FROM "
+                    + "(SELECT * FROM vw_mon_calls_cost "
+                    + "UNION "
+                    + "SELECT * FROM vw_mon_subscriptions_cost "
+                    + "UNION "
+                    + "SELECT * FROM vw_mon_srv_fee "
+                    + "UNION "
+                    + "SELECT * FROM vw_mon_major_fee) AS t "
+                + "GROUP BY `subscriberID`";
+        Statement statement = null;
+        try {
+            statement = getConnection().createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
     }
 
     @Override
@@ -47,8 +79,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
 
     @Override
     public Invoice read(Long id) throws DaoException {
-        String query = "SELECT `subscriberID`, `invoicingDate`, `amount` "
-                + "FROM `invoices` WHERE `id` = ?";
+        String query = "SELECT * FROM `invoices` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -57,14 +88,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
             resultSet = statement.executeQuery();
             Invoice invoice = null;
             if (resultSet.next()) {
-                invoice = new Invoice();
-                invoice.setId(id);
-                Subscriber subscriber = new Subscriber();
-                subscriber.setId(resultSet.getLong("subscriberID"));
-                invoice.setSubscriber(subscriber);
-                invoice.setInvoicingDate(resultSet
-                        .getTimestamp("invoicingDate"));
-                invoice.setAmount(resultSet.getBigDecimal("amount"));
+                invoice = getInvoice(resultSet);
             }
             return invoice;
         } catch (SQLException e) {
@@ -77,6 +101,18 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+    }
+
+    private Invoice getInvoice(ResultSet resultSet) throws SQLException {
+        Invoice invoice = new Invoice();
+        invoice.setId(resultSet.getLong("id"));
+        Subscriber subscriber = new Subscriber();
+        subscriber.setId(resultSet.getLong("subscriberID"));
+        invoice.setSubscriber(subscriber);
+        invoice.setInvoicingDate(resultSet
+                .getTimestamp("invoicingDate"));
+        invoice.setAmount(resultSet.getBigDecimal("amount"));
+        return invoice;
     }
 
     @Override
@@ -111,6 +147,76 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public void deleteAll() throws DaoException {
+        String query = "DELETE FROM `invoices` WHERE 1";
+        Statement statement = null;
+        try {
+            statement = getConnection().createStatement();
+            statement.executeUpdate(query);
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public boolean canCreate() throws DaoException {
+        String query = "SELECT `id` "
+                + "FROM `invoices` "
+                + "WHERE `invoicingDate` >= LAST_DAY(CURDATE()) + "
+                    + "INTERVAL 1 DAY - INTERVAL 1 MONTH "
+                + "LIMIT 1";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            return resultSet.next() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
+    public List<Invoice> readUnpaid() throws DaoException {
+        String query = "" 
+                + "SELECT *"
+                + "FROM `invoices` "
+                + "WHERE `id` NOT IN(SELECT `invoiceID` FROM `payments`)"
+                + "ORDER BY `subscriberID`";
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().createStatement();
+            resultSet = statement.executeQuery(query);
+            List<Invoice> unpaid = new ArrayList<>();
+            while (resultSet.next()) {
+                unpaid.add(getInvoice(resultSet));
+            }
+            return unpaid;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}

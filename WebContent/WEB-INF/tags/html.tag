@@ -23,6 +23,7 @@
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
 <c:url var="urlCallingRateList" value="/rate/list.html" />
 <c:url var="urlCallDial" value="/call/dial.html" />
+<c:url var="urlInvoice" value="/invoice/control.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -85,13 +86,13 @@
         </nav>
     </header>
     <section class="row content-layout">
-        <div class="content col-xs-12 col-lg-10 col-lg-push-2">
+        <div class="content col-xs-12 col-lg-9 col-lg-push-3">
             <article>
                 <h1>${pageHeading}</h1>
                 <jsp:doBody />
             </article>
         </div>
-        <aside class="sidebar col-xs-12 col-lg-2 col-lg-pull-10">
+        <aside class="sidebar col-xs-12 col-lg-3 col-lg-pull-9">
             <h4>Главное меню</h4>
             <ul>
                 <li><a href="#">Главная</a></li>
@@ -102,6 +103,7 @@
                 <li><a href="${urlCallingRateList}">Тарифные планы</a></li>
 				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
 				<li><a href="${urlCallDial}">Совершить звонок</a></li>
+                <li><a href="${urlInvoice}">Счета и оплаты</a></li>
             </ul>
         </aside>
     </section>

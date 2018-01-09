@@ -5,24 +5,30 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import service.impl.payment.InvoiceServiceImpl;
+import service.impl.payment.PaymentServiceImpl;
 import service.impl.service.CallServiceImpl;
-import service.impl.service.RateServiceImpl;
 import service.impl.service.OfferServiceImpl;
+import service.impl.service.RateServiceImpl;
 import service.impl.service.SubscriptionServiceImpl;
 import service.impl.user.AdministratorServiceImpl;
 import service.impl.user.PrefixServiceImpl;
 import service.impl.user.SubscriberServiceImpl;
+import service.interfaces.payment.InvoiceService;
+import service.interfaces.payment.PaymentService;
 import service.interfaces.service.CallService;
-import service.interfaces.service.RateService;
 import service.interfaces.service.OfferService;
+import service.interfaces.service.RateService;
 import service.interfaces.service.SubscriptionService;
 import service.interfaces.user.AdministratorService;
 import service.interfaces.user.PrefixService;
 import service.interfaces.user.SubscriberService;
 import util.MysqlConnector;
+import dao.mysql.payment.InvoiceDaoImpl;
+import dao.mysql.payment.PaymentDaoImpl;
 import dao.mysql.service.CallDaoImpl;
-import dao.mysql.service.RateDaoImpl;
 import dao.mysql.service.OfferDaoImpl;
+import dao.mysql.service.RateDaoImpl;
 import dao.mysql.service.SubscriptionDaoImpl;
 import dao.mysql.user.AdministratorDaoImpl;
 import dao.mysql.user.PrefixDaoImpl;
@@ -105,6 +111,20 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public CallService getCallService() throws FactoryException {
         CallServiceImpl service = new CallServiceImpl();
         service.setCallDao(new CallDaoImpl(getConnection()));
+        return service;
+    }
+
+    @Override
+    public InvoiceService getInvoiceService() throws FactoryException {
+        InvoiceServiceImpl service = new InvoiceServiceImpl();
+        service.setInvoiceDao(new InvoiceDaoImpl(getConnection()));
+        return service;
+    }
+
+    @Override
+    public PaymentService getPaymentService() throws FactoryException {
+        PaymentServiceImpl service = new PaymentServiceImpl();
+        service.setPaymentDao(new PaymentDaoImpl(getConnection()));
         return service;
     }
 }

@@ -12,6 +12,9 @@ import controller.administrator.AdministratorSaveAction;
 import controller.administrator.AdministratorViewAction;
 import controller.call.CallDialAction;
 import controller.call.CallMakeAction;
+import controller.invoice.InvoiceControlAction;
+import controller.invoice.InvoiceCreateAction;
+import controller.invoice.InvoiceDeleteAction;
 import controller.offer.OfferDeleteAction;
 import controller.offer.OfferEditAction;
 import controller.offer.OfferListAction;
@@ -23,8 +26,8 @@ import controller.subscriber.SubscriberDeleteAction;
 import controller.subscriber.SubscriberEditAction;
 import controller.subscriber.SubscriberListAction;
 import controller.subscriber.SubscriberSaveAction;
-import controller.subscription.SubscriptionListAction;
 import controller.subscription.SubscriptionAcceptAction;
+import controller.subscription.SubscriptionListAction;
 import controller.subscription.SubscriptionRejectAction;
 
 
@@ -56,6 +59,9 @@ public class ActionFactory {
         actions.put("/rate/save", RateSaveAction.class);
         actions.put("/call/dial", CallDialAction.class);
         actions.put("/call/make-call", CallMakeAction.class);
+        actions.put("/invoice/control", InvoiceControlAction.class);
+        actions.put("/invoice/create", InvoiceCreateAction.class);
+        actions.put("/invoice/delete", InvoiceDeleteAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

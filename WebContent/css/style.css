@@ -96,7 +96,6 @@ footer p {
     margin-bottom: 1.5em;
 }
 
-
 .call-wrapper input[type="radio"] {
     display: none;
 }
@@ -112,6 +111,15 @@ footer p {
     background-color: #398439;
     color: #FFF;
     border-color: #398439;
+}
+
+/* invoice control */
+.red-button {
+    margin-top: 1em;
+}
+
+.red-button button {
+    margin: 0 0 15px 15px !important;
 }
 
 /* media-queries */

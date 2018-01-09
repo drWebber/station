@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 
-
 <c:choose>
     <c:when test="${empty subscriber}">
         <jsp:useBean id="subscriber"
@@ -18,45 +17,48 @@
         <c:set var="isCreation" value="false" />
     </c:otherwise>
 </c:choose>
+<c:url var="urlSave" value="/subscriber/save.html" />
+<c:url var="urlDelete" value="/subscriber/delete.html" />
+<c:url var="urlAdminProfile" value="/administrator/view.html">
+    <c:param name="id" value="${subscriber.administrator.id}" />
+</c:url>
 
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
 <div class="row">
-    <form class="col-lg-7"
-        action="${pageContext.request.contextPath}/subscriber/save.html"
-        method="post">
-        <div class="input-group">
+    <form class="col-lg-8" action="${urlSave}" method="post">
+        <div class="input-group row">
             <span class="input-group-addon">Логин</span> <input
                 type="text" class="form-control" name="login"
                 value="${subscriber.login}" ${disabled}>
         </div>
         <c:if test="${empty subscriber.id}">
-            <div class="input-group">
+            <div class="input-group row">
                 <span class="input-group-addon">Пароль</span>
                 <input type="password" class="form-control" name="password">
             </div>
         </c:if>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Фамилия</span>
             <input type="text" class="form-control" name="surname"
                 value="${subscriber.surname}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Имя</span>
             <input type="text" class="form-control" name="name"
                 value="${subscriber.name}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Отчество</span>
             <input type="text" class="form-control" name="patronymic"
                 value="${subscriber.patronymic}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Личный номер</span>
             <input type="text" class="form-control" name="passportId"
                 value="${subscriber.passportId}">
         </div>
-        <div class='input-group'>
+        <div class='input-group row'>
             <span class="input-group-addon">Дата рождения</span>
             <input type='text' class="form-control" name="birthday"
                 id='datetimepicker' value="${subscriber.birthDay}" />
@@ -68,12 +70,12 @@
 										});
 									});
 								</script>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Адрес</span>
             <input type="text" class="form-control" name="address"
                 value="${subscriber.address}">
         </div>
-        <div class="radio">
+        <div class="radio row">
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="true"
                 ${subscriber.active != false ? "checked": ""}>Активен
@@ -88,8 +90,9 @@
                 <label for="sel">Код города:</label> <select
                     class="form-control" id="sel" name="prefix">
                     <c:forEach var="prefix" items="${prefixes}">
-                        <option
-                            ${prefix.id == subscriber.prefix.id ? "selected" : ""}>${prefix.id}</option>
+                        <option ${prefix.id == subscriber.prefix.id 
+                            ? "selected" 
+                            : ""}>${prefix.id}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -99,12 +102,11 @@
                     value="${subscriber.phoneNum}" />
             </div>
         </div>
-        <div class="form-group form-horizontal">
+        <div class="form-group form-horizontal row">
             <label class="control-label col-sm-3">Администратор</label>
             <div class="col-sm-7">
                 <p class="form-control-static">
-                    <a
-                        href="${pageContext.request.contextPath}/administrator/view.html?id=${subscriber.administrator.id}">
+                    <a href="${urlAdminProfile}" title="Профиль администратора">
                         ${subscriber.administrator.surname}
                         ${subscriber.administrator.name}
                         ${subscriber.administrator.patronymic} </a>
@@ -114,11 +116,12 @@
         <c:if test="${not isCreation}">
             <input name="id" value="${subscriber.id}" type="hidden">
         </c:if>
-        <div class="form-group">
-            <button type="submit" class="btn btn-info">Сохранить</button>
+        <div class="form-group row">
+            <button type="submit" class="btn btn-info" title="Сохранить">
+                Сохранить</button>
             <c:if test="${not isCreation}">
-                <button type="submit" class="btn btn-danger"
-                    formaction="${pageContext.request.contextPath}/subscriber/delete.html">Удалить</button>
+                <button type="submit" class="btn btn-danger" title="Удалить"
+                    formaction="${urlDelete}">Удалить</button>
             </c:if>
             <button type="reset" class="btn btn-default">Сброс</button>
             <input type="button" class="btn btn-default"
