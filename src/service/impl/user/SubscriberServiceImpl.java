@@ -37,7 +37,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Override
     public Subscriber getByLoginAndPassword(String login, String password)
-            throws DaoException {
+            throws ServiceException {
         try {
             Subscriber subscriber = null;
             User user = userDao.readByLoginAndPassword(login, password);
@@ -49,7 +49,7 @@ public class SubscriberServiceImpl implements SubscriberService {
             }
             return subscriber;
         } catch (DaoException e) {
-            throw new DaoException(e);
+            throw new ServiceException(e);
         }
     }
 
@@ -87,6 +87,15 @@ public class SubscriberServiceImpl implements SubscriberService {
         try {
             subscriberDao.delete(id);
             userDao.delete(id);
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void banById(Long id) throws ServiceException {
+        try {
+            userDao.banById(id);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

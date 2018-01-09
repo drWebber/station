@@ -5,14 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.interfaces.user.AdministratorService;
+import service.interfaces.user.SubscriberService;
 import domain.user.Administrator;
 import domain.user.Role;
 import domain.user.Subscriber;
-import exception.DaoException;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.AdministratorService;
-import service.interfaces.user.SubscriberService;
 
 public class LoginAction extends Action {
 
@@ -30,7 +29,7 @@ public class LoginAction extends Action {
                     Administrator administrator =
                             service.getByLoginAndPassword(login, password);
                     if (authorize(request, administrator)) {
-                        return new Forwarder("/subscriber/list.html"); //TODO :перенаправить на нужную страницу
+                        return new Forwarder("/subscriber/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
                     throw new ServletException(e);
@@ -42,9 +41,9 @@ public class LoginAction extends Action {
                     Subscriber subscriber =
                             service.getByLoginAndPassword(login, password);
                     if (authorize(request, subscriber)) {
-                        return new Forwarder("/subscription/list.html"); //TODO :перенаправить на нужную страницу
+                        return new Forwarder("/subscription/list.html");
                     }
-                } catch (FactoryException | DaoException e) {
+                } catch (FactoryException | ServiceException e) {
                     throw new ServletException(e);
                 }
             }
@@ -58,7 +57,7 @@ public class LoginAction extends Action {
         if (currentUser != null) {
             result = true;
             HttpSession session = request.getSession();
-            session.setAttribute("currentUser", currentUser); /* или завести отдельный аттрибут */
+            session.setAttribute("currentUser", currentUser);
         } else {
             request.setAttribute("message", "Авторизоваться не удалось");
         }

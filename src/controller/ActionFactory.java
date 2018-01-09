@@ -22,6 +22,7 @@ import controller.offer.OfferSaveAction;
 import controller.rate.RateEditAction;
 import controller.rate.RateListAction;
 import controller.rate.RateSaveAction;
+import controller.subscriber.SubscriberBanAction;
 import controller.subscriber.SubscriberDeleteAction;
 import controller.subscriber.SubscriberEditAction;
 import controller.subscriber.SubscriberListAction;
@@ -42,6 +43,7 @@ public class ActionFactory {
         actions.put("/subscriber/edit", SubscriberEditAction.class);
         actions.put("/subscriber/save", SubscriberSaveAction.class);
         actions.put("/subscriber/delete", SubscriberDeleteAction.class);
+        actions.put("/subscriber/ban", SubscriberBanAction.class);
         actions.put("/administrator/view", AdministratorViewAction.class);
         actions.put("/administrator/list", AdministratorListAction.class);
         actions.put("/administrator/edit", AdministratorEditAction.class);

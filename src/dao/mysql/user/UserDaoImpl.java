@@ -146,6 +146,23 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
+    public void banById(Long id) throws DaoException {
+        String query = "UPDATE `users` SET `isActive` = 0 WHERE `id` = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
+
+    @Override
     public void delete(Long id) throws DaoException {
         String query = "DELETE FROM `users` WHERE `id` = ?";
         PreparedStatement statement = null;

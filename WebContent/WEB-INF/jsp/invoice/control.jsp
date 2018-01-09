@@ -14,7 +14,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="current_month" value="${now}" pattern="MMMM" />
 
-<u:html title="Журнал 'Управление счетами'" pageHeading="Управление счетами">
+<u:html title="Журнал «Управление счетами»" pageHeading="Управление счетами">
 <h3>
     Выставление счетов за <span class="text-lowercase">${current_month}</span>
 </h3>
@@ -74,8 +74,13 @@
                                 minFractionDigits="2"/>
                         </td>
                         <td>
-                            <a href="#" title="Заблокировать">
-                        	<span class="glyphicon glyphicon-thumbs-down"></span>
+                            <c:url var="urlBan" value="/subscriber/ban.html">
+                                <c:param name="id"
+                                    value="${invoice.subscriber.id}" />
+                            </c:url>
+                            <a href="${urlBan}" title="Заблокировать">
+                            	<span class="glyphicon glyphicon-thumbs-down">
+                                </span>
                             </a>
                         </td>
                     </tr>
