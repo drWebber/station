@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.interfaces.payment.InvoiceDao;
 import domain.payment.Invoice;
+import domain.user.Subscriber;
 import exception.DaoException;
 import exception.ServiceException;
 import service.interfaces.payment.InvoiceService;
@@ -81,6 +82,16 @@ public class InvoiceServiceImpl implements InvoiceService {
     public List<Invoice> getUnpaid() throws ServiceException {
         try {
             return invoiceDao.readUnpaid();
+        } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Invoice> getInvoices(Subscriber subscriber,
+            boolean isPaid) throws ServiceException {
+        try {
+            return invoiceDao.readInvoices(subscriber, isPaid);
         } catch(DaoException e) {
             throw new ServiceException(e);
         }

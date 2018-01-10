@@ -73,8 +73,8 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
     }
 
     @Override
-    public List<Subscription> readSubscriptions(Subscriber subscriber, boolean readArchieved)
-            throws DaoException {
+    public List<Subscription> readSubscriptions(Subscriber subscriber,
+            boolean readArchieved) throws DaoException {
         String operator = "IS";
         if (readArchieved) {
             operator += " NOT";

@@ -24,6 +24,7 @@
 <c:url var="urlCallingRateList" value="/rate/list.html" />
 <c:url var="urlCallDial" value="/call/dial.html" />
 <c:url var="urlInvoice" value="/invoice/control.html" />
+<c:url var="urlInvoicesList" value="/invoice/list.html" />
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -104,6 +105,7 @@
 				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
 				<li><a href="${urlCallDial}">Совершить звонок</a></li>
                 <li><a href="${urlInvoice}">Счета и оплаты</a></li>
+                <li><a href="${urlInvoicesList}">Мои счета</a></li>
             </ul>
         </aside>
     </section>

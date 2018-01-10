@@ -15,6 +15,7 @@ import controller.call.CallMakeAction;
 import controller.invoice.InvoiceControlAction;
 import controller.invoice.InvoiceCreateAction;
 import controller.invoice.InvoiceDeleteAction;
+import controller.invoice.InvoiceListAction;
 import controller.offer.OfferDeleteAction;
 import controller.offer.OfferEditAction;
 import controller.offer.OfferListAction;
@@ -64,6 +65,7 @@ public class ActionFactory {
         actions.put("/invoice/control", InvoiceControlAction.class);
         actions.put("/invoice/create", InvoiceCreateAction.class);
         actions.put("/invoice/delete", InvoiceDeleteAction.class);
+        actions.put("/invoice/list", InvoiceListAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

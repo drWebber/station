@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.CompleteDao;
 import domain.payment.Invoice;
+import domain.user.Subscriber;
 import exception.DaoException;
 
 public interface InvoiceDao extends CompleteDao<Long, Invoice> {
@@ -11,11 +12,14 @@ public interface InvoiceDao extends CompleteDao<Long, Invoice> {
     
     boolean canCreate() throws DaoException;
 
-    /* метод используется в целях демонстрации работоспособности
+    List<Invoice> readUnpaid() throws DaoException;
+
+    List<Invoice> readInvoices(Subscriber subscriber, 
+            boolean isPaid) throws DaoException;
+
+    /* метод используется в целях тестирования работоспособности
      * механизма выставления счетов абонентам (выставляются раз
      * в месяц)
      */
     void deleteAll() throws DaoException;
-
-    List<Invoice> readUnpaid() throws DaoException;
 }

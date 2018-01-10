@@ -222,4 +222,39 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
             } catch (NullPointerException | SQLException e) {}
         }
     }
+
+    @Override
+    public List<Invoice> readInvoices(Subscriber subscriber, boolean isPaid)
+            throws DaoException {
+        String operator = "";
+        if (!isPaid) {
+            operator += "NOT";
+        }
+        String query = String.format(""
+                + "SELECT * FROM `invoices` "
+                    + "WHERE `subscriberID` = ? AND `id` %s IN"
+                        + "(SELECT `invoiceID` FROM `payments`) "
+                    + "ORDER BY `invoicingDate`", operator);
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, subscriber.getId());
+            resultSet = statement.executeQuery();
+            List<Invoice> invoices = new ArrayList<>();
+            while (resultSet.next()) {
+                invoices.add(getInvoice(resultSet));
+            }
+            return invoices;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+    }
 }

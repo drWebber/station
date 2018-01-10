@@ -1,6 +1,6 @@
 USE `station`;
 
-INSERT INTO `users` VALUES (14,'vasya','df4c8aef9f221490a3aa75b59df67ca2','Васильев','Василий','Васильевич','ADMINISTRATOR',''),(15,'senya','5faf6461e42c87cf9ac8a023eb348f9c','Борисов','Семен','Семонович','SUBSCRIBER',''),(16,'gena','cdffae47bdae9339a29cf774665a3dc1','Петров','Петр','Петрович','SUBSCRIBER',''),(20,'oleg','7fc670bb9ec784afa468bb82438a3990','Олегов','Олег','Олегович','SUBSCRIBER',''),(22,'oleg123','32aa3e905a67dfc52ed9d53bc09f40e1','Олегов','Олег','Олегович','SUBSCRIBER','\0');
+INSERT INTO `users` VALUES (14,'vasya','df4c8aef9f221490a3aa75b59df67ca2','Васильев','Василий','Васильевич','ADMINISTRATOR',''),(15,'senya','5faf6461e42c87cf9ac8a023eb348f9c','Борисов','Семен','Семонович','SUBSCRIBER',''),(16,'gena','cdffae47bdae9339a29cf774665a3dc1','Петров','Петр','Петрович','SUBSCRIBER',''),(20,'stats','7fc670bb9ec784afa468bb82438a3990','Ларионов','Станислав','Витальевич','SUBSCRIBER',''),(22,'nata','32aa3e905a67dfc52ed9d53bc09f40e1','Заречная','Наталья','Владимировна','SUBSCRIBER','\0');
 
 INSERT INTO `administrators` VALUES (14,74894254,'дворник');
 
