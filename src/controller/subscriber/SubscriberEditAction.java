@@ -33,7 +33,7 @@ public class SubscriberEditAction extends Action {
 
                 AdministratorService administratorService =
                         getServiceFactory().getAdministratorService();
-                Administrator administrator = 
+                Administrator administrator =
                         administratorService.getById(subscriber
                                 .getAdministrator().getId());
                 subscriber.setAdministrator(administrator);

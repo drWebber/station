@@ -1,6 +1,7 @@
 package domain.payment;
 
 import java.sql.Timestamp;
+
 import domain.Entity;
 
 public class Payment extends Entity<Long> {

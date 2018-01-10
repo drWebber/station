@@ -11,6 +11,7 @@ import service.ServiceFactory;
 import service.ServiceFactoryImpl;
 
 public class ServletDispatcher extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -36,9 +36,19 @@
                             <span class="glyphicon glyphicon-ruble"></span>
                         </td>   
                         <td>
-                            <a href="#" title="Перейти к оплате">
-                                <span class="glyphicon 
-                                    glyphicon-credit-card"></span></a>
+                            <c:url var="urlPayment"
+                            	value="/invoice/view.html">
+                            	<c:param name="id" value="${invoice.id}" />
+                            </c:url>
+                            <form action="${urlPayment}" method="post">
+                                <button type="submit" 
+                                    class="btn btn-link btn-xs">
+                                    <span class="glyphicon 
+                                        glyphicon-credit-card" 
+                                        title="Перейти к оплате">
+                                    </span>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>
