@@ -12,7 +12,7 @@ FROM `calls` AS c
 INNER JOIN `rates` AS r ON r.`id` = c.`rateID`
 WHERE (`begin` >= LAST_DAY(CURDATE()) + INTERVAL 1 DAY - INTERVAL 1 MONTH
     AND `finish` < LAST_DAY(CURDATE()) + INTERVAL 1 DAY)
-GROUP BY `subscriberID`, `tariff`;
+GROUP BY c.`subscriberID`, r.`type`, r.`tariff`;
 
 /* стоимость звонков абонента за текущий месяц*/
 CREATE VIEW vw_mon_calls_cost(`subscriberID`, `sum`) AS
