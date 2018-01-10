@@ -51,15 +51,14 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         String query = "SELECT * FROM `subscriptions` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Subscription subscription = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Subscription service = null;
             if (resultSet.next()) {
-                service = getService(resultSet);
+                subscription = getService(resultSet);
             }
-            return service;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -70,6 +69,7 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return subscription;
     }
 
     @Override
@@ -83,16 +83,15 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
                 + "`subscriberID` = ? AND `disconnected` %s NULL", operator);
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        List<Subscription> services = new ArrayList<>();
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, subscriber.getId());
             resultSet = statement.executeQuery();
-            List<Subscription> services = new ArrayList<>();
             while (resultSet.next()) {
                 Subscription service = getService(resultSet);
                 services.add(service);
             }
-            return services;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -103,6 +102,7 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return services;
     }
 
     @Override

@@ -82,15 +82,14 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         String query = "SELECT * FROM `invoices` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Invoice invoice = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Invoice invoice = null;
             if (resultSet.next()) {
                 invoice = getInvoice(resultSet);
             }
-            return invoice;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -101,6 +100,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return invoice;
     }
 
     private Invoice getInvoice(ResultSet resultSet) throws SQLException {
@@ -203,14 +203,13 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 + "ORDER BY `subscriberID`";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Invoice> unpaid = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<Invoice> unpaid = new ArrayList<>();
             while (resultSet.next()) {
                 unpaid.add(getInvoice(resultSet));
             }
-            return unpaid;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -221,6 +220,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return unpaid;
     }
 
     @Override
@@ -237,15 +237,14 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                     + "ORDER BY `invoicingDate`", operator);
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        List<Invoice> invoices = new ArrayList<>();
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, subscriber.getId());
             resultSet = statement.executeQuery();
-            List<Invoice> invoices = new ArrayList<>();
             while (resultSet.next()) {
                 invoices.add(getInvoice(resultSet));
             }
-            return invoices;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -256,5 +255,6 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return invoices;
     }
 }

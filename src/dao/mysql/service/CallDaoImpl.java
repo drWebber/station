@@ -56,15 +56,14 @@ public class CallDaoImpl extends BaseDao implements CallDao {
         String query = "SELECT * FROM `calls` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Call call = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Call call = null;
             if (resultSet.next()) {
                 call = getCall(resultSet);
             }
-            return call;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -75,6 +74,7 @@ public class CallDaoImpl extends BaseDao implements CallDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return call;
     }
 
     private Call getCall(ResultSet resultSet) throws SQLException {

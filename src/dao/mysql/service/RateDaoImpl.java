@@ -51,15 +51,14 @@ public class RateDaoImpl extends BaseDao implements RateDao {
         String query = "SELECT * FROM `rates` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Rate rate = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Rate rate = null;
             if (resultSet.next()) {
                 rate = getCallingRate(resultSet);
             }
-            return rate;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -70,6 +69,7 @@ public class RateDaoImpl extends BaseDao implements RateDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return rate;
     }
 
     @Override
@@ -78,15 +78,14 @@ public class RateDaoImpl extends BaseDao implements RateDao {
                 + "ORDER BY `introdutionDate` DESC LIMIT 1";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Rate rate = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, rateType.toString());
             resultSet = statement.executeQuery();
-            Rate rate = null;
             if (resultSet.next()) {
                 rate = getCallingRate(resultSet);
             }
-            return rate;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -97,6 +96,7 @@ public class RateDaoImpl extends BaseDao implements RateDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return rate;
     }
 
     @Override
@@ -123,14 +123,13 @@ public class RateDaoImpl extends BaseDao implements RateDao {
                     + "ORDER BY `introdutionDate` DESC LIMIT 1)";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Rate> rates = new ArrayList<>();
         try {
-            List<Rate> rates = new ArrayList<>();
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 rates.add(getCallingRate(resultSet));
             }
-            return rates;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -141,6 +140,7 @@ public class RateDaoImpl extends BaseDao implements RateDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return rates;
     }
 
     private Rate getCallingRate(ResultSet resultSet) 

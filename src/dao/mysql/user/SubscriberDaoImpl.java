@@ -52,15 +52,14 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
         String query = "SELECT * FROM `subscribers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Subscriber subscriber = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Subscriber subscriber = null;
             if (resultSet.next()) {
                 subscriber = getSubscriber(resultSet);
             }
-            return subscriber;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -71,6 +70,7 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return subscriber;
     }
 
     @Override
@@ -78,20 +78,20 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
         String query = "SELECT * FROM `subscribers`";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Subscriber> subscribers = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<Subscriber> subscribers = new ArrayList<>();
             while (resultSet.next()){
                 subscribers.add(getSubscriber(resultSet));
             }
-            return subscribers;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try { resultSet.close(); } catch (SQLException e) { }
             try { statement.close(); } catch (SQLException e) { }
         }
+        return subscribers;
     }
 
     private Subscriber getSubscriber(ResultSet resultSet) throws SQLException {

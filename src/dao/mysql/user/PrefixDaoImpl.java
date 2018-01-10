@@ -44,17 +44,16 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
         String query = "SELECT `city` FROM `prefixes` WHERE `prefix` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Prefix prefix = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-            Prefix prefix = null;
             if (resultSet.next()) {
                 prefix = new Prefix();
                 prefix.setId(id);
                 prefix.setCity(resultSet.getString("city"));
             }
-            return prefix;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -65,6 +64,7 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return prefix;
     }
 
     @Override
@@ -72,17 +72,16 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
         String query = "SELECT * FROM `prefixes`";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Prefix> prefixes = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<Prefix> prefixes = new ArrayList<>();
             while (resultSet.next()) {
                 Prefix prefix = new Prefix();
                 prefix.setId(resultSet.getInt("prefix"));
                 prefix.setCity(resultSet.getString("city"));
                 prefixes.add(prefix);
             }
-            return prefixes;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -93,6 +92,7 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) { }
         }
+        return prefixes;
     }
 
     @Override

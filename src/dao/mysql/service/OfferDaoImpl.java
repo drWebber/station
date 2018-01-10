@@ -56,15 +56,14 @@ public class OfferDaoImpl extends BaseDao implements
         String query = "SELECT * FROM `offers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Offer offer = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-            Offer service = null;
             if (resultSet.next()) {
-                service = getService(resultSet);
+                offer = getService(resultSet);
             }
-            return service;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -75,6 +74,7 @@ public class OfferDaoImpl extends BaseDao implements
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return offer;
     }
 
     @Override
@@ -82,15 +82,14 @@ public class OfferDaoImpl extends BaseDao implements
         String query = "SELECT * FROM `offers`";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Offer> offers = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<Offer> services = new ArrayList<>();
             while (resultSet.next()) {
-                Offer service = getService(resultSet);
-                services.add(service);
+                Offer offer = getService(resultSet);
+                offers.add(offer);
             }
-            return services;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -101,6 +100,7 @@ public class OfferDaoImpl extends BaseDao implements
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return offers;
     }
 
     @Override
@@ -109,16 +109,15 @@ public class OfferDaoImpl extends BaseDao implements
         String query = "SELECT * FROM `offers` WHERE `required` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        List<Offer> offers = new ArrayList<>();
         try {
             statement = getConnection().prepareStatement(query);
             statement.setBoolean(1, require);
             resultSet = statement.executeQuery();
-            List<Offer> services = new ArrayList<>();
             while (resultSet.next()) {
-                Offer service = getService(resultSet);
-                services.add(service);
+                Offer offer = getService(resultSet);
+                offers.add(offer);
             }
-            return services;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -129,6 +128,7 @@ public class OfferDaoImpl extends BaseDao implements
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return offers;
     }
 
     @Override

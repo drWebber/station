@@ -45,15 +45,14 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
         String query = "SELECT * FROM `administrators` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Administrator administrator = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Administrator administrator = null;
             if (resultSet.next()) {
                 administrator = getAdministrator(resultSet);
             }
-            return administrator;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -64,6 +63,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return administrator;
     }
 
     @Override
@@ -71,14 +71,13 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
         String query = "SELECT * FROM `administrators`";
         Statement statement = null;
         ResultSet resultSet = null;
+        List<Administrator> administrators = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
-            List<Administrator> administrators = new ArrayList<>();
             while (resultSet.next()) {
                 administrators.add(getAdministrator(resultSet));
             }
-            return administrators;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -89,6 +88,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return administrators;
     }
     
     private Administrator getAdministrator(ResultSet resultSet) 

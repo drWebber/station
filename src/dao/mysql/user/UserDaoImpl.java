@@ -57,15 +57,14 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         String query = "SELECT * FROM `users` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        User user = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            User user = null;
             if (resultSet.next()) {
                 user = getUser(resultSet);
             }
-            return user;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -76,6 +75,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return user;
     }
 
     @Override
@@ -84,6 +84,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         String query = "SELECT * FROM `users` WHERE login = ? AND password = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        User user = null;
         try {
             statement = getConnection().prepareStatement(query);
             password = new PasswordCryptographer(login, password)
@@ -91,11 +92,9 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement.setString(1, login);
             statement.setString(2, password);
             resultSet = statement.executeQuery();
-            User user = null;
             if (resultSet.next()) {
                 user = getUser(resultSet);
             }
-            return user;
         } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DaoException(e);
         } finally {
@@ -106,6 +105,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
+        return user;
     }
 
     private User getUser(ResultSet resultSet)

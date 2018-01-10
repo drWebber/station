@@ -51,11 +51,11 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
                 + "WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Payment payment = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            Payment payment = null;
             if (resultSet.next()) {
                 payment = new Payment();
                 payment.setId(id);
