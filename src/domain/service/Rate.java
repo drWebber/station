@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import domain.Entity;
 
 public class Rate extends Entity<Long> {
+    private static final long serialVersionUID = 1L;
     private RateType type;
     private Timestamp introdutionDate;
     private Float tariff;

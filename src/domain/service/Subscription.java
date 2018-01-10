@@ -6,6 +6,7 @@ import domain.Entity;
 import domain.user.Subscriber;
 
 public class Subscription extends Entity<Long> {
+    private static final long serialVersionUID = 1L;
     private Subscriber subscriber;
     private Offer offer;
     private Timestamp connected;

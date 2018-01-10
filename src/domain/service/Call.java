@@ -7,6 +7,7 @@ import domain.user.Prefix;
 import domain.user.Subscriber;
 
 public class Call extends Entity<Long> {
+    private static final long serialVersionUID = 1L;
     private Subscriber subscriber;
     private Prefix prefix;
     private Integer phoneNum;

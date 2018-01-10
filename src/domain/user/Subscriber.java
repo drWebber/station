@@ -3,6 +3,7 @@ package domain.user;
 import java.sql.Date;
 
 public class Subscriber extends User {
+    private static final long serialVersionUID = 1L;
     private String passportId;
     private Date birthDay;
     private String address;

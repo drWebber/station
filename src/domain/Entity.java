@@ -1,6 +1,10 @@
 package domain;
 
-public abstract class Entity<PK> {
+import java.io.Serializable;
+
+
+public abstract class Entity<PK> implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected PK id;
 
     public PK getId() {

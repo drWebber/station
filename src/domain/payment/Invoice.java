@@ -7,6 +7,7 @@ import domain.Entity;
 import domain.user.Subscriber;
 
 public class Invoice extends Entity<Long> {
+    private static final long serialVersionUID = 1L;
     private Subscriber subscriber;
     private Timestamp invoicingDate;
     private BigDecimal amount;

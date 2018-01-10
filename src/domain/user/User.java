@@ -6,6 +6,7 @@ import util.user.PasswordCryptographer;
 import domain.NamedEntity;
 
 public class User extends NamedEntity<Long> {
+    private static final long serialVersionUID = 1L;
     protected String login;
     protected String password;
     protected String surname;

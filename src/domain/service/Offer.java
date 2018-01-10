@@ -3,6 +3,7 @@ package domain.service;
 import domain.NamedEntity;
 
 public class Offer extends NamedEntity<Integer> {
+    private static final long serialVersionUID = 1L;
     private String description;
     private Float monthlyFee;
     private Float subscriptionRate;

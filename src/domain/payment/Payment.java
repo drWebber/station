@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import domain.Entity;
 
 public class Payment extends Entity<Long> {
+    private static final long serialVersionUID = 1L;
     private Timestamp date;
     private String bankCode;
     private Invoice invoice;
