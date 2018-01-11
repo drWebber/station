@@ -27,9 +27,11 @@ import util.MysqlConnector;
 import dao.mysql.payment.InvoiceDaoImpl;
 import dao.mysql.payment.PaymentDaoImpl;
 import dao.mysql.service.CallDaoImpl;
+import dao.mysql.service.CallsDetailDaoImpl;
 import dao.mysql.service.OfferDaoImpl;
 import dao.mysql.service.RateDaoImpl;
 import dao.mysql.service.SubscriptionDaoImpl;
+import dao.mysql.service.SubscriptionsDetailDaoImpl;
 import dao.mysql.user.AdministratorDaoImpl;
 import dao.mysql.user.PrefixDaoImpl;
 import dao.mysql.user.SubscriberDaoImpl;
@@ -118,6 +120,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public InvoiceService getInvoiceService() throws FactoryException {
         InvoiceServiceImpl service = new InvoiceServiceImpl();
         service.setInvoiceDao(new InvoiceDaoImpl(getConnection()));
+        service.setCallsDetailsDao(new CallsDetailDaoImpl(getConnection()));
+        service.setSubscriptionsDetailDao(
+                new SubscriptionsDetailDaoImpl(getConnection()));
         return service;
     }
 

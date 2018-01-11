@@ -12,6 +12,7 @@ import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
 import service.interfaces.service.SubscriptionService;
+import util.user.RetrieveException;
 import util.user.UserRetriever;
 
 public class SubscriptionAcceptAction extends Action {
@@ -30,7 +31,7 @@ public class SubscriptionAcceptAction extends Action {
         try {
             subscriber = 
                     new UserRetriever<Subscriber>(request).getCurrentUser();
-        } catch (ClassCastException e) {
+        } catch (RetrieveException e) {
             throw new ServletException(e);
         }
         

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.interfaces.service.SubscriptionService;
+import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -31,7 +32,7 @@ public class SubscriptionRejectAction extends Action {
             try {
                 subscriber = 
                         new UserRetriever<Subscriber>(request).getCurrentUser();
-            } catch (ClassCastException e) {
+            } catch (RetrieveException e) {
                 throw new ServletException(e);
             }
             try {

@@ -10,6 +10,7 @@ import service.interfaces.service.CallService;
 import service.interfaces.service.RateService;
 import util.service.CallDirection;
 import util.service.CallRateResolver;
+import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -72,7 +73,7 @@ public class CallMakeAction extends Action {
             
             CallService callService = getServiceFactory().getCallService();
             callService.save(call);
-        } catch (ClassCastException | NumberFormatException | 
+        } catch (RetrieveException | NumberFormatException | 
                 FactoryException | ServiceException | NullPointerException e) {
             throw new ServletException(e);
         }

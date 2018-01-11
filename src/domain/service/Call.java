@@ -7,7 +7,7 @@ import domain.user.Prefix;
 import domain.user.Subscriber;
 
 public class Call extends Entity<Long> {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private Subscriber subscriber;
     private Prefix prefix;
     private Integer phoneNum;
@@ -18,36 +18,47 @@ public class Call extends Entity<Long> {
     public Subscriber getSubscriber() {
         return subscriber;
     }
+    
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
     }
+    
     public Prefix getPrefix() {
         return prefix;
     }
+    
     public void setPrefix(Prefix prefix) {
         this.prefix = prefix;
     }
+    
     public Integer getPhoneNum() {
         return phoneNum;
     }
+    
     public void setPhoneNum(Integer phoneNum) {
         this.phoneNum = phoneNum;
     }
+    
     public Timestamp getBeginTime() {
         return beginTime;
     }
+    
     public void setBeginTime(Timestamp beginTime) {
         this.beginTime = beginTime;
     }
+    
     public Timestamp getFinishTime() {
         return finishTime;
     }
+    
     public void setFinishTime(Timestamp finishTime) {
         this.finishTime = finishTime;
     }
+    
     public Rate getRate() {
         return rate;
     }
+    
     public void setRate(Rate rate) {
         this.rate = rate;
     }

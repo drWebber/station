@@ -16,7 +16,10 @@ public interface InvoiceService extends CompleteService<Long, Invoice> {
 
     List<Invoice> getInvoices(Subscriber subscriber, boolean isPaid)
             throws ServiceException;
-
+    
+    Invoice getWithDetails(Long id, Subscriber subscriber)
+        throws ServiceException;
+    
     /* метод используется в целях тестирования работоспособности
      * механизма выставления счетов абонентам (выставляются раз
      * в месяц)

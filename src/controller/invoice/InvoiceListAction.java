@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.interfaces.payment.InvoiceService;
+import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -30,7 +31,7 @@ public class InvoiceListAction extends Action {
             List<Invoice> paidInvoices =
                     service.getInvoices(subscriber, true);
             request.setAttribute("paidInvoices", paidInvoices);
-        } catch (ClassCastException | FactoryException | ServiceException e) {
+        } catch (RetrieveException | FactoryException | ServiceException e) {
             throw new ServletException(e);
         } 
         return null;

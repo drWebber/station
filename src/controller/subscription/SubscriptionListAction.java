@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.interfaces.service.SubscriptionService;
+import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -33,7 +34,7 @@ public class SubscriptionListAction extends Action {
             request.setAttribute("archievedSubscriptions", 
                     archievedSubscriptions);
         } catch (FactoryException | ServiceException | 
-                ClassCastException | NullPointerException e) {
+                RetrieveException | NullPointerException e) {
             throw new ServletException(e);
         }
         return null;
