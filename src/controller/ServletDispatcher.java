@@ -30,30 +30,39 @@ public class ServletDispatcher extends HttpServlet {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) 
-            throws ServletException {
+            throws ServletException, IOException {
         String url = req.getRequestURI();
         String context = req.getContextPath();
         int postfixIndex = url.lastIndexOf(".html");
         if(postfixIndex != -1) {
             url = url.substring(context.length(), postfixIndex);
         } else {
-            url = url.substring(context.length());
+            url = url.substring(context.length()) + "index";
         }
         Action action = ActionFactory.getAction(url);
-        try (ServiceFactory factory = getServiceFactory()) {
-            action.setServiceFactory(factory);
-            Forwarder forwarder = action.execute(req, resp);
-            if(forwarder != null && forwarder.isRedirect()) {
-                resp.sendRedirect(context + forwarder.getUrl());
-            } else {
-                if(forwarder != null && forwarder.getUrl() != null) {
-                    url = forwarder.getUrl();
+        Forwarder forwarder = null;
+        if (action != null) {
+            try(ServiceFactory factory = getServiceFactory()) {
+                action.setServiceFactory(factory);
+                forwarder = action.execute(req, resp);
+                if (forwarder != null && forwarder.isRedirect()) {
+                    resp.sendRedirect(context + forwarder.getUrl());
+                } else {
+                    if(forwarder != null && forwarder.getUrl() != null) {
+                        url = forwarder.getUrl();
+                    }
+                    req.getRequestDispatcher("/WEB-INF/jsp" + url + ".jsp")
+                    .forward(req, resp);
                 }
-                req.getRequestDispatcher("/WEB-INF/jsp" + url + ".jsp")
-                        .forward(req, resp);
+            } catch(Exception e) {
+                getServletContext()
+                    .getRequestDispatcher("/WEB-INF/jsp/error.jsp")
+                    .forward(req, resp);
             }
-        } catch (Exception e) {
-            throw new ServletException(e);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/404.jsp")
+                .forward(req, resp);
+            
         }
     }
 }

@@ -1,11 +1,9 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
-<%@attribute name="title" required="true" rtexprvalue="true"
-    type="java.lang.String"%>
-<%@attribute name="pageHeading" required="true" rtexprvalue="true"
-    type="java.lang.String"%>
-<%@attribute name="useDatePicker" required="false" rtexprvalue="true"
-    type="java.lang.Boolean"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <c:url var="bsCssUrl" value="/css/bootstrap.min.css" />
 <c:url var="stylesheetCssUrl" value="/css/style.css" />
 <c:url var="bsCssDatePicker"
@@ -31,7 +29,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title} | Telephone Exchange 51</title>
+<title>Телефонная станция 51 | Национальный оператор электросвязи</title>
 <link rel="stylesheet" href="${bsCssUrl}">
 <link rel="stylesheet" href="${stylesheetCssUrl}">
 <script src="${urlJqueryJs}"></script>
@@ -86,28 +84,54 @@
             </div>
         </nav>
     </header>
-    <section class="row content-layout">
-        <div class="content col-xs-12 col-lg-9 col-lg-push-3">
+    <section>
+        <div class="content col-xs-12">
             <article>
-                <h1>${pageHeading}</h1>
-                <jsp:doBody />
+                    <div class="jumbotron text-center">
+                        <h1>Station 51</h1> 
+                        <p>Национальный оператор электросвязи</p> 
+                    </div>
+                    <div class="container-fluid text-center">
+                      <h2>УСЛУГИ</h2>
+                      <br>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-phone-alt lead"></span>
+                            <h4>Телефония</h4>
+                            <p>Услуги телефонной связи</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-home lead"></span>
+                            <h4>Для дома</h4>
+                            <p>Работа с физическими лицами</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-lock lead"></span>
+                            <h4>Для бизнеса</h4>
+                            <p>Работа с юридическими лицами</p>
+                        </div>
+                        </div>
+                        <br><br>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-leaf lead"></span>
+                            <h4>Техническая поддержка</h4>
+                            <p>Техническая поддержка 24/7</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-certificate lead"></span>
+                            <h4>Гарантия</h4>
+                            <p>Гарантия качества обслуживания</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-ruble lead"></span>
+                            <h4>Оплата услуг</h4>
+                            <p>Оплата услуг онлайн</p>
+                        </div>
+                      </div>
+                    </div>
             </article>
         </div>
-        <aside class="sidebar col-xs-12 col-lg-3 col-lg-pull-9">
-            <h4>Главное меню</h4>
-            <ul>
-                <li><a href="${urlHome}">Главная</a></li>
-                <li><a href="${urlSubscriberList}">Абоненты</a></li>
-                <li><a href="${urlAdministratorList}">Администраторы</a></li>
-                <li><a href="${urlOfferList}">Предоставляемые
-                        услуги</a></li>
-                <li><a href="${urlCallingRateList}">Тарифные планы</a></li>
-				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
-				<li><a href="${urlCallDial}">Совершить звонок</a></li>
-                <li><a href="${urlInvoice}">Счета и оплаты</a></li>
-                <li><a href="${urlInvoicesList}">Мои счета и оплаты</a></li>
-            </ul>
-        </aside>
     </section>
     <div class="row">
         <footer class="navbar-inverse navbar-fixed-bottom">

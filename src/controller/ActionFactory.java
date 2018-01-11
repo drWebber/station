@@ -40,6 +40,8 @@ public class ActionFactory {
             actions = new ConcurrentHashMap<>();
     
     static {
+        actions.put("/", IndexViewAction.class);
+        actions.put("/index", IndexViewAction.class);
         actions.put("/login", LoginAction.class);
         actions.put("/logout", LogoutAction.class);
         actions.put("/subscriber/list", SubscriberListAction.class);
@@ -78,6 +80,8 @@ public class ActionFactory {
             return (Action) action.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new ServletException(e);
+        } catch (NullPointerException e) {
+            return null;
         }
     }
 }

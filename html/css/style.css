@@ -2,7 +2,11 @@ html, body {
     background-color: #EEE;
     height: 100%;
 }
-
+/* index */
+.jumbotron {
+    background: white;
+    border-radius: 0 !important;
+}
 /* sidebar */
 .sidebar ul {
     list-style-type: none;
