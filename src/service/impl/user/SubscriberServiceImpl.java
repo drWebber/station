@@ -2,8 +2,10 @@ package service.impl.user;
 
 import java.util.List;
 
+import dao.interfaces.user.AdministratorDao;
 import dao.interfaces.user.SubscriberDao;
 import dao.interfaces.user.UserDao;
+import domain.user.Administrator;
 import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
@@ -13,6 +15,7 @@ import service.interfaces.user.SubscriberService;
 public class SubscriberServiceImpl implements SubscriberService {
     private UserDao userDao;
     private SubscriberDao subscriberDao;
+    private AdministratorDao administratorDao;
     
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -22,12 +25,24 @@ public class SubscriberServiceImpl implements SubscriberService {
         this.subscriberDao = subscriberDao;
     }
 
+    public AdministratorDao getAdministratorDao() {
+        return administratorDao;
+    }
+
+    public void setAdministratorDao(AdministratorDao administratorDao) {
+        this.administratorDao = administratorDao;
+    }
+
     @Override
     public Subscriber getById(Long id) throws ServiceException {
         try {
             Subscriber subscriber = subscriberDao.read(id);
             if (subscriber != null) {
                 subscriber.setUser(userDao.read(id));
+                Long adminId = subscriber.getAdministrator().getId();
+                Administrator admin = administratorDao.read(adminId);
+                admin.setUser(userDao.read(adminId));
+                subscriber.setAdministrator(admin);
             }
             return subscriber;
         } catch(DaoException e) {

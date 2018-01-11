@@ -26,7 +26,6 @@ public class AdministratorEditAction extends Action {
                 Administrator administrator = 
                         administratorService.getById(id);
                 request.setAttribute("administrator", administrator);
-
             }
         } catch (FactoryException | ServiceException e) {
             throw new ServletException(e);

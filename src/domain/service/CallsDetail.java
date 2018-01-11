@@ -4,7 +4,7 @@ package domain.service;
 import domain.user.Subscriber;
 
 public class CallsDetail {
-    private Subscriber subscriber;
+    private Subscriber subscriber = new Subscriber();
     private RateType rateType;
     private int duration;
     private float tariff;

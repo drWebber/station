@@ -12,7 +12,6 @@ import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
 import domain.user.Role;
-import domain.user.User;
 import exception.FactoryException;
 import exception.ServiceException;
 
@@ -25,28 +24,27 @@ public class AdministratorSaveAction extends Action {
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e1) { }
         Administrator administrator = new Administrator();
-        User user = new User();
         try {
             Long id = Long.parseLong(request.getParameter("id"));
-            user.setId(id);
+            administrator.getUser().setId(id);
             administrator.setId(id);
         } catch(NumberFormatException e) { }
         if (administrator.getId() == null) {
-            user.setLogin(request.getParameter("login"));
-            user.setPassword(request.getParameter("password"));
+            administrator.getUser().setLogin(request.getParameter("login"));
+            administrator.getUser().setPassword(
+                    request.getParameter("password"));
             try {
-                user.cryptPassword();
+                administrator.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
                 throw new ServletException(e);
             }
         }
-        user.setSurname(request.getParameter("surname"));
-        user.setName(request.getParameter("name"));
-        user.setPatronymic(request.getParameter("patronymic"));
-        user.setRole(Role.ADMINISTRATOR);
-        user.setActive(Boolean.parseBoolean(request.getParameter("isActive")));
-        administrator.setUser(user);
-
+        administrator.getUser().setSurname(request.getParameter("surname"));
+        administrator.getUser().setName(request.getParameter("name"));
+        administrator.getUser().setPatronymic(request.getParameter("patronymic"));
+        administrator.getUser().setRole(Role.ADMINISTRATOR);
+        administrator.getUser().setActive(
+                Boolean.parseBoolean(request.getParameter("isActive")));
         try {
             Integer personalId = Integer.parseInt(request.getParameter("personalId"));
             administrator.setPersonalId(personalId);
@@ -57,7 +55,8 @@ public class AdministratorSaveAction extends Action {
         administrator.setPosition(request.getParameter("position"));
         
         try {
-            AdministratorService service = getServiceFactory().getAdministratorService();
+            AdministratorService service =
+                    getServiceFactory().getAdministratorService();
             service.save(administrator);
         } catch (FactoryException | ServiceException e) {
             throw new ServletException(e);

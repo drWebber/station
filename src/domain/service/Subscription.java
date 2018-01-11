@@ -6,9 +6,9 @@ import domain.Entity;
 import domain.user.Subscriber;
 
 public class Subscription extends Entity<Long> {
-    private static final long serialVersionUID = 1L;
-    private Subscriber subscriber;
-    private Offer offer;
+    private static final long serialVersionUID = 2L;
+    private Subscriber subscriber = new Subscriber();
+    private Offer offer = new Offer();
     private Timestamp connected;
     private Timestamp disconnected;
     

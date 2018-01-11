@@ -17,7 +17,6 @@ import controller.Forwarder;
 import domain.service.Call;
 import domain.service.Rate;
 import domain.service.RateType;
-import domain.user.Prefix;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
@@ -40,11 +39,9 @@ public class CallMakeAction extends Action {
              * осуществляющего вызов 
              */
             prefixId = Integer.parseInt(request.getParameter("prefix"));
-            Prefix prefix = new Prefix();
-            prefix.setId(prefixId);
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             Subscriber opponent = new Subscriber();
-            opponent.setPrefix(prefix);
+            opponent.getPrefix().setId(prefixId);
             
             /* Направление звонка исходящий/входящий */
             CallDirection direction = 
@@ -64,7 +61,7 @@ public class CallMakeAction extends Action {
             
             Call call = new Call();
             call.setSubscriber(subscriber);
-            call.setPrefix(prefix);
+            call.setPrefix(opponent.getPrefix());
             call.setPhoneNum(phoneNum);
             long time = System.currentTimeMillis();
             call.setBeginTime(new Timestamp(time));

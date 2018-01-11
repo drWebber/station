@@ -75,6 +75,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         SubscriberServiceImpl service = new SubscriberServiceImpl();
         service.setUserDao(new UserDaoImpl(getConnection()));
         service.setSubscriberDao(new SubscriberDaoImpl(getConnection()));
+        service.setAdministratorDao(new AdministratorDaoImpl(getConnection()));
         return service;
     }
 

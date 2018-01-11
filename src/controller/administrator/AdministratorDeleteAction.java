@@ -22,7 +22,8 @@ public class AdministratorDeleteAction extends Action {
         
         if (id != null) {
             try {
-                AdministratorService service = getServiceFactory().getAdministratorService();
+                AdministratorService service =
+                        getServiceFactory().getAdministratorService();
                 service.delete(id);
             } catch (FactoryException | ServiceException e) {
                 throw new ServletException(e);

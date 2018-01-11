@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import domain.user.Subscriber;
 
 public class SubscriptionsDetail {
-    private Subscriber subscriber;
+    private Subscriber subscriber = new Subscriber();
     private BigDecimal majorFee;
     private BigDecimal fee;
     private BigDecimal subscriptionsCost;

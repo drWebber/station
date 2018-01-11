@@ -18,15 +18,18 @@ public class SubscriberDeleteAction extends Action {
         Long id = null;
         try {
             id = Long.parseLong(request.getParameter("id"));
-        } catch(NumberFormatException e) { }
-        
-        if (id != null) {
-            try {
-                SubscriberService service = getServiceFactory().getSubscriberService();
-                service.delete(id);
-            } catch (FactoryException | ServiceException e) {
-                throw new ServletException(e);
-            }
+            SubscriberService service =
+                    getServiceFactory().getSubscriberService();
+            service.delete(id);
+        } catch(NumberFormatException e) {
+            //TODO: log4j неверный формат
+            throw new ServletException(e);
+        } catch (FactoryException e) {
+            //TODO: log4j ошибка фабрики
+            throw new ServletException(e);
+        } catch (ServiceException e) {
+            //TODO: log4j ошибка сервиса
+            throw new ServletException(e);
         }
         return new Forwarder("/subscriber/list.html");
     }

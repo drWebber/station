@@ -14,10 +14,8 @@ import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
-import domain.user.Prefix;
 import domain.user.Role;
 import domain.user.Subscriber;
-import domain.user.User;
 import exception.FactoryException;
 import exception.ServiceException;
 
@@ -30,27 +28,26 @@ public class SubscriberSaveAction extends Action {
             request.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException e1) { }
         Subscriber subscriber = new Subscriber();
-        User user = new User();
         try {
             Long id = Long.parseLong(request.getParameter("id"));
-            user.setId(id);
+            subscriber.getUser().setId(id);
             subscriber.setId(id);
         } catch(NumberFormatException e) { }
         if (subscriber.getId() == null) {
-            user.setLogin(request.getParameter("login"));
-            user.setPassword(request.getParameter("password"));
+            subscriber.getUser().setLogin(request.getParameter("login"));
+            subscriber.getUser().setPassword(request.getParameter("password"));
             try {
-                user.cryptPassword();
+                subscriber.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
                 throw new ServletException(e);
             }
         }
-        user.setSurname(request.getParameter("surname"));
-        user.setName(request.getParameter("name"));
-        user.setPatronymic(request.getParameter("patronymic"));
-        user.setRole(Role.SUBSCRIBER);
-        user.setActive(Boolean.parseBoolean(request.getParameter("isActive")));
-        subscriber.setUser(user);
+        subscriber.getUser().setSurname(request.getParameter("surname"));
+        subscriber.getUser().setName(request.getParameter("name"));
+        subscriber.getUser().setPatronymic(request.getParameter("patronymic"));
+        subscriber.getUser().setRole(Role.SUBSCRIBER);
+        subscriber.getUser().setActive(
+                Boolean.parseBoolean(request.getParameter("isActive")));
         subscriber.setPassportId(request.getParameter("passportId"));
         
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,8 +62,7 @@ public class SubscriberSaveAction extends Action {
         Integer phoneNum = null;
         Integer prefixId = null;
         try {
-            //adminId = Long.parseLong(request.getParameter("adminId"));
-            adminId = 14L; //TODO: заменить на парсинг из параметра
+            adminId = 14L; //TODO: заменить на взятие админа из сессии
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             prefixId = Integer.parseInt(request.getParameter("prefix"));
         } catch(NumberFormatException e) {
@@ -74,10 +70,10 @@ public class SubscriberSaveAction extends Action {
         }
         
         subscriber.setAddress(request.getParameter("address"));
-        Prefix prefix = new Prefix();
-        prefix.setId(prefixId);
-        subscriber.setPrefix(prefix);
+        subscriber.getPrefix().setId(prefixId);
         subscriber.setPhoneNum(phoneNum);
+        
+        //TODO: заменить на взятие админа из сессии
         Administrator administrator = new Administrator();
         administrator.setId(adminId);
         subscriber.setAdministrator(administrator);

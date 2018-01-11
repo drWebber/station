@@ -5,23 +5,15 @@
 
 
 <c:set var="pageHeading"
-    value="Профиль администратора ${administrator.user.login}" />
+    value="Профиль администратора" />
 
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
 <table class="table">
     <tbody>
         <tr>
-            <td>Логин</td>
-            <td>${administrator.login}</td>
-        </tr>
-        <tr>
             <td>ФИО</td>
             <td>${administrator.surname} ${administrator.name} ${administrator.patronymic}</td>
-        </tr>
-        <tr>
-            <td>Личное дело</td>
-            <td>${administrator.personalId}</td>
         </tr>
         <tr>
             <td>Должность</td>

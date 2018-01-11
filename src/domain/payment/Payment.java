@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 import domain.Entity;
 
 public class Payment extends Entity<Long> {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
     private Timestamp date;
-    private Invoice invoice;
+    private Invoice invoice = new Invoice();
     
     public Payment() { }
 

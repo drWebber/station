@@ -6,16 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.interfaces.user.PrefixService;
+import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
-import domain.user.Administrator;
 import domain.user.Prefix;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.AdministratorService;
-import service.interfaces.user.PrefixService;
-import service.interfaces.user.SubscriberService;
 
 public class SubscriberEditAction extends Action {
     @Override
@@ -30,13 +28,6 @@ public class SubscriberEditAction extends Action {
                 SubscriberService subscriberService = 
                         getServiceFactory().getSubscriberService();
                 Subscriber subscriber = subscriberService.getById(id);
-
-                AdministratorService administratorService =
-                        getServiceFactory().getAdministratorService();
-                Administrator administrator =
-                        administratorService.getById(subscriber
-                                .getAdministrator().getId());
-                subscriber.setAdministrator(administrator);
                 request.setAttribute("subscriber", subscriber);
             }
             PrefixService prefixService = 

@@ -4,16 +4,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.interfaces.service.SubscriptionService;
+import util.user.RetrieveException;
+import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
-import domain.service.Offer;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.service.SubscriptionService;
-import util.user.RetrieveException;
-import util.user.UserRetriever;
 
 public class SubscriptionAcceptAction extends Action {
     @Override
@@ -37,9 +36,7 @@ public class SubscriptionAcceptAction extends Action {
         
         Subscription subscription = new Subscription();
         subscription.setSubscriber(subscriber);
-        Offer offer = new Offer();
-        offer.setId(offerId);
-        subscription.setOffer(offer);
+        subscription.getOffer().setId(offerId);
         try {
             SubscriptionService subscriptionService = 
                     getServiceFactory().getSubscriptionService();

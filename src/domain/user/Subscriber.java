@@ -3,13 +3,13 @@ package domain.user;
 import java.sql.Date;
 
 public class Subscriber extends User {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private String passportId;
     private Date birthDay;
     private String address;
-    private Prefix prefix;
+    private Prefix prefix = new Prefix();
     private int phoneNum;
-    private Administrator administrator;
+    private Administrator administrator = new Administrator();
 
     public String getPassportId() {
         return passportId;

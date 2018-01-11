@@ -2,6 +2,7 @@ package domain.payment;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.Entity;
@@ -10,12 +11,14 @@ import domain.service.SubscriptionsDetail;
 import domain.user.Subscriber;
 
 public class Invoice extends Entity<Long> {
-    private static final long serialVersionUID = 4L;
-    private Subscriber subscriber;
+    private static final long serialVersionUID = 6L;
+    private Subscriber subscriber = new Subscriber();
     private Timestamp invoicingDate;
     private BigDecimal amount;
-    private List<CallsDetail> callsDetail;
-    private SubscriptionsDetail subscriptionsDetail;
+    private List<CallsDetail> callsDetail =
+            new ArrayList<>();
+    private SubscriptionsDetail subscriptionsDetail =
+            new SubscriptionsDetail();
     
     public Invoice() { }
 

@@ -7,13 +7,13 @@ import domain.user.Prefix;
 import domain.user.Subscriber;
 
 public class Call extends Entity<Long> {
-    private static final long serialVersionUID = 2L;
-    private Subscriber subscriber;
-    private Prefix prefix;
+    private static final long serialVersionUID = 4L;
+    private Subscriber subscriber = new Subscriber();
+    private Prefix prefix = new Prefix();
     private Integer phoneNum;
     private Timestamp beginTime;
     private Timestamp finishTime;
-    private Rate rate;
+    private Rate rate = new Rate();
     
     public Subscriber getSubscriber() {
         return subscriber;
