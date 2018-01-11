@@ -3,6 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 
+<c:url var="urlCreate" value="/administrator/edit.html" />
 <u:html title="Список администраторов"
     pageHeading="Список администраторов">
 <table class="table table-striped table-bordered">
@@ -40,7 +41,7 @@
     </tbody>
 </table>
 <form
-    action="${pageContext.request.contextPath}/administrator/edit.html">
+    action="${urlCreate}">
     <button type="submit" class="btn btn-info" title="Создать администратора">Создать
         администратора</button>
 </form>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
-
+<c:url var="urlEdit" value="/subscriber/edit.html" />
 <u:html title="Список абонентов" pageHeading="Список абонентов">
 <table class="table table-striped table-bordered">
     <thead>
@@ -39,7 +39,7 @@
         </c:forEach>
     </tbody>
 </table>
-<form action="${pageContext.request.contextPath}/subscriber/edit.html">
+<form action="${urlEdit}">
     <button type="submit" class="btn btn-info" title="Создать абонента">Создать абонента</button>
 </form>
 </u:html>

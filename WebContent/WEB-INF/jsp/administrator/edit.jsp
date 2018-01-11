@@ -18,12 +18,12 @@
         <c:set var="isCreation" value="false" />
     </c:otherwise>
 </c:choose>
+<c:url var="urlSave" value="/administrator/save.html" />
+<c:url var="urlDelete" value="/administrator/delete.html" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
 <div class="row">
-    <form class="col-lg-8"
-        action="${pageContext.request.contextPath}/administrator/save.html"
-        method="post">
+    <form class="col-lg-8" action="${urlSave}" method="post">
         <div class="input-group">
             <span class="input-group-addon">Логин</span>
             <input type="text" class="form-control" name="login"
@@ -77,7 +77,7 @@
             <button type="submit" class="btn btn-info">Сохранить</button>
             <c:if test="${not isCreation}">
                 <button type="submit" class="btn btn-danger"
-                    formaction="${pageContext.request.contextPath}/administrator/delete.html">Удалить</button>
+                    formaction="${urlDelete}">Удалить</button>
             </c:if>
             <button type="reset" class="btn btn-default">Сброс</button>
             <input type="button" class="btn btn-default"

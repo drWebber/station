@@ -17,12 +17,12 @@
         <c:set var="isCreation" value="false" />
     </c:otherwise>
 </c:choose>
+<c:url var="urlSave" value="/offer/save.html" />
+<c:url var="urlDelete" value="/offer/delete.html" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
 <div class="row">
-    <form class="col-lg-8"
-        action="${pageContext.request.contextPath}/provided-service/save.html"
-        method="post">
+    <form class="col-lg-8" action="${urlSave}" method="post">
         <div class="input-group">
             <span class="input-group-addon">Наименование</span>
             <input type="text" class="form-control" name="name"
@@ -62,7 +62,7 @@
             <button type="submit" class="btn btn-info">Сохранить</button>
             <c:if test="${not isCreation}">
                 <button type="submit" class="btn btn-danger"
-                    formaction="${pageContext.request.contextPath}/provided-service/delete.html">Удалить</button>
+                    formaction="${urlDelete}">Удалить</button>
             </c:if>
             <button type="reset" class="btn btn-default">Сброс</button>
             <input type="button" class="btn btn-default"
