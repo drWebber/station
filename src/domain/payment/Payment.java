@@ -5,9 +5,8 @@ import java.sql.Timestamp;
 import domain.Entity;
 
 public class Payment extends Entity<Long> {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private Timestamp date;
-    private String bankCode;
     private Invoice invoice;
     
     public Payment() { }
@@ -28,17 +27,9 @@ public class Payment extends Entity<Long> {
         this.date = date;
     }
 
-    public String getBankCode() {
-        return bankCode;
-    }
-
-    public void setBankCode(String bankCode) {
-        this.bankCode = bankCode;
-    }
-
     @Override
     public String toString() {
-        return "Payment [date=" + date + ", bankCode=" + bankCode
-                + ", invoice=" + invoice + ", id=" + id + "]";
+        return "Payment [date=" + date + ", invoice=" + invoice + ", id=" + id
+                + "]";
     }
 }

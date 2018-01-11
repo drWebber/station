@@ -17,7 +17,7 @@ public class UserRetriever<T extends User> {
         HttpSession httpSession = request.getSession(false);
         try {
             T currentUser = null;
-            if(httpSession != null){
+            if(httpSession != null) {
                 currentUser = (T) httpSession.getAttribute("currentUser");
             }
             return currentUser;        

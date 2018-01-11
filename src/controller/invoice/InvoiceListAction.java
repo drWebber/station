@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.interfaces.payment.InvoiceService;
+import service.interfaces.payment.PaymentService;
 import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
 import domain.payment.Invoice;
+import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.ServiceException;
@@ -28,9 +30,10 @@ public class InvoiceListAction extends Action {
                     service.getInvoices(subscriber, false);
             request.setAttribute("unpaidInvoices", unpaidInvoices);
             
-            List<Invoice> paidInvoices =
-                    service.getInvoices(subscriber, true);
-            request.setAttribute("paidInvoices", paidInvoices);
+            PaymentService paymentService =
+                    getServiceFactory().getPaymentService();
+            List<Payment> payments = paymentService.getBySubscriber(subscriber);
+            request.setAttribute("payments", payments);
         } catch (RetrieveException | FactoryException | ServiceException e) {
             throw new ServletException(e);
         } 

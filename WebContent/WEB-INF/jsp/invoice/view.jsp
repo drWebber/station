@@ -106,7 +106,10 @@
     <em>* Начисления указаны в бел. рублях</em>
 </p>
 <div class="row text-right">
-    <a href="#" class="btn btn-info" role="button" 
+    <c:url var="urlPay" value="/payment/pay.html">
+        <c:param name="id" value="${invoice.id}" />
+    </c:url>
+    <a href="${urlPay}" class="btn btn-info" role="button" 
         title="Оплатить счет">Оплатить</a>
 </div>
 <br />

@@ -130,6 +130,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public PaymentService getPaymentService() throws FactoryException {
         PaymentServiceImpl service = new PaymentServiceImpl();
         service.setPaymentDao(new PaymentDaoImpl(getConnection()));
+        service.setInvoiceDao(new InvoiceDaoImpl(getConnection()));
         return service;
     }
 }

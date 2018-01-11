@@ -21,6 +21,7 @@ import controller.offer.OfferDeleteAction;
 import controller.offer.OfferEditAction;
 import controller.offer.OfferListAction;
 import controller.offer.OfferSaveAction;
+import controller.payment.PaymentPayAction;
 import controller.rate.RateEditAction;
 import controller.rate.RateListAction;
 import controller.rate.RateSaveAction;
@@ -68,6 +69,7 @@ public class ActionFactory {
         actions.put("/invoice/delete", InvoiceDeleteAction.class);
         actions.put("/invoice/list", InvoiceListAction.class);
         actions.put("/invoice/view", InvoiceViewAction.class);
+        actions.put("/payment/pay", PaymentPayAction.class);
     }
     
     public static Action getAction(String url) throws ServletException {

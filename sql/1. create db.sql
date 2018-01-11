@@ -156,8 +156,7 @@ DROP TABLE IF EXISTS `payments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `payments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `bankCode` varchar(45) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `invoiceID` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_payments_invoices` FOREIGN KEY (`invoiceID`) REFERENCES `invoices` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
