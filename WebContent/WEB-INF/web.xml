@@ -20,9 +20,17 @@
 		<servlet-name>ServletDispatcher</servlet-name>
 		<servlet-class>controller.ServletDispatcher</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>ServletDispatcher</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>controller.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
 </web-app>

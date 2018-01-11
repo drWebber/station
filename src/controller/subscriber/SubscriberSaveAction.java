@@ -1,6 +1,5 @@
 package controller.subscriber;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,10 +22,6 @@ public class SubscriberSaveAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        try {
-            //TODO: заменить энкодинг на фильтр
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e1) { }
         Subscriber subscriber = new Subscriber();
         try {
             Long id = Long.parseLong(request.getParameter("id"));

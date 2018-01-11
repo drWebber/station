@@ -1,6 +1,5 @@
 package controller.administrator;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
@@ -19,10 +18,6 @@ public class AdministratorSaveAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        try {
-            //TODO: заменить энкодинг на фильтр
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e1) { }
         Administrator administrator = new Administrator();
         try {
             Long id = Long.parseLong(request.getParameter("id"));
