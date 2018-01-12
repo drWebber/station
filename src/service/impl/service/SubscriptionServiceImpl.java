@@ -10,9 +10,12 @@ import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
+import service.impl.TransactionService;
 import service.interfaces.service.SubscriptionService;
 
-public class SubscriptionServiceImpl implements SubscriptionService {
+public class SubscriptionServiceImpl extends TransactionService
+        implements SubscriptionService {
     private SubscriptionDao subscriptionDao;
     private OfferDao OfferDao;
 
@@ -45,6 +48,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public List<Subscription> getSubscriptions(Subscriber subscriber, 
             boolean readArchieved) throws ServiceException {
         try {
+            getTransaction().start();
             List<Subscription> services = new ArrayList<>();
             services = subscriptionDao.readSubscriptions(subscriber, 
                     readArchieved);
@@ -53,8 +57,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                         OfferDao.read(service.getOffer().getId());
                 service.setOffer(providedSrv);
             }
+            getTransaction().commit();
             return services;
-        } catch(DaoException e) {
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }

@@ -7,9 +7,11 @@ import domain.service.Rate;
 import domain.service.RateType;
 import exception.DaoException;
 import exception.ServiceException;
+import service.impl.TransactionService;
 import service.interfaces.service.RateService;
 
-public class RateServiceImpl implements RateService {
+public class RateServiceImpl extends TransactionService
+        implements RateService {
     private RateDao rateDao;
 
     public RateDao getRateDao() {

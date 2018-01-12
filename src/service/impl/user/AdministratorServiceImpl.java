@@ -8,9 +8,12 @@ import domain.user.Administrator;
 import domain.user.User;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
+import service.impl.TransactionService;
 import service.interfaces.user.AdministratorService;
 
-public class AdministratorServiceImpl implements AdministratorService {
+public class AdministratorServiceImpl extends TransactionService
+        implements AdministratorService {
     private UserDao userDao;
     private AdministratorDao administratorDao;
     
@@ -39,6 +42,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Administrator getByLoginAndPassword(String login, String password) 
             throws ServiceException {
         try {
+            getTransaction().start();
             User user = userDao.readByLoginAndPassword(login, password);
             Administrator administrator = null;
             if (user != null) {
@@ -46,10 +50,13 @@ public class AdministratorServiceImpl implements AdministratorService {
                 if (administrator != null) {
                     administrator.setUser(user);
                 }
-            } else {
             }
+            getTransaction().commit();
             return administrator;
-        } catch(DaoException e) {
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -57,12 +64,17 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public List<Administrator> getAll() throws ServiceException {
         try {
+            getTransaction().start();
             List<Administrator> administrators = administratorDao.readAll();
             for (Administrator administrator : administrators) {
                 administrator.setUser(userDao.read(administrator.getId()));
             }
+            getTransaction().commit();
             return administrators;
-        } catch(DaoException e) {
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -70,6 +82,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void save(Administrator administrator) throws ServiceException {
         try {
+            getTransaction().start();
             if(administrator.getId() != null) {
                 userDao.update(administrator.getUser());
                 administratorDao.update(administrator);
@@ -78,7 +91,11 @@ public class AdministratorServiceImpl implements AdministratorService {
                 administrator.setId(id);
                 administratorDao.create(administrator);
             }
-        } catch(DaoException e) {
+            getTransaction().commit();
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -86,9 +103,14 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void delete(Long id) throws ServiceException {
         try {
+            getTransaction().start();
             administratorDao.delete(id);
             userDao.delete(id);
-        } catch(DaoException e) {
+            getTransaction().commit();
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }

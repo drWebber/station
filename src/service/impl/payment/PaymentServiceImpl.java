@@ -9,9 +9,12 @@ import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
+import service.impl.TransactionService;
 import service.interfaces.payment.PaymentService;
 
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl extends TransactionService
+        implements PaymentService {
     private PaymentDao paymentDao;
     private InvoiceDao invoiceDao;
 
@@ -67,13 +70,18 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> getBySubscriber(Subscriber subscriber)
             throws ServiceException {
         try {
+            getTransaction().start();
             List<Payment> payments = paymentDao.readBySubscriber(subscriber);
             for (Payment payment : payments) {
                 Invoice invoice = invoiceDao.read(payment.getInvoice().getId());
                 payment.setInvoice(invoice);
             }
+            getTransaction().commit();
             return payments;
-        } catch(DaoException e) {
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }

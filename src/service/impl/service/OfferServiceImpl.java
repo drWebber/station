@@ -6,9 +6,11 @@ import dao.interfaces.service.OfferDao;
 import domain.service.Offer;
 import exception.DaoException;
 import exception.ServiceException;
+import service.impl.TransactionService;
 import service.interfaces.service.OfferService;
 
-public class OfferServiceImpl implements OfferService {
+public class OfferServiceImpl extends TransactionService
+        implements OfferService {
     private OfferDao offerDao;
     
     public OfferDao getOfferDao() {

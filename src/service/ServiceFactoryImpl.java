@@ -24,6 +24,8 @@ import service.interfaces.user.AdministratorService;
 import service.interfaces.user.PrefixService;
 import service.interfaces.user.SubscriberService;
 import util.MysqlConnector;
+import util.transaction.Transaction;
+import util.transaction.TransactionImpl;
 import dao.mysql.payment.InvoiceDaoImpl;
 import dao.mysql.payment.PaymentDaoImpl;
 import dao.mysql.service.CallDaoImpl;
@@ -54,6 +56,11 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     @Override
+    public Transaction getTransaction() throws FactoryException {
+        return new TransactionImpl(getConnection());
+    }
+
+    @Override
     public void close() throws Exception {
         try {
             connection.close();
@@ -65,6 +72,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public AdministratorService getAdministratorService()
             throws FactoryException {
         AdministratorServiceImpl service = new AdministratorServiceImpl();
+        service.setTransaction(getTransaction());
         service.setAdministratorDao(new AdministratorDaoImpl(getConnection()));
         service.setUserDao(new UserDaoImpl(getConnection()));
         return service;
@@ -73,6 +81,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public SubscriberService getSubscriberService() throws FactoryException {
         SubscriberServiceImpl service = new SubscriberServiceImpl();
+        service.setTransaction(getTransaction());
         service.setUserDao(new UserDaoImpl(getConnection()));
         service.setSubscriberDao(new SubscriberDaoImpl(getConnection()));
         service.setAdministratorDao(new AdministratorDaoImpl(getConnection()));
@@ -82,6 +91,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public PrefixService getPrefixService() throws FactoryException {
         PrefixServiceImpl service = new PrefixServiceImpl();
+        service.setTransaction(getTransaction());
         service.setPrefixDao(new PrefixDaoImpl(getConnection()));
         return service;
     }
@@ -90,6 +100,8 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public OfferService getOfferService()
             throws FactoryException {
         OfferServiceImpl service = new OfferServiceImpl();
+        service.setTransaction(getTransaction());
+        service.setTransaction(getTransaction());
         service.setOfferDao(new OfferDaoImpl(getConnection()));
         return service;
     }
@@ -98,6 +110,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public SubscriptionService getSubscriptionService() 
             throws FactoryException {
         SubscriptionServiceImpl service = new SubscriptionServiceImpl();
+        service.setTransaction(getTransaction());
         service.setServicesDao(new SubscriptionDaoImpl(getConnection()));
         service.setOfferDao(new OfferDaoImpl(getConnection()));
         return service;
@@ -106,6 +119,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public RateService getRateService() throws FactoryException {
         RateServiceImpl service = new RateServiceImpl();
+        service.setTransaction(getTransaction());
         service.setRateDao(new RateDaoImpl(getConnection()));
         return service;
     }
@@ -113,6 +127,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public CallService getCallService() throws FactoryException {
         CallServiceImpl service = new CallServiceImpl();
+        service.setTransaction(getTransaction());
         service.setCallDao(new CallDaoImpl(getConnection()));
         return service;
     }
@@ -120,6 +135,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public InvoiceService getInvoiceService() throws FactoryException {
         InvoiceServiceImpl service = new InvoiceServiceImpl();
+        service.setTransaction(getTransaction());
         service.setInvoiceDao(new InvoiceDaoImpl(getConnection()));
         service.setCallsDetailsDao(new CallsDetailDaoImpl(getConnection()));
         service.setSubscriptionsDetailDao(
@@ -130,6 +146,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Override
     public PaymentService getPaymentService() throws FactoryException {
         PaymentServiceImpl service = new PaymentServiceImpl();
+        service.setTransaction(getTransaction());
         service.setPaymentDao(new PaymentDaoImpl(getConnection()));
         service.setInvoiceDao(new InvoiceDaoImpl(getConnection()));
         return service;

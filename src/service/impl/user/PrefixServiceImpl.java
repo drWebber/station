@@ -6,9 +6,11 @@ import dao.interfaces.user.PrefixDao;
 import domain.user.Prefix;
 import exception.DaoException;
 import exception.ServiceException;
+import service.impl.TransactionService;
 import service.interfaces.user.PrefixService;
 
-public class PrefixServiceImpl implements PrefixService {
+public class PrefixServiceImpl extends TransactionService
+        implements PrefixService {
     private PrefixDao prefixDao;
 
     public PrefixDao getPrefixDao() {

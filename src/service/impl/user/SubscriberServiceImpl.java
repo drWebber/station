@@ -10,9 +10,12 @@ import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
+import service.impl.TransactionService;
 import service.interfaces.user.SubscriberService;
 
-public class SubscriberServiceImpl implements SubscriberService {
+public class SubscriberServiceImpl extends TransactionService
+        implements SubscriberService {
     private UserDao userDao;
     private SubscriberDao subscriberDao;
     private AdministratorDao administratorDao;
@@ -36,6 +39,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public Subscriber getById(Long id) throws ServiceException {
         try {
+            getTransaction().start();
             Subscriber subscriber = subscriberDao.read(id);
             if (subscriber != null) {
                 subscriber.setUser(userDao.read(id));
@@ -44,8 +48,12 @@ public class SubscriberServiceImpl implements SubscriberService {
                 admin.setUser(userDao.read(adminId));
                 subscriber.setAdministrator(admin);
             }
+            getTransaction().commit();
             return subscriber;
-        } catch(DaoException e) {
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -54,6 +62,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     public Subscriber getByLoginAndPassword(String login, String password)
             throws ServiceException {
         try {
+            getTransaction().start();
             Subscriber subscriber = null;
             User user = userDao.readByLoginAndPassword(login, password);
             if (user != null) {
@@ -62,8 +71,12 @@ public class SubscriberServiceImpl implements SubscriberService {
                     subscriber.setUser(user);
                 }
             }
+            getTransaction().commit();
             return subscriber;
-        } catch (DaoException e) {
+        } catch (DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -71,12 +84,17 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public List<Subscriber> getAll() throws ServiceException {
         try {
+            getTransaction().start();
             List<Subscriber> subscribers = subscriberDao.readAll();
             for (Subscriber subscriber : subscribers) {
                 subscriber.setUser(userDao.read(subscriber.getId()));
             }
+            getTransaction().commit();
             return subscribers;
-        } catch (DaoException e) {
+        } catch (DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -84,6 +102,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public void save(Subscriber subscriber) throws ServiceException {
         try {
+            getTransaction().start();
             if(subscriber.getId() != null) {
                 userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);
@@ -92,7 +111,11 @@ public class SubscriberServiceImpl implements SubscriberService {
                 subscriber.setId(id);
                 subscriberDao.create(subscriber);
             }
-        } catch(DaoException e) {
+            getTransaction().commit();
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
@@ -100,9 +123,14 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public void delete(Long id) throws ServiceException {
         try {
+            getTransaction().start();
             subscriberDao.delete(id);
             userDao.delete(id);
-        } catch(DaoException e) {
+            getTransaction().commit();
+        } catch(DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }

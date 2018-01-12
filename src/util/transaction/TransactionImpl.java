@@ -1,0 +1,46 @@
+package util.transaction;
+
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import exception.TransactionException;
+
+public class TransactionImpl implements Transaction {
+    Connection connection;
+    
+    public TransactionImpl(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    @Override
+    public void start() throws TransactionException {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new TransactionException(e);
+        }
+    }
+
+    @Override
+    public void commit() throws TransactionException {
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw new TransactionException(e);
+        }
+    }
+
+    @Override
+    public void rollback() throws TransactionException {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new TransactionException(e);
+        }
+    }
+}

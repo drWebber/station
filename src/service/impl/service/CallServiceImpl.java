@@ -1,12 +1,14 @@
 package service.impl.service;
 
+import service.impl.TransactionService;
 import service.interfaces.service.CallService;
 import dao.interfaces.service.CallDao;
 import domain.service.Call;
 import exception.DaoException;
 import exception.ServiceException;
 
-public class CallServiceImpl implements CallService {
+public class CallServiceImpl extends TransactionService
+        implements CallService {
     private CallDao callDao;
 
     public CallDao getCallDao() {

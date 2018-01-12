@@ -11,9 +11,12 @@ import domain.service.SubscriptionsDetail;
 import domain.user.Subscriber;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
+import service.impl.TransactionService;
 import service.interfaces.payment.InvoiceService;
 
-public class InvoiceServiceImpl implements InvoiceService {
+public class InvoiceServiceImpl extends TransactionService
+        implements InvoiceService {
     private InvoiceDao invoiceDao;
     private CallsDetailDao callsDetailsDao;
     private SubscriptionsDetailDao subscriptionsDetailDao;
@@ -124,6 +127,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Invoice getWithDetails(Long id, Subscriber subscriber)
             throws ServiceException {
         try {
+            getTransaction().start();
             List<CallsDetail>callsDetail =
                     callsDetailsDao.getBySubscriber(subscriber);
             SubscriptionsDetail subscriptionsDetail =
@@ -131,8 +135,12 @@ public class InvoiceServiceImpl implements InvoiceService {
             Invoice invoice = invoiceDao.read(id);
             invoice.setCallsDetail(callsDetail);
             invoice.setSubscriptionsDetail(subscriptionsDetail);
+            getTransaction().commit();
             return invoice;
-        } catch (DaoException e) {
+        } catch (DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }
