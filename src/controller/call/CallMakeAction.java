@@ -29,34 +29,27 @@ public class CallMakeAction extends Action {
         Integer phoneNum = null;
         Long duration = null;
         try {
-            /* Текущий абонент, авторизованный в приложении, 
-             * принимающий|осуществляющий вызов 
-             */
+            /* current Subscriber */
             Subscriber subscriber = 
                     new UserRetriever<Subscriber>(request).getCurrentUser();
             
-            /* Префикс и тел. номер оппонента, принимающего или  
-             * осуществляющего вызов 
-             */
+             /* Opponent - opposite end wire subscriber */
             prefixId = Integer.parseInt(request.getParameter("prefix"));
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             Subscriber opponent = new Subscriber();
             opponent.getPrefix().setId(prefixId);
             
-            /* Направление звонка исходящий/входящий */
+            /* Call direction INCOMING|OUTGOING */
             CallDirection direction = 
                     CallDirection.valueOf(request.getParameter("direction"));
             
-            /* По префиксу и номеру получаем тип тарифа на звонки 
-             * RateType (Местные | Межгород | Мобильных операторов)
-             */
+            /* Call rate type determining */
             RateType rateType = 
                     new CallRateResolver(subscriber, opponent, direction)
                     .getResolvedRate();
             RateService rateService = getServiceFactory().getRateService();
             Rate rate = rateService.getCurrentByType(rateType);
             
-            /* Продолжительность звонка */
             duration = Long.parseLong(request.getParameter("duration"));
             
             Call call = new Call();

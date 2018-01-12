@@ -12,10 +12,6 @@ public interface PaymentService extends BaseService<Long, Payment> {
     List<Payment> getBySubscriber(Subscriber subscriber)
             throws ServiceException;
     
-    /* метод используется в целях тестирования работоспособности
-     * механизма выставления счетов абонентам (выставляются раз
-     * в месяц), исходный дао слой предполагает наличие только
-     * CR операций
-     */
+    /* Used only for testing. Not for real system */
     void deleteAll() throws ServiceException;
 }

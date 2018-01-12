@@ -20,9 +20,6 @@ public interface InvoiceService extends CompleteService<Long, Invoice> {
     Invoice getWithDetails(Long id, Subscriber subscriber)
         throws ServiceException;
     
-    /* метод используется в целях тестирования работоспособности
-     * механизма выставления счетов абонентам (выставляются раз
-     * в месяц)
-     */
+    /* Used only for testing. Not for real system */
     void deleteAll() throws ServiceException;
 }

@@ -17,9 +17,6 @@ public interface InvoiceDao extends CompleteDao<Long, Invoice> {
     List<Invoice> readInvoices(Subscriber subscriber, 
             boolean isPaid) throws DaoException;
 
-    /* метод используется в целях тестирования работоспособности
-     * механизма выставления счетов абонентам (выставляются раз
-     * в месяц)
-     */
+    /* Used only for testing. Not for real system */
     void deleteAll() throws DaoException;
 }

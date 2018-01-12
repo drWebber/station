@@ -42,6 +42,7 @@ public class CallsDetail {
     }
     
     public String getFormattedDuration() {
+        /* Custom method because HH can be >24, like 72:01:01 */
         int hr = duration/3600;
         int rem = duration%3600;
         int min = rem/60;
