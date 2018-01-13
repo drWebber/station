@@ -9,6 +9,22 @@ public class PasswordCryptographer {
     private String password;
     private String salt;
     private int length;
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public PasswordCryptographer(String salt, String password) {
         length = salt.length();

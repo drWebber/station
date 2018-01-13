@@ -14,7 +14,7 @@
                 <select class="form-control" id="sel1" name="prefix">
                     <c:forEach var="prefix" items="${prefixes}">
                         <option value="${prefix.id}">
-                            ${prefix.id} ${prefix.city}
+                            0${prefix.id} ${prefix.city}
                         </option>
                     </c:forEach>
                 </select>

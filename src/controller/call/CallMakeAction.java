@@ -33,7 +33,7 @@ public class CallMakeAction extends Action {
             Subscriber subscriber = 
                     new UserRetriever<Subscriber>(request).getCurrentUser();
             
-             /* Opponent - opposite end wire subscriber */
+             /* Opponent - opposite wire end subscriber */
             prefixId = Integer.parseInt(request.getParameter("prefix"));
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             Subscriber opponent = new Subscriber();

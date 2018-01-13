@@ -11,6 +11,14 @@ public class UserRetriever<T extends User> {
     public UserRetriever(HttpServletRequest request) {
         this.request = request;
     }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public HttpServletRequest getRequest() {
+        return request;
+    }
     
     @SuppressWarnings("unchecked")
     public T getCurrentUser() throws RetrieveException {

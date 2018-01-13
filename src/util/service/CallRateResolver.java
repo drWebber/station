@@ -45,7 +45,7 @@ public class CallRateResolver {
             return direction == CallDirection.INCOMING
                                 ? RateType.LOCAL_INCOMING
                                 : RateType.LOCAL_OUTGOING;
-        } else if (MobilePrefix.contains(opponent.getPrefix().getId())) {
+        } else if (MobilePrefix.valueOf(opponent.getPrefix().getId()) != null) {
             return direction == CallDirection.INCOMING
                                 ? RateType.MOBILE_INCOMING
                                 : RateType.MOBILE_OUTGOING;
