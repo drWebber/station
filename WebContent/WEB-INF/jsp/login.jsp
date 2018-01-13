@@ -23,12 +23,19 @@
         </div>
         <div class="row">
             <div class="login-input-wrapper">
-            	<c:if test="${not empty message}">
+            	<c:if test="${not empty param.message or not empty message}">
 					<div class="row login-error text-danger bg-danger">
 						<p>
 							<span class="glyphicon 
-								glyphicon-remove-circle"></span> 
-							<fmt:message key="login.authorizationFail"/>
+								glyphicon-remove-circle"></span>
+							<c:choose>
+								<c:when test="${not empty message}">
+									<fmt:message key="${message}" />
+								</c:when>
+								<c:otherwise>
+									<fmt:message key="${param.message}" />
+								</c:otherwise>
+							</c:choose>
 						</p>
 					</div>
 				</c:if>
@@ -55,12 +62,14 @@
                         	<fmt:message key="login.desiredRole"/>
                         </label>
                         <select class="form-control" id="sel" name="role">
-                            <option value="SUBSCRIBER">
-                            	<fmt:message key="login.subscriber"/>
-                            </option>
-                            <option value="ADMINISTRATOR">
-                            	<fmt:message key="login.administrator"/>
-                            </option>
+                        	<c:forEach var="role" items="${roles}">
+                        		<c:if test="${role == SUBSCRIBER}">
+                        			<c:set var="selected" value="selected" />
+                        		</c:if>
+	                            <option value="${role}" ${selected}>
+	                            	<fmt:message key="${role}"/>
+	                            </option>
+							</c:forEach>
                         </select>
                     </div>
                     <div class="form-group text-right">

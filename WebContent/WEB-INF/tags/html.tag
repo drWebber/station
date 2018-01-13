@@ -124,10 +124,10 @@
 				    </c:when>
 					<c:otherwise>
 						<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
-						<li><a href="${urlCallDial}">Совершить звонок</a></li>
 		                <li>
 		                	<a href="${urlInvoicesList}">Мои счета и оплаты</a>
 		                </li>
+						<li><a href="${urlCallDial}">Совершить звонок</a></li>
 					</c:otherwise>
 				</c:choose>
             </ul>
