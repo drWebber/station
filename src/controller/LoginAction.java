@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +59,12 @@ public class LoginAction extends Action {
                 }
             }
         }
+
+        Set<Role> roles = new HashSet<>();
+        roles.addAll(Arrays.asList(Role.values()));
+        roles.remove(Role.GUEST);
+        request.setAttribute("roles", roles);
+        
         return null;
     }
     
@@ -66,7 +76,7 @@ public class LoginAction extends Action {
             HttpSession session = request.getSession();
             session.setAttribute("currentUser", currentUser);
         } else {
-            request.setAttribute("message", "Authorization fail");
+            request.setAttribute("message", "login.authorizationFail");
         }
         return result;
     }
