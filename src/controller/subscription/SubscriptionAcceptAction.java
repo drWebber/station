@@ -4,6 +4,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.service.SubscriptionService;
 import util.user.RetrieveException;
 import util.user.UserRetriever;
@@ -15,6 +18,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class SubscriptionAcceptAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(SubscriptionAcceptAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -22,15 +28,16 @@ public class SubscriptionAcceptAction extends Action {
         try {
             offerId = Integer.parseInt(request.getParameter("offerId"));
         } catch (NumberFormatException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         
-        //TODO: проверить извлечение из сессии
         Subscriber subscriber = null;
         try {
             subscriber = 
                     new UserRetriever<Subscriber>(request).getCurrentUser();
         } catch (RetrieveException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         
@@ -42,6 +49,7 @@ public class SubscriptionAcceptAction extends Action {
                     getServiceFactory().getSubscriptionService();
             subscriptionService.save(subscription);
         } catch (FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         return new Forwarder("/subscription/list.html");

@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.ServiceFactory;
 import service.ServiceFactoryImpl;
 
 public class ServletDispatcher extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+    private static Logger logger = 
+            LogManager.getLogger(ServletDispatcher.class.getName());
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -55,11 +60,14 @@ public class ServletDispatcher extends HttpServlet {
                     .forward(req, resp);
                 }
             } catch(Exception e) {
+                logger.error(e);
                 getServletContext()
                     .getRequestDispatcher("/WEB-INF/jsp/error.jsp")
                     .forward(req, resp);
             }
         } else {
+            logger.warn("Action for requestURI '" + req.getRequestURI() + 
+                    "' not found.");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/404.jsp")
                 .forward(req, resp);
             

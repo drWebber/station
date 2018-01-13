@@ -5,6 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import controller.administrator.AdministratorDeleteAction;
 import controller.administrator.AdministratorEditAction;
 import controller.administrator.AdministratorListAction;
@@ -38,6 +41,8 @@ import controller.subscription.SubscriptionRejectAction;
 public class ActionFactory {
     private static Map<String, Class<? extends Action>> 
             actions = new ConcurrentHashMap<>();
+    private static Logger logger = 
+            LogManager.getLogger(ActionFactory.class.getName());
     
     static {
         actions.put("/", IndexViewAction.class);
@@ -79,8 +84,10 @@ public class ActionFactory {
         try {
             return (Action) action.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
+            logger.error(e);
             throw new ServletException(e);
         } catch (NullPointerException e) {
+            logger.warn("Action for url '" + url + "' not found " + e);
             return null;
         }
     }

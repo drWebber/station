@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
@@ -19,6 +22,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class SubscriberSaveAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(SubscriberSaveAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -34,6 +40,7 @@ public class SubscriberSaveAction extends Action {
             try {
                 subscriber.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
+                logger.error(e);
                 throw new ServletException(e);
             }
         }
@@ -51,6 +58,7 @@ public class SubscriberSaveAction extends Action {
             date = format.parse(request.getParameter("birthday"));
             subscriber.setBirthDay(new java.sql.Date(date.getTime()));
         } catch (ParseException e) {
+            logger.warn(e);
             throw new ServletException(e);
         }
         Long adminId = null;
@@ -61,6 +69,7 @@ public class SubscriberSaveAction extends Action {
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             prefixId = Integer.parseInt(request.getParameter("prefix"));
         } catch(NumberFormatException e) {
+            logger.warn(e);
             throw new ServletException(e); 
         }
         
@@ -76,6 +85,7 @@ public class SubscriberSaveAction extends Action {
             SubscriberService service = getServiceFactory().getSubscriberService();
             service.save(subscriber);
         } catch (FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         

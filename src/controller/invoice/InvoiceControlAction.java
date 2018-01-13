@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.payment.InvoiceService;
 import service.interfaces.user.SubscriberService;
 import controller.Action;
@@ -16,6 +19,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class InvoiceControlAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(InvoiceControlAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -35,6 +41,7 @@ public class InvoiceControlAction extends Action {
             }
             request.setAttribute("unpaid", unpaid);
         } catch (FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         return null;

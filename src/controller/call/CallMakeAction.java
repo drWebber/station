@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.service.CallService;
 import service.interfaces.service.RateService;
 import util.service.CallDirection;
@@ -22,6 +25,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class CallMakeAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(CallMakeAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -63,8 +69,9 @@ public class CallMakeAction extends Action {
             
             CallService callService = getServiceFactory().getCallService();
             callService.save(call);
-        } catch (RetrieveException | NumberFormatException | 
-                FactoryException | ServiceException | NullPointerException e) {
+        } catch (NumberFormatException | RetrieveException | FactoryException 
+                | ServiceException | NullPointerException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         return new Forwarder("/call/dial.html");

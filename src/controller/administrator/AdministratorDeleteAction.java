@@ -4,13 +4,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import service.interfaces.user.AdministratorService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.AdministratorService;
 
 public class AdministratorDeleteAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(AdministratorDeleteAction.class.getName());
 
     @Override
     public Forwarder execute(HttpServletRequest request,
@@ -26,6 +31,7 @@ public class AdministratorDeleteAction extends Action {
                         getServiceFactory().getAdministratorService();
                 service.delete(id);
             } catch (FactoryException | ServiceException e) {
+                logger.error(e);
                 throw new ServletException(e);
             }
         }

@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.user.AdministratorService;
 import controller.Action;
 import controller.Forwarder;
@@ -15,6 +18,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class AdministratorSaveAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(AdministratorSaveAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -31,6 +37,7 @@ public class AdministratorSaveAction extends Action {
             try {
                 administrator.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
+                logger.error(e);
                 throw new ServletException(e);
             }
         }
@@ -41,9 +48,11 @@ public class AdministratorSaveAction extends Action {
         administrator.getUser().setActive(
                 Boolean.parseBoolean(request.getParameter("isActive")));
         try {
-            Integer personalId = Integer.parseInt(request.getParameter("personalId"));
+            Integer personalId = Integer.parseInt(
+                    request.getParameter("personalId"));
             administrator.setPersonalId(personalId);
         } catch (NumberFormatException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         
@@ -54,6 +63,7 @@ public class AdministratorSaveAction extends Action {
                     getServiceFactory().getAdministratorService();
             service.save(administrator);
         } catch (FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         

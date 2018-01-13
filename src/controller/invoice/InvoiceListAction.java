@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.payment.InvoiceService;
 import service.interfaces.payment.PaymentService;
 import util.user.RetrieveException;
@@ -19,6 +22,9 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class InvoiceListAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(InvoiceListAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -35,6 +41,7 @@ public class InvoiceListAction extends Action {
             List<Payment> payments = paymentService.getBySubscriber(subscriber);
             request.setAttribute("payments", payments);
         } catch (RetrieveException | FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         } 
         return null;

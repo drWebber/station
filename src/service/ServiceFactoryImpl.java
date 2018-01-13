@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.impl.payment.InvoiceServiceImpl;
 import service.impl.payment.PaymentServiceImpl;
 import service.impl.service.CallServiceImpl;
@@ -26,6 +29,7 @@ import service.interfaces.user.SubscriberService;
 import util.MysqlConnector;
 import util.transaction.Transaction;
 import util.transaction.TransactionImpl;
+import controller.ServletDispatcher;
 import dao.mysql.payment.InvoiceDaoImpl;
 import dao.mysql.payment.PaymentDaoImpl;
 import dao.mysql.service.CallDaoImpl;
@@ -41,6 +45,8 @@ import dao.mysql.user.UserDaoImpl;
 import exception.FactoryException;
 
 public class ServiceFactoryImpl implements ServiceFactory {
+    private static Logger logger = 
+            LogManager.getLogger(ServletDispatcher.class.getName());
     private Connection connection = null;
     
     @Override
@@ -49,6 +55,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
             try {
                 connection = MysqlConnector.getConnection();
             } catch (NamingException | SQLException e) {
+                logger.error(e);
                 throw new FactoryException(e);
             }
         }

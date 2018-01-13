@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import service.interfaces.user.AdministratorService;
 import service.interfaces.user.SubscriberService;
 import domain.user.Administrator;
@@ -14,6 +17,8 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class LoginAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(LoginAction.class.getName());
 
     @Override
     public Forwarder execute(HttpServletRequest request,
@@ -32,6 +37,7 @@ public class LoginAction extends Action {
                         return new Forwarder("/subscriber/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
+                    logger.error(e);
                     throw new ServletException(e);
                 }
             } else if(role.equals(Role.SUBSCRIBER.toString())) {
@@ -44,6 +50,7 @@ public class LoginAction extends Action {
                         return new Forwarder("/subscription/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
+                    logger.error(e);
                     throw new ServletException(e);
                 }
             }
@@ -59,7 +66,7 @@ public class LoginAction extends Action {
             HttpSession session = request.getSession();
             session.setAttribute("currentUser", currentUser);
         } else {
-            request.setAttribute("message", "Авторизоваться не удалось");
+            request.setAttribute("message", "Authorization fail");
         }
         return result;
     }

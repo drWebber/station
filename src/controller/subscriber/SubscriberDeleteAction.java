@@ -4,14 +4,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.SubscriberService;
 
 public class SubscriberDeleteAction extends Action {
-
+    private static Logger logger = 
+            LogManager.getLogger(SubscriberDeleteAction.class.getName());
+    
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -21,14 +26,8 @@ public class SubscriberDeleteAction extends Action {
             SubscriberService service =
                     getServiceFactory().getSubscriberService();
             service.delete(id);
-        } catch(NumberFormatException e) {
-            //TODO: log4j неверный формат
-            throw new ServletException(e);
-        } catch (FactoryException e) {
-            //TODO: log4j ошибка фабрики
-            throw new ServletException(e);
-        } catch (ServiceException e) {
-            //TODO: log4j ошибка сервиса
+        } catch(NumberFormatException | FactoryException | ServiceException e) {
+            logger.error(e);
             throw new ServletException(e);
         }
         return new Forwarder("/subscriber/list.html");

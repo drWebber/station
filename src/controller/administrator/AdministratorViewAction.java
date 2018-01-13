@@ -4,14 +4,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import service.interfaces.user.AdministratorService;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
 import exception.FactoryException;
 import exception.ServiceException;
-import service.interfaces.user.AdministratorService;
 
 public class AdministratorViewAction extends Action {
+    private static Logger logger = 
+            LogManager.getLogger(AdministratorViewAction.class.getName());
 
     @Override
     public Forwarder execute(HttpServletRequest request,
@@ -19,7 +24,9 @@ public class AdministratorViewAction extends Action {
         Long id = null;
         try {
             id = Long.parseLong(request.getParameter("id"));
-        } catch (NumberFormatException e) { }
+        } catch (NumberFormatException e) {
+            logger.warn(e);
+        }
         if (id != null) {
             try {
                 AdministratorService service = 
@@ -27,6 +34,7 @@ public class AdministratorViewAction extends Action {
                 Administrator administrator = service.getById(id);
                 request.setAttribute("administrator", administrator);
             } catch (FactoryException | ServiceException e) {
+                logger.error(e);
                 throw new ServletException(e);
             }
         }
