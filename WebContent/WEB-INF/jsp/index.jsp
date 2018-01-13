@@ -19,7 +19,7 @@
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
 <c:url var="urlOfferList" value="/offer/list.html" />
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
-<c:url var="urlCallingRateList" value="/rate/list.html" />
+<c:url var="urlRateList" value="/rate/list.html" />
 <c:url var="urlCallDial" value="/call/dial.html" />
 <c:url var="urlInvoice" value="/invoice/control.html" />
 <c:url var="urlInvoicesList" value="/invoice/list.html" />
@@ -29,7 +29,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Телефонная станция 51 | Национальный оператор электросвязи</title>
+<fmt:message var="title" key="index.title"/>
+<title>${title}</title>
 <link rel="stylesheet" href="${bsCssUrl}">
 <link rel="stylesheet" href="${stylesheetCssUrl}">
 <script src="${urlJqueryJs}"></script>
@@ -56,26 +57,41 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
 	               <ul class="nav navbar-nav">
-	                   <li class="active"><a href="${urlHome}">Главная</a></li>
-	                   <li><a href="#">Услуги</a></li>
+	                   <li class="active"><a href="${urlHome}">
+	                       <fmt:message key="index.home"/>
+	                   </a></li>
+	                   <li><a href="${urlOfferList}">
+					   		<fmt:message key="index.offers"/>
+					   </a></li>
+	                   <li><a href="${urlRateList}">
+					   		<fmt:message key="index.rates"/>
+					   </a></li>
 	               </ul>
 	               <c:choose>
 	                   <c:when test="${empty currentUser}">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
         	                       <a href="${urlLogin}">
-        	                           <span class="glyphicon glyphicon-log-in"></span> Вход
+        	                           <span class="glyphicon 
+        	                               glyphicon-log-in"></span>
+        	                           <fmt:message key="index.logIn"/>
         	                       </a>
                                 </li>
                             </ul>
 	                   </c:when>
 	                   <c:otherwise>
 	                       <div class="nav navbar-nav navbar-right">
-	                           <span class="login-lable">Вы вошли как: </span>
-	                           <button class="navbar-inverse dropdown-toggle login-navlink" type="button" data-toggle="dropdown">${currentUser.login}
+	                           <span class="login-lable">
+							   		<fmt:message key="index.loginInfo"/>
+							   </span>
+	                           <button class="navbar-inverse dropdown-toggle 
+	                               login-navlink" type="button" 
+	                               data-toggle="dropdown">${currentUser.login}
 	                           <span class="caret"></span></button>
 	                           <ul class="dropdown-menu">
-	                               <li><a href="${urlLogout}">Выход</a></li>
+	                               <li><a href="${urlLogout}">
+								   		<fmt:message key="index.logOut"/>
+								   </a></li>
 	                           </ul>
 	                       </div>
                        </c:otherwise>
@@ -89,44 +105,48 @@
             <article>
                     <div class="jumbotron text-center">
                         <h1>Station 51</h1> 
-                        <p>Национальный оператор электросвязи</p> 
+                        <p><fmt:message key="index.description"/></p> 
                     </div>
                     <div class="container-fluid text-center">
-                      <h2>УСЛУГИ</h2>
+                      <h2 class="text-uppercase">
+                      		<fmt:message key="index.offers"/>
+                      </h2>
                       <br>
                       <div class="row">
                         <div class="col-sm-4">
-                            <span class="glyphicon glyphicon-phone-alt lead"></span>
-                            <h4>Телефония</h4>
-                            <p>Услуги телефонной связи</p>
+                            <span class="glyphicon 
+                            	glyphicon-phone-alt lead"></span>
+                            <h4><fmt:message key="index.telephony"/></h4>
+                            <p><fmt:message key="index.telephonyDesc"/></p>
                         </div>
                         <div class="col-sm-4">
                             <span class="glyphicon glyphicon-home lead"></span>
-                            <h4>Для дома</h4>
-                            <p>Работа с физическими лицами</p>
+                            <h4><fmt:message key="index.forHome"/></h4>
+                            <p><fmt:message key="index.forHomeDesc"/></p>
                         </div>
                         <div class="col-sm-4">
                             <span class="glyphicon glyphicon-lock lead"></span>
-                            <h4>Для бизнеса</h4>
-                            <p>Работа с юридическими лицами</p>
+                            <h4><fmt:message key="index.forBusiness"/></h4>
+                            <p><fmt:message key="index.forBusinessDesc"/></p>
                         </div>
                         </div>
                         <br><br>
                       <div class="row">
                         <div class="col-sm-4">
                             <span class="glyphicon glyphicon-leaf lead"></span>
-                            <h4>Техническая поддержка</h4>
-                            <p>Техническая поддержка 24/7</p>
+                            <h4><fmt:message key="index.techSupport"/></h4>
+                            <p><fmt:message key="index.techSupportDesc"/></p>
                         </div>
                         <div class="col-sm-4">
-                            <span class="glyphicon glyphicon-certificate lead"></span>
-                            <h4>Гарантия</h4>
-                            <p>Гарантия качества обслуживания</p>
+                            <span class="glyphicon 
+                            	glyphicon-certificate lead"></span>
+                            <h4><fmt:message key="index.guarantee"/></h4>
+                            <p><fmt:message key="index.guaranteeDesc"/></p>
                         </div>
                         <div class="col-sm-4">
                             <span class="glyphicon glyphicon-ruble lead"></span>
-                            <h4>Оплата услуг</h4>
-                            <p>Оплата услуг онлайн</p>
+                            <h4><fmt:message key="index.payment"/></h4>
+                            <p><fmt:message key="index.paymentDesc"/></p>
                         </div>
                       </div>
                     </div>

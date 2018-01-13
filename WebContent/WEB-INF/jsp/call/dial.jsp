@@ -45,7 +45,8 @@
                 <span>1 мин</span>
             </label>
             <label class="radio-inline">
-               <input type="radio" name="duration" value="180" checked="checked">
+               <input type="radio" name="duration" value="180"
+					checked="checked">
                <span>3 мин</span>
             </label>
             <label class="radio-inline">

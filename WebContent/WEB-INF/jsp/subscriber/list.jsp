@@ -40,6 +40,7 @@
     </tbody>
 </table>
 <form action="${urlEdit}">
-    <button type="submit" class="btn btn-info" title="Создать абонента">Создать абонента</button>
+    <button type="submit" class="btn btn-info" 
+    	title="Создать абонента">Создать абонента</button>
 </form>
 </u:html>

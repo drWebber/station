@@ -5,13 +5,18 @@
 	id="WebApp_ID" version="3.0">
 	<display-name>Station</display-name>
 
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>messages</param-value>
+    </context-param>
+
 	<resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/station</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-
+    
 	<servlet>
 		<servlet-name>ServletDispatcher</servlet-name>
 		<servlet-class>controller.ServletDispatcher</servlet-class>

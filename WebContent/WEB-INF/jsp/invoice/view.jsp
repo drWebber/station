@@ -6,7 +6,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url var="urlPay" value="/payment/pay.html" />
-<c:set var="pageHeading" value="Счет-акт оказанных услуг СчР-${invoice.id}" />
+<fmt:message var="heading" key="invoice.view.heading"/>
+<c:set var="pageHeading" value="${heading}-${invoice.id}" />
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="current_month" value="${now}" pattern="MM.YYYY" />
 <fmt:formatDate var="invoicingDate" value="${invoice.invoicingDate}" 
@@ -17,18 +18,18 @@
     <table class="table table-condensed">
         <tbody>
             <tr>
-                <td>За расчетный период</td>
+                <td><fmt:message key="invoice.view.period"/></td>
                 <td>01.${current_month}-${invoicingDate}</td>
             </tr>
             <tr>
-                <td>Плательщик:</td>
+                <td><fmt:message key="invoice.view.payer"/>:</td>
                 <td>${currentUser.surname}
                     ${currentUser.name}
                     ${currentUser.patronymic}
                 </td>
             </tr>
             <tr>
-                <td>Адрес:</td>
+                <td><fmt:message key="invoice.view.address"/>:</td>
                 <td>${currentUser.address}</td>
             </tr>
         </tbody>
@@ -38,14 +39,14 @@
     <table class="table table-condensed table-striped">
         <thead>
             <tr>
-                <th>Начисления</th>
+                <th><fmt:message key="invoice.view.charges"/></th>
                 <th></th>
-                <th>Всего</th>
+                <th><fmt:message key="invoice.view.total"/></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Абонентская плата</td>
+                <td><fmt:message key="invoice.view.subscriptionFee"/></td>
                 <td></td>
                 <td>
                     <fmt:formatNumber 
@@ -54,12 +55,13 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="4"><i>Телефонные
-                        соединения</i></td>
+                <td colspan="4"><i>
+                	<fmt:message key="invoice.view.phoneCalls"/>
+                </i></td>
             </tr>
 			<c:forEach var="details" items="${invoice.callsDetail}">
 	            <tr>
-	                <td>${details.rateType}</td>
+	                <td><fmt:message key="${details.rateType}"/></td>
 	                <td>${details.formattedDuration}</td>
 	                <td>
 	                	<fmt:formatNumber 
@@ -69,10 +71,14 @@
 	            </tr>
 			</c:forEach>
             <tr>
-                <td colspan="4"><i>Дополнительные услуги</i></td>
+                <td colspan="4"><i>
+                	<fmt:message key="invoice.view.additionalServices"/>
+                </i></td>
             </tr>
             <tr>
-                <td>Ежемесячный платеж</td>
+                <td>
+                	<fmt:message key="invoice.view.monthlyPayment"/>
+                </td>
                 <td></td>
                 <td>
                     <fmt:formatNumber 
@@ -81,7 +87,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Стоимость подключения</td>
+                <td><fmt:message key="invoice.view.subscriptionCost"/></td>
                 <td></td>
                 <td>
                     <fmt:formatNumber 
@@ -90,7 +96,9 @@
                 </td>
             </tr>
             <tr>
-                <td><strong>Итого начислений:</strong></td>
+                <td><strong>
+                	<fmt:message key="invoice.view.amount"/>
+                </strong></td>
                 <td></td>
                 <td>
                     <strong><fmt:formatNumber value="${invoice.amount} " 
@@ -103,14 +111,15 @@
     </table>
 </div>
 <p class="small">
-    <em>* Начисления указаны в бел. рублях</em>
+    <em>* <fmt:message key="invoice.view.note"/></em>
 </p>
 <div class="row text-right">
     <c:url var="urlPay" value="/payment/pay.html">
         <c:param name="id" value="${invoice.id}" />
     </c:url>
+    <fmt:message var="billPayment" key="invoice.view.billPayment"/>
     <a href="${urlPay}" class="btn btn-info" role="button" 
-        title="Оплатить счет">Оплатить</a>
+        title="${billPayment}"><fmt:message key="invoice.view.pay"/></a>
 </div>
 <br />
 </u:html>

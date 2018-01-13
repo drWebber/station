@@ -21,10 +21,19 @@
 <c:url var="urlAdministratorList" value="/administrator/list.html" />
 <c:url var="urlOfferList" value="/offer/list.html" />
 <c:url var="urlSubscriptionList" value="/subscription/list.html" />
-<c:url var="urlCallingRateList" value="/rate/list.html" />
+<c:url var="urlRateList" value="/rate/list.html" />
 <c:url var="urlCallDial" value="/call/dial.html" />
 <c:url var="urlInvoice" value="/invoice/control.html" />
 <c:url var="urlInvoicesList" value="/invoice/list.html" />
+
+<c:choose>
+	<c:when test="${currentUser.role == 'SUBSCRIBER'}">
+		<c:set var="isUser" value="true" />
+	</c:when>
+	<c:when test="${currentUser.role == 'ADMINISTRATOR'}">
+		<c:set var="isAdmin" value="true" />
+	</c:when>
+</c:choose>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -59,14 +68,16 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
 	               <ul class="nav navbar-nav">
 	                   <li class="active"><a href="${urlHome}">Главная</a></li>
-	                   <li><a href="#">Услуги</a></li>
+	                   <li><a href="${urlOfferList}">Услуги</a></li>
+	                   <li><a href="${urlRateList}">Тарифные планы</a></li>
 	               </ul>
 	               <c:choose>
 	                   <c:when test="${empty currentUser}">
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
         	                       <a href="${urlLogin}">
-        	                           <span class="glyphicon glyphicon-log-in"></span> Вход
+        	                           <span class="glyphicon 
+        	                               glyphicon-log-in"></span> Вход
         	                       </a>
                                 </li>
                             </ul>
@@ -74,7 +85,9 @@
 	                   <c:otherwise>
 	                       <div class="nav navbar-nav navbar-right">
 	                           <span class="login-lable">Вы вошли как: </span>
-	                           <button class="navbar-inverse dropdown-toggle login-navlink" type="button" data-toggle="dropdown">${currentUser.login}
+	                           <button class="navbar-inverse dropdown-toggle 
+	                           		login-navlink" type="button" 
+	                           		data-toggle="dropdown">${currentUser.login}
 	                           <span class="caret"></span></button>
 	                           <ul class="dropdown-menu">
 	                               <li><a href="${urlLogout}">Выход</a></li>
@@ -97,15 +110,26 @@
             <h4>Главное меню</h4>
             <ul>
                 <li><a href="${urlHome}">Главная</a></li>
-                <li><a href="${urlSubscriberList}">Абоненты</a></li>
-                <li><a href="${urlAdministratorList}">Администраторы</a></li>
-                <li><a href="${urlOfferList}">Предоставляемые
-                        услуги</a></li>
-                <li><a href="${urlCallingRateList}">Тарифные планы</a></li>
-				<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
-				<li><a href="${urlCallDial}">Совершить звонок</a></li>
-                <li><a href="${urlInvoice}">Счета и оплаты</a></li>
-                <li><a href="${urlInvoicesList}">Мои счета и оплаты</a></li>
+                <c:choose>
+                	<c:when test="${empty currentUser}">
+						<li><a href="${urlOfferList}">Услуги</a></li>
+						<li><a href="${urlRateList}">Тарифные планы</a></li>
+				    </c:when>
+                	<c:when test="${isAdmin}">
+		                <li><a href="${urlSubscriberList}">Абоненты</a></li>
+		                <li>
+		                	<a href="${urlAdministratorList}">Администраторы</a>
+		                </li>
+		                <li><a href="${urlInvoice}">Счета и оплаты</a></li>
+				    </c:when>
+					<c:otherwise>
+						<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
+						<li><a href="${urlCallDial}">Совершить звонок</a></li>
+		                <li>
+		                	<a href="${urlInvoicesList}">Мои счета и оплаты</a>
+		                </li>
+					</c:otherwise>
+				</c:choose>
             </ul>
         </aside>
     </section>

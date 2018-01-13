@@ -30,7 +30,8 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon">Описание</span>
-            <textarea class="form-control" rows="5" name="description">${offer.description}</textarea>
+            <textarea class="form-control" rows="5" 
+            	name="description">${offer.description}</textarea>
         </div>
         <div class="input-group">
             <span class="input-group-addon">

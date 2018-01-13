@@ -13,7 +13,9 @@
     <tbody>
         <tr>
             <td>ФИО</td>
-            <td>${administrator.surname} ${administrator.name} ${administrator.patronymic}</td>
+            <td>${administrator.surname} ${administrator.name} 
+            	${administrator.patronymic}
+            </td>
         </tr>
         <tr>
             <td>Должность</td>

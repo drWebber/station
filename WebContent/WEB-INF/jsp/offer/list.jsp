@@ -17,7 +17,8 @@
 <c:if test="${isAdmin}">
 	<c:url var="offerEditUrl" value="/offer/edit.html" />
 	<form action="${offerEditUrl}">
-	    <button type="submit" class="btn btn-info" title="Создать услугу">Создать услугу</button>
+	    <button type="submit" class="btn btn-info" 
+	    	title="Создать услугу">Создать услугу</button>
 	</form>
 </c:if>
 <h3>Дополнительные услуги</h3>
@@ -61,8 +62,8 @@
 	                    <c:param name="offerId" value="${offer.id}" />
 	                </c:url>
 	                <form action="${subscribeUrl}" method="post">
-	                    <button type="submit" class="btn btn-success" title="Подключить услугу">
-	                    	Подключить
+	                    <button type="submit" class="btn btn-success" 
+	                    	title="Подключить услугу"> Подключить
 	                    </button>
 	                </form>
                 </c:if>

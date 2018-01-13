@@ -4,8 +4,9 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<u:html title="Запрашиваемая страница не найдена" 
-    pageHeading="404 Страница не найдена">
-    <p>Неправильно набран URL-адрес, 
-        либо такой страницы больше не существует.</p>
+<fmt:message var="title" key="404.message"/>
+<fmt:message var="heading" key="404.heading"/>
+<u:html title="${title}" 
+    pageHeading="${heading}">
+    <p><fmt:message key="404.message"/></p>
 </u:html>

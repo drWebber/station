@@ -33,8 +33,9 @@
                 <td><c:url var="urlAdminEdit"
                         value="/administrator/edit.html">
                         <c:param name="id" value="${administrator.id}" />
-                    </c:url> <a href="${urlAdminEdit}" title="Редактировать профиль администратора"> <span
-                        class="glyphicon glyphicon-edit"></span>
+                    </c:url> <a href="${urlAdminEdit}" 
+                    	title="Редактировать профиль администратора">
+                    	<span class="glyphicon glyphicon-edit"></span>
                 </a></td>
             </tr>
         </c:forEach>
@@ -42,7 +43,7 @@
 </table>
 <form
     action="${urlCreate}">
-    <button type="submit" class="btn btn-info" title="Создать администратора">Создать
-        администратора</button>
+    <button type="submit" class="btn btn-info" title="Создать администратора">
+    	Создать администратора</button>
 </form>
 </u:html>

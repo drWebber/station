@@ -4,7 +4,7 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<u:html title="Что-то пошло не так..." pageHeading="Что-то пошло не так...">
-    <p>Страница не может быть отображена, т.к. что-то пошло не так.</p>
-    <p>The page cannot be displayed because something went wrong.</p>
+<fmt:message var="error" key="error.title"/>
+<u:html title="${error}" pageHeading="${error}">
+    <p><fmt:message key="error.message"/></p>
 </u:html>

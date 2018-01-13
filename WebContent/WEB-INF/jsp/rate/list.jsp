@@ -9,15 +9,17 @@
     <c:if test="${currentUser.role == 'ADMINISTRATOR'}">
         <c:set var="isAdmin" value="true" />
     </c:if>
-</c:if> 
-<u:html title="Список тарифных планов на телефонные звонки"
-    pageHeading="Тарифные планы на телефонные звонки">
+</c:if>
+<fmt:message var="title" key="rate.list.title"/>
+<fmt:message var="heading" key="rate.list.heading"/>
+<u:html title="${title}"
+    pageHeading="${heading}">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th>Наименование</th>
-                <th>Дата начала действия</th>
-                <th>Тариф, руб/мин</th>
+                <th><fmt:message key="rate.list.name"/></th>
+                <th><fmt:message key="rate.list.since"/></th>
+                <th><fmt:message key="rate.list.tariff"/></th>
                 <c:if test="${isAdmin}">
                     <th></th>
                 </c:if>
@@ -26,7 +28,7 @@
         <tbody>
             <c:forEach var="rate" items="${rates}">
                 <tr>
-                    <td>${rate.type}</td>
+                    <td><fmt:message key="${rate.type}"/></td>
                     <c:set var="introdutionDate" 
                         value="${rate.introdutionDate}"/>
                     <fmt:parseDate var="dateTime" value="${introdutionDate}"
@@ -39,8 +41,9 @@
                                 value="/rate/edit.html">
                                 <c:param name="id" value="${rate.id}" />
                             </c:url>
+                            <fmt:message var="edit" key="rate.list.edit"/>
                             <a href="${urlEdit}"
-                                title="Редактировать тарифный план">
+                                title="${edit}">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
         	           </td>
