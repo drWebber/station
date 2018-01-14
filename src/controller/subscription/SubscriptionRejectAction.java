@@ -52,6 +52,10 @@ public class SubscriptionRejectAction extends Action {
                 throw new ServletException(e);
             }
         }
-        return new Forwarder("/subscription/list.html");
+
+        Forwarder forwarder = new Forwarder("/subscription/list.html");
+        forwarder.getAttributes().put("message", "You have been successfully "
+                + "unsubscribed");
+        return forwarder;
     }
 }

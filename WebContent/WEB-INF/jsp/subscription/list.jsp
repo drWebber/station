@@ -5,6 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <u:html title="Перечень подключенных услуг" pageHeading="Мои услуги">
+<c:if test="${not empty param.message}">
+	<div class="alert alert-success fade in row">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Success!</strong> ${param.message}.
+	</div>
+</c:if>
 <h4>Список подключенных услуг</h4>
 <table class="table table-striped table-bordered">
     <thead>

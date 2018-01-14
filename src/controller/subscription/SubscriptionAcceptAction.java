@@ -52,6 +52,10 @@ public class SubscriptionAcceptAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        return new Forwarder("/subscription/list.html");
+
+        Forwarder forwarder = new Forwarder("/subscription/list.html");
+        forwarder.getAttributes().put("message", "You have successfully "
+                + "subscribed");
+        return forwarder;
     }
 }

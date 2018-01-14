@@ -6,6 +6,12 @@
 <c:url var="urlMakeCall" value="/call/make-call.html" />
 
 <u:html title="Исходящий вызов" pageHeading="Исходящий вызов">
+<c:if test="${not empty param.message}">
+	<div class="alert alert-success fade in row">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Success!</strong> ${param.message}.
+	</div>
+</c:if>
 <div class="call-wrapper">
     <form action="${urlMakeCall}" method="post">
         <div class="row">

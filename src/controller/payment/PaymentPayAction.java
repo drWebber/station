@@ -31,6 +31,9 @@ public class PaymentPayAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        return new Forwarder("/invoice/list.html");
+
+        Forwarder forwarder = new Forwarder("/invoice/list.html");
+        forwarder.getAttributes().put("message", "The invoice has been paid");
+        return forwarder;
     }
 }

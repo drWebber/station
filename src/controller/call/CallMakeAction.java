@@ -74,6 +74,9 @@ public class CallMakeAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        return new Forwarder("/call/dial.html");
+
+        Forwarder forwarder = new Forwarder("/call/dial.html");
+        forwarder.getAttributes().put("message", "Call ended");
+        return forwarder;
     }
 }
