@@ -35,6 +35,10 @@ public class AdministratorDeleteAction extends Action {
                 throw new ServletException(e);
             }
         }
-        return new Forwarder("/administrator/list.html");
+
+        Forwarder forwarder = new Forwarder("/administrator/list.html");
+        forwarder.getAttributes().put("message", "Record has been "
+                + "successfully deleted");
+        return forwarder;
     }
 }

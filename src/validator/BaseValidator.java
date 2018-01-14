@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import controller.administrator.AdministratorSaveAction;
 import exception.IncorrectFormDataException;
-import exception.ValidatorException;
 
 public class BaseValidator {
     protected Logger logger = 
@@ -40,22 +39,22 @@ public class BaseValidator {
     }
     
     protected Long getLongParameter(String parameter) 
-            throws ValidatorException {
+            throws IncorrectFormDataException {
         try {
             Long value = Long.parseLong(request.getParameter(parameter));
             return value;
         } catch (NumberFormatException e) {
-            throw new ValidatorException(e);
+            throw new IncorrectFormDataException(parameter, "");
         }
     }
     
     protected Integer getIntegerParameter(String parameter) 
-            throws ValidatorException {
+            throws IncorrectFormDataException {
         try {
             Integer value = Integer.parseInt(request.getParameter(parameter));
             return value;
         } catch (NumberFormatException e) {
-            throw new ValidatorException(e);
+            throw new IncorrectFormDataException(parameter, "");
         }
     }
 

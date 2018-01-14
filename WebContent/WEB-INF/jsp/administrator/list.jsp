@@ -6,6 +6,12 @@
 <c:url var="urlCreate" value="/administrator/edit.html" />
 <u:html title="Список администраторов"
     pageHeading="Список администраторов">
+<c:if test="${not empty param.message}">
+	<div class="alert alert-success fade in row">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		<strong>Success!</strong> ${param.message}.
+	</div>
+</c:if>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>

@@ -25,8 +25,17 @@ public class AdministratorSaveAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
+        boolean isCreation = false;
+        Long id = null;
+        try {
+            id = Long.parseLong(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            isCreation = true;
+        }
+                
         AdministratorValidator administratorValidator =
                 new ValidatorFactoryImpl(request).getAdministratorValidator();
+        
         Administrator administrator = null;
         try {
             administrator = administratorValidator.validate();
@@ -34,11 +43,11 @@ public class AdministratorSaveAction extends Action {
             logger.error(e);
             e.printStackTrace();
         } catch (IncorrectFormDataException e) {
-            String referer = request.getHeader("referer");
-            String context = request.getContextPath();
-            referer = referer.substring(referer.indexOf(context)+ context.length(), referer.length());
-            Forwarder forwarder = new Forwarder(referer);
-            forwarder.getAttributes().put("message", e);
+            Forwarder forwarder = new Forwarder("/administrator/edit.html");
+            if (id != null) {
+                forwarder.getAttributes().put("id", id.toString());
+            }
+            forwarder.getAttributes().put("message", e.getMessage());
             return forwarder;
         }
         
@@ -51,6 +60,14 @@ public class AdministratorSaveAction extends Action {
             throw new ServletException(e);
         }
         
-        return new Forwarder("/administrator/list.html");
+        Forwarder forwarder = new Forwarder("/administrator/list.html");
+        String message;
+        if (isCreation) {
+            message = "The administrator was successfully created";
+        } else {
+            message = "The data was successfully saved";
+        }
+        forwarder.getAttributes().put("message", message);
+        return forwarder;
     }
 }

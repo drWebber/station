@@ -51,7 +51,7 @@ public class ServletDispatcher extends HttpServlet {
                 action.setServiceFactory(factory);
                 forwarder = action.execute(req, resp);
                 if (forwarder != null && forwarder.isRedirect()) {
-                    resp.sendRedirect(context + forwarder.getUrl());
+                    resp.sendRedirect(context + forwarder.getUrlWithAttributes());
                 } else {
                     if(forwarder != null && forwarder.getUrl() != null) {
                         url = forwarder.getUrl();

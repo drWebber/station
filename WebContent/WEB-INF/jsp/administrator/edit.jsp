@@ -22,9 +22,17 @@
 <c:url var="urlDelete" value="/administrator/delete.html" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
-<div class="row">
-    <form class="col-lg-8" action="${urlSave}" method="post">
-        <div class="input-group">
+<div class="row nopadding">
+    <div class="row col-lg-8">
+	<c:if test="${not empty param.message}">
+		<div class="alert alert-danger fade in row">
+			<a href="#" class="close" data-dismiss="alert" 
+				aria-label="close">&times;</a>
+		  <strong>Error!</strong> ${param.message}.
+		</div>
+	</c:if>
+    <form action="${urlSave}" method="post">
+        <div class="input-group row">
             <span class="input-group-addon">Логин</span>
             <input type="text" class="form-control" name="login"
                 value="${administrator.login}" ${disabled}>
@@ -35,32 +43,32 @@
                 <input type="password" class="form-control" name="password">
             </div>
         </c:if>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Фамилия</span>
             <input type="text" class="form-control" name="surname"
                 value="${administrator.surname}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Имя</span>
             <input type="text" class="form-control" name="name"
                 value="${administrator.name}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Отчество</span>
             <input type="text" class="form-control" name="patronymic"
                 value="${administrator.patronymic}">
         </div>
-        <div class="input-group">
+        <div class="input-group row">
             <span class="input-group-addon">Личное дело</span>
             <input type="number" class="form-control" name="personalId"
                 value="${administrator.personalId}">
         </div>
-        <div class='input-group'>
+        <div class="input-group row">
             <span class="input-group-addon">Должность</span>
             <input type="text" class="form-control" name="position"
                 value="${administrator.position}">
         </div>
-        <div class="radio">
+        <div class="radio row">
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="true"
                 ${administrator.active != false ? "checked": ""}>Активен
@@ -73,7 +81,7 @@
         <c:if test="${not isCreation}">
             <input name="id" value="${administrator.id}" type="hidden">
         </c:if>
-        <div class="form-group">
+        <div class="form-group row">
             <button type="submit" class="btn btn-info">Сохранить</button>
             <c:if test="${not isCreation}">
                 <button type="submit" class="btn btn-danger"
@@ -84,5 +92,6 @@
                 onclick="history.back();" value="Назад" />
         </div>
     </form>
+    </div>
 </div>
 </u:html>

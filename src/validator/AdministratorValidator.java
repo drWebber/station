@@ -24,7 +24,7 @@ public class AdministratorValidator extends BaseValidator
             Long id = getLongParameter("id");
             administrator.getUser().setId(id);
             administrator.setId(id);
-        } catch(ValidatorException e) {
+        } catch(IncorrectFormDataException e) {
             /* do nothing, because `id` can be null on create action */
         }
         

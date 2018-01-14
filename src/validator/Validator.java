@@ -5,5 +5,5 @@ import exception.IncorrectFormDataException;
 import exception.ValidatorException;
 
 public interface Validator<T extends Entity<?>> {
-    T validate() throws ValidatorException, IncorrectFormDataException;
+    T validate() throws IncorrectFormDataException, ValidatorException;
 }
