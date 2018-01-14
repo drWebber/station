@@ -125,9 +125,12 @@
             <ul>
                 <li><a href="${urlHome}">Главная</a></li>
                 <c:choose>
-                	<c:when test="${empty currentUser}">
-						<li><a href="${urlOfferList}">Услуги</a></li>
-						<li><a href="${urlRateList}">Тарифные планы</a></li>
+                	<c:when test="${isUser}">
+						<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
+		                <li>
+		                	<a href="${urlInvoicesList}">Мои счета и оплаты</a>
+		                </li>
+						<li><a href="${urlCallDial}">Совершить звонок</a></li>
 				    </c:when>
                 	<c:when test="${isAdmin}">
 		                <li><a href="${urlSubscriberList}">Абоненты</a></li>
@@ -136,14 +139,9 @@
 		                </li>
 		                <li><a href="${urlInvoice}">Счета и оплаты</a></li>
 				    </c:when>
-					<c:otherwise>
-						<li><a href="${urlSubscriptionList}">Мои услуги</a></li>
-		                <li>
-		                	<a href="${urlInvoicesList}">Мои счета и оплаты</a>
-		                </li>
-						<li><a href="${urlCallDial}">Совершить звонок</a></li>
-					</c:otherwise>
 				</c:choose>
+				<li><a href="${urlOfferList}">Услуги</a></li>
+				<li><a href="${urlRateList}">Тарифные планы</a></li>
             </ul>
         </aside>
     </section>

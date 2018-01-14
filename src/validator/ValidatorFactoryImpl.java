@@ -6,6 +6,7 @@ import exception.IncorrectFormDataException;
 import exception.ValidatorException;
 import validator.impl.AdministratorValidator;
 import validator.impl.CallValidator;
+import validator.impl.OfferValidator;
 
 public class ValidatorFactoryImpl implements ValidatorFactory {
     private HttpServletRequest request;
@@ -23,5 +24,11 @@ public class ValidatorFactoryImpl implements ValidatorFactory {
     public CallValidator getCallValidator() throws ValidatorException,
             IncorrectFormDataException {
         return new CallValidator(request);
+    }
+
+    @Override
+    public OfferValidator getOfferValidator() throws ValidatorException,
+            IncorrectFormDataException {
+        return new OfferValidator(request);
     }
 }

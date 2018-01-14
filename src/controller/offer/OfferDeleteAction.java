@@ -37,6 +37,9 @@ public class OfferDeleteAction extends Action {
                 throw new ServletException(e);
             }
         }
-        return new Forwarder("/offer/list.html");
+        Forwarder forwarder = new Forwarder("/offer/list.html");
+        forwarder.getAttributes().put("succ_msg", "Record has been "
+                + "successfully deleted");
+        return forwarder;
     }
 }

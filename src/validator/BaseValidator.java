@@ -57,5 +57,15 @@ public class BaseValidator {
             throw new IncorrectFormDataException(parameter, "");
         }
     }
+    
+    protected Float getFloatParameter(String parameter) 
+            throws IncorrectFormDataException {
+        try {
+            Float value = Float.parseFloat(request.getParameter(parameter));
+            return value;
+        } catch (NumberFormatException e) {
+            throw new IncorrectFormDataException(parameter, "");
+        }
+    }
 
 }
