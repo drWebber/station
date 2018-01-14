@@ -17,7 +17,6 @@ import exception.RetrieveException;
 import exception.ValidatorException;
 
 public class CallValidator extends BaseValidator implements Validator<Call> {
-
     public CallValidator(HttpServletRequest request) {
         super(request);
     }

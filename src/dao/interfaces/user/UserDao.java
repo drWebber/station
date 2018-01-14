@@ -9,4 +9,6 @@ public interface UserDao extends CompleteDao<Long, User> {
             throws DaoException;
 
     void banById(Long id) throws DaoException;
+    
+    boolean isBanned(Long id) throws DaoException;
 }

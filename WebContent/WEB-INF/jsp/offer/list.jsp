@@ -6,6 +6,9 @@
 <c:choose>
 	<c:when test="${currentUser.role == 'SUBSCRIBER'}">
 		<c:set var="isUser" value="true" />
+		<c:if test="${not currentUser.user.active}">
+			<c:set var="isDisabled" value="disabled" />
+		</c:if>
 	</c:when>
 	<c:when test="${currentUser.role == 'ADMINISTRATOR'}">
 		<c:set var="isAdmin" value="true" />
@@ -63,7 +66,8 @@
 	                </c:url>
 	                <form action="${subscribeUrl}" method="post">
 	                    <button type="submit" class="btn btn-success" 
-	                    	title="Подключить услугу"> Подключить
+	                    	title="${isDisabled ? 'Подключить'
+								: 'Вы забанены'}" ${isDisabled}>Подключить
 	                    </button>
 	                </form>
                 </c:if>

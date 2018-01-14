@@ -16,27 +16,39 @@ import domain.service.Call;
 import exception.FactoryException;
 import exception.IncorrectFormDataException;
 import exception.ServiceException;
+import exception.UserIsBannedException;
 import exception.ValidatorException;
 
 public class CallMakeAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(CallMakeAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         Forwarder forwarder = null;
+        Call call = null;
         try {     
             CallValidator callValidator =
                     new ValidatorFactoryImpl(request).getCallValidator();
-            Call call = callValidator.validate();
-            CallService callService = getServiceFactory().getCallService();
-            callService.save(call);
-        } catch (NumberFormatException | FactoryException  | ServiceException 
-                | ValidatorException e) {
+            call = callValidator.validate();
+        } catch (ValidatorException e) {
             logger.error(e);
             throw new ServletException(e);
         } catch (IncorrectFormDataException e) {
+            logger.warn(e);
+            forwarder = new Forwarder("/call/dial.html");
+            forwarder.getAttributes().put("err_msg", e.getMessage());
+            return forwarder;
+        }
+
+        try {
+            CallService callService = getServiceFactory().getCallService();
+            callService.validateAndsave(call);
+        } catch (FactoryException | ServiceException e) {
+            logger.error(e);
+            throw new ServletException(e);
+        } catch (UserIsBannedException e) {
             logger.warn(e);
             forwarder = new Forwarder("/call/dial.html");
             forwarder.getAttributes().put("err_msg", e.getMessage());

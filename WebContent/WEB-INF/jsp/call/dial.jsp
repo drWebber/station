@@ -64,7 +64,10 @@
         </div>
         <div class="row col-xs-12">
             <div class="input-group-btn">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" type="submit"
+                		title="${currentUser.user.active ? 'Позвонить'
+                				: 'Вы заблокированы'}"
+                		${currentUser.user.active ? '' : 'disabled'}>
                     <span class="glyphicon glyphicon-earphone"></span>
                     Совершить звонок
                 </button>

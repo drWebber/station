@@ -11,6 +11,7 @@ import domain.user.User;
 import exception.DaoException;
 import exception.ServiceException;
 import exception.TransactionException;
+import exception.UserIsBannedException;
 import service.impl.TransactionService;
 import service.interfaces.user.SubscriberService;
 
@@ -140,6 +141,21 @@ public class SubscriberServiceImpl extends TransactionService
         try {
             userDao.banById(id);
         } catch(DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean isBanned(Long id)
+            throws ServiceException, UserIsBannedException {
+        try {
+            boolean isBanned = userDao.isBanned(id);
+            if (isBanned) {
+                throw new UserIsBannedException("You are banned. "
+                        + "Calling is restricted");
+            }
+            return isBanned;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

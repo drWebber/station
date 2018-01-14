@@ -178,4 +178,30 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             } catch (NullPointerException | SQLException e) {}
         }
     }
+
+    @Override
+    public boolean isBanned(Long id) throws DaoException {
+        String query = "SELECT `isActive` FROM `users` WHERE `id`=?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean isActive = true;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                isActive = resultSet.getBoolean("isActive");
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try { 
+                resultSet.close(); 
+            } catch (NullPointerException | SQLException e) {}
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) {}
+        }
+        return !isActive;
+    }
 }

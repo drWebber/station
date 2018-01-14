@@ -114,4 +114,13 @@ public class AdministratorServiceImpl extends TransactionService
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public boolean isBanned(Long id) throws ServiceException {
+        try {
+            return userDao.isBanned(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

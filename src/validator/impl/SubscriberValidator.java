@@ -20,7 +20,7 @@ public class SubscriberValidator extends BaseValidator
     public SubscriberValidator(HttpServletRequest request) {
         super(request);
     }
-
+    
     @Override
     public Subscriber validate()
             throws IncorrectFormDataException, ValidatorException {

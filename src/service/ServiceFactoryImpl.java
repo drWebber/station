@@ -120,6 +120,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         service.setTransaction(getTransaction());
         service.setServicesDao(new SubscriptionDaoImpl(getConnection()));
         service.setOfferDao(new OfferDaoImpl(getConnection()));
+        service.setUserDao(new UserDaoImpl(getConnection()));
         return service;
     }
 
@@ -137,6 +138,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         service.setTransaction(getTransaction());
         service.setCallDao(new CallDaoImpl(getConnection()));
         service.setRateDao(new RateDaoImpl(getConnection()));
+        service.setUserDao(new UserDaoImpl(getConnection()));
         return service;
     }
 

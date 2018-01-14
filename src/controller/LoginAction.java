@@ -51,7 +51,7 @@ public class LoginAction extends Action {
                     Subscriber subscriber =
                             service.getByLoginAndPassword(login, password);
                     if (authorize(request, subscriber)) {
-                        return new Forwarder("/subscription/list.html");
+                        return new Forwarder("/invoice/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
                     logger.error(e);

@@ -5,6 +5,7 @@ import java.util.List;
 import service.interfaces.CompleteService;
 import domain.user.Subscriber;
 import exception.ServiceException;
+import exception.UserIsBannedException;
 
 public interface SubscriberService extends CompleteService<Long, Subscriber> {
     List<Subscriber> getAll() throws ServiceException;
@@ -13,4 +14,6 @@ public interface SubscriberService extends CompleteService<Long, Subscriber> {
             throws ServiceException;
 
     void banById(Long id) throws ServiceException;
+    
+    boolean isBanned(Long id) throws ServiceException, UserIsBannedException;
 }

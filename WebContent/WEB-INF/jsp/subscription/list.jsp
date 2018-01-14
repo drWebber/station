@@ -12,6 +12,7 @@
 	</div>
 </c:if>
 <h4>Список подключенных услуг</h4>
+<div class="row col-sm-12">
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -47,7 +48,9 @@
         </c:forEach>
     </tbody>
 </table>
+</div>
 <h4>Архив подключенных услуг</h4>
+<div class="row col-sm-12">
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -76,4 +79,5 @@
         </c:forEach>
     </tbody>
 </table>
+</div>
 </u:html>
