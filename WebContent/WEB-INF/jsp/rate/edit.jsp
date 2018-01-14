@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib tagdir="/WEB-INF/tags" prefix="u"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:url var="urlSave" value="/rate/save.html" />
-<c:set var="pageHeading" value="Редактирование тарифа ${rate.type}" />
+<fmt:message var="rateType" key="${rate.type}"/>
+<c:set var="pageHeading" value="Редактирование 
+		тарифа &laquo;<span class='text-lowercase'>${rateType}</span>&raquo;" />
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
 <div class="row">
 	<form class="col-lg-7" action="${urlSave}" method="post">

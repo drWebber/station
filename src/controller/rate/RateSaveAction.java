@@ -8,34 +8,52 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.service.RateService;
+import validator.ValidatorFactoryImpl;
+import validator.impl.RateValidator;
 import controller.Action;
 import controller.Forwarder;
 import domain.service.Rate;
-import domain.service.RateType;
 import exception.FactoryException;
+import exception.IncorrectFormDataException;
 import exception.ServiceException;
+import exception.ValidatorException;
 
 public class RateSaveAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(RateSaveAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        Float tariff = null;
+        Forwarder forwarder;
+        Rate callingRate = null;
         try {
-            tariff = Float.parseFloat(request.getParameter("tariff"));
-            Rate callingRate = new Rate();
-            callingRate.setType(RateType.valueOf(request.getParameter("type")));
-            callingRate.setTariff(tariff);
+            RateValidator rateValidator =
+                    new ValidatorFactoryImpl(request).getRateValidator();
+            callingRate = rateValidator.validate();
+        } catch (ValidatorException e) {
+            logger.error(e);
+            throw new ServletException(e);
+        } catch (IncorrectFormDataException e) {
+            logger.warn(e);
+            forwarder = new Forwarder("/rate/list.html");
+            forwarder.getAttributes().put("err_msg", e.getMessage());
+            return forwarder;
+        }
+        
+        try {
             RateService service = 
                     getServiceFactory().getRateService();
             service.save(callingRate);
-        } catch (NumberFormatException | FactoryException |
-                ServiceException e) {
+        } catch (FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
         }
-        return new Forwarder("/rate/list.html");
+        
+        forwarder = new Forwarder("/rate/list.html");
+        forwarder.getAttributes().put("succ_msg", "The data was "
+                + "successfully saved");
+        
+        return forwarder;
     }
 }

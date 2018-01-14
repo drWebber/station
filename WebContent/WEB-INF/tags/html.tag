@@ -116,7 +116,7 @@
 					  <strong>Success!</strong> ${param.succ_msg}.
 					</div>
 				</c:if>
-                <h1>${pageHeading}</h1>
+                <h1 class="text-left">${pageHeading}</h1>
                 <jsp:doBody />
             </article>
         </div>
