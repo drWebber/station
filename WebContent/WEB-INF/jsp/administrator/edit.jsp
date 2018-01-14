@@ -24,13 +24,6 @@
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
 <div class="row nopadding">
     <div class="row col-lg-8">
-	<c:if test="${not empty param.message}">
-		<div class="alert alert-danger fade in row">
-			<a href="#" class="close" data-dismiss="alert" 
-				aria-label="close">&times;</a>
-		  <strong>Error!</strong> ${param.message}.
-		</div>
-	</c:if>
     <form action="${urlSave}" method="post">
         <div class="input-group row">
             <span class="input-group-addon">Логин</span>
@@ -38,7 +31,7 @@
                 value="${administrator.login}" ${disabled}>
         </div>
         <c:if test="${empty administrator.id}">
-            <div class="input-group">
+            <div class="input-group row">
                 <span class="input-group-addon">Пароль</span>
                 <input type="password" class="form-control" name="password">
             </div>

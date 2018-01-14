@@ -9,12 +9,6 @@
 <fmt:formatDate var="current_month" value="${now}" pattern="MMMM" />
 
 <u:html title="Счета за звонки и услуги" pageHeading="Перечень счетов">
-<c:if test="${not empty param.message}">
-	<div class="alert alert-success fade in row">
-		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-		<strong>Success!</strong> ${param.message}.
-	</div>
-</c:if>
 <h3>Неоплаченные счета</h3>
 <c:choose>
 <c:when test="${not empty unpaidInvoices}">

@@ -1,9 +1,11 @@
-package validator;
+package validator.impl;
 
 import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import validator.BaseValidator;
+import validator.Validator;
 import domain.user.Administrator;
 import domain.user.Role;
 import exception.IncorrectFormDataException;

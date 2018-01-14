@@ -7,14 +7,15 @@ import domain.user.Prefix;
 import domain.user.Subscriber;
 
 public class Call extends Entity<Long> {
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
     private Subscriber subscriber = new Subscriber();
     private Prefix prefix = new Prefix();
     private Integer phoneNum;
     private Timestamp beginTime;
     private Timestamp finishTime;
     private Rate rate = new Rate();
-    
+    private RateType rateType;
+
     public Subscriber getSubscriber() {
         return subscriber;
     }
@@ -61,6 +62,14 @@ public class Call extends Entity<Long> {
     
     public void setRate(Rate rate) {
         this.rate = rate;
+    }
+    
+    public RateType getRateType() {
+        return rateType;
+    }
+
+    public void setRateType(RateType rateType) {
+        this.rateType = rateType;
     }
     
     @Override

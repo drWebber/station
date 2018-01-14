@@ -102,6 +102,20 @@
     <section class="row content-layout">
         <div class="content col-xs-12 col-lg-9 col-lg-push-3">
             <article>
+				<c:if test="${not empty param.err_msg}">
+					<div class="alert alert-danger fade in row">
+						<a href="#" class="close" data-dismiss="alert" 
+							aria-label="close">&times;</a>
+					  <strong>Error!</strong> ${param.err_msg}.
+					</div>
+				</c:if>
+				<c:if test="${not empty param.succ_msg}">
+					<div class="alert alert-success fade in row">
+						<a href="#" class="close" data-dismiss="alert" 
+							aria-label="close">&times;</a>
+					  <strong>Success!</strong> ${param.succ_msg}.
+					</div>
+				</c:if>
                 <h1>${pageHeading}</h1>
                 <jsp:doBody />
             </article>

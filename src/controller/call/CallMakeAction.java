@@ -1,7 +1,5 @@
 package controller.call;
 
-import java.sql.Timestamp;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,19 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.service.CallService;
-import service.interfaces.service.RateService;
-import util.service.CallDirection;
-import util.service.CallRateResolver;
-import util.user.UserRetriever;
+import validator.ValidatorFactoryImpl;
+import validator.impl.CallValidator;
 import controller.Action;
 import controller.Forwarder;
 import domain.service.Call;
-import domain.service.Rate;
-import domain.service.RateType;
-import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.RetrieveException;
+import exception.IncorrectFormDataException;
 import exception.ServiceException;
+import exception.ValidatorException;
 
 public class CallMakeAction extends Action {
     private static Logger logger = 
@@ -31,52 +25,26 @@ public class CallMakeAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        Integer prefixId = null;
-        Integer phoneNum = null;
-        Long duration = null;
-        try {
-            /* current Subscriber */
-            Subscriber subscriber = 
-                    new UserRetriever<Subscriber>(request).getCurrentUser();
-            
-             /* Opponent - opposite wire end subscriber */
-            prefixId = Integer.parseInt(request.getParameter("prefix"));
-            phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
-            Subscriber opponent = new Subscriber();
-            opponent.getPrefix().setId(prefixId);
-            
-            /* Call direction INCOMING|OUTGOING */
-            CallDirection direction = 
-                    CallDirection.valueOf(request.getParameter("direction"));
-            
-            /* Call rate type determining */
-            RateType rateType = 
-                    new CallRateResolver(subscriber, opponent, direction)
-                    .getResolvedRate();
-            RateService rateService = getServiceFactory().getRateService();
-            Rate rate = rateService.getCurrentByType(rateType);
-            
-            duration = Long.parseLong(request.getParameter("duration"));
-            
-            Call call = new Call();
-            call.setSubscriber(subscriber);
-            call.setPrefix(opponent.getPrefix());
-            call.setPhoneNum(phoneNum);
-            long time = System.currentTimeMillis();
-            call.setBeginTime(new Timestamp(time));
-            call.setFinishTime(new Timestamp(time + duration*1000));
-            call.setRate(rate);
-            
+        Forwarder forwarder = null;
+        try {     
+            CallValidator callValidator =
+                    new ValidatorFactoryImpl(request).getCallValidator();
+            Call call = callValidator.validate();
             CallService callService = getServiceFactory().getCallService();
             callService.save(call);
-        } catch (NumberFormatException | RetrieveException | FactoryException 
-                | ServiceException | NullPointerException e) {
+        } catch (NumberFormatException | FactoryException  | ServiceException 
+                | ValidatorException e) {
             logger.error(e);
             throw new ServletException(e);
+        } catch (IncorrectFormDataException e) {
+            logger.warn(e);
+            forwarder = new Forwarder("/call/dial.html");
+            forwarder.getAttributes().put("err_msg", e.getMessage());
+            return forwarder;
         }
 
-        Forwarder forwarder = new Forwarder("/call/dial.html");
-        forwarder.getAttributes().put("message", "Call ended");
+        forwarder = new Forwarder("/call/dial.html");
+        forwarder.getAttributes().put("succ_msg", "Call ended");
         return forwarder;
     }
 }

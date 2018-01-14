@@ -85,7 +85,7 @@
                 ${subscriber.active == "false" ? "checked": ""}>Заблокирован
             </label>
         </div>
-        <div class="input-group row">
+        <div class="input-group subscriber-phone row">
             <div class="col-xs-5">
                 <label for="sel">Код города:</label> <select
                     class="form-control" id="sel" name="prefix">
@@ -97,23 +97,24 @@
                 </select>
             </div>
             <div class="col-xs-7">
-                <label for="phoneNum">Телефон:</label> <input
-                    class="form-control" type="number" name="phoneNum"
+                <label for="phoneNum">Телефон:</label>
+                <input class="form-control" type="number" name="phoneNum"
                     value="${subscriber.phoneNum}" />
             </div>
         </div>
-        <div class="form-group form-horizontal row">
-            <label class="control-label col-sm-3">Администратор</label>
-            <div class="col-sm-7">
-                <p class="form-control-static">
-                    <a href="${urlAdminProfile}" title="Профиль администратора">
-                        ${subscriber.administrator.surname}
-                        ${subscriber.administrator.name}
-                        ${subscriber.administrator.patronymic} </a>
-                </p>
-            </div>
-        </div>
         <c:if test="${not isCreation}">
+	        <div class="form-group form-horizontal row">
+	            <label class="control-label col-sm-3">Администратор</label>
+	            <div class="col-sm-7">
+	                <p class="form-control-static">
+	                    <a href="${urlAdminProfile}" 
+	                    		title="Профиль администратора">
+	                        ${subscriber.administrator.surname}
+	                        ${subscriber.administrator.name}
+	                        ${subscriber.administrator.patronymic} </a>
+	                </p>
+	            </div>
+	        </div>
             <input name="id" value="${subscriber.id}" type="hidden">
         </c:if>
         <div class="form-group row">

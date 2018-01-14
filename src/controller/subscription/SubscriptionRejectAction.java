@@ -54,7 +54,7 @@ public class SubscriptionRejectAction extends Action {
         }
 
         Forwarder forwarder = new Forwarder("/subscription/list.html");
-        forwarder.getAttributes().put("message", "You have been successfully "
+        forwarder.getAttributes().put("succ_msg", "You have been successfully "
                 + "unsubscribed");
         return forwarder;
     }

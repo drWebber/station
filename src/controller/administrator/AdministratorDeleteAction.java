@@ -37,7 +37,7 @@ public class AdministratorDeleteAction extends Action {
         }
 
         Forwarder forwarder = new Forwarder("/administrator/list.html");
-        forwarder.getAttributes().put("message", "Record has been "
+        forwarder.getAttributes().put("succ_msg", "Record has been "
                 + "successfully deleted");
         return forwarder;
     }

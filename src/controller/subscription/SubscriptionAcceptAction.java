@@ -54,7 +54,7 @@ public class SubscriptionAcceptAction extends Action {
         }
 
         Forwarder forwarder = new Forwarder("/subscription/list.html");
-        forwarder.getAttributes().put("message", "You have successfully "
+        forwarder.getAttributes().put("succ_msg", "You have successfully "
                 + "subscribed");
         return forwarder;
     }

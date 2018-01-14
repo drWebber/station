@@ -136,6 +136,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
         CallServiceImpl service = new CallServiceImpl();
         service.setTransaction(getTransaction());
         service.setCallDao(new CallDaoImpl(getConnection()));
+        service.setRateDao(new RateDaoImpl(getConnection()));
         return service;
     }
 

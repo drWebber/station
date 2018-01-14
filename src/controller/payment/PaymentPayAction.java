@@ -33,7 +33,7 @@ public class PaymentPayAction extends Action {
         }
 
         Forwarder forwarder = new Forwarder("/invoice/list.html");
-        forwarder.getAttributes().put("message", "The invoice has been paid");
+        forwarder.getAttributes().put("succ_msg", "The invoice has been paid");
         return forwarder;
     }
 }

@@ -42,6 +42,11 @@ html, body {
     margin: 10px 10px 0 0;
 }
 
+/* subscriber edit */
+form .subscriber-phone {
+	margin-bottom: .7em;
+}
+
 /* input */
 .input-group {
     margin-bottom: .3em;

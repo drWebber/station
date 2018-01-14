@@ -13,12 +13,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.user.SubscriberService;
+import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
 import domain.user.Role;
 import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.RetrieveException;
 import exception.ServiceException;
 
 public class SubscriberSaveAction extends Action {
@@ -61,11 +63,9 @@ public class SubscriberSaveAction extends Action {
             logger.warn(e);
             throw new ServletException(e);
         }
-        Long adminId = null;
         Integer phoneNum = null;
         Integer prefixId = null;
         try {
-            adminId = 14L; //TODO: заменить на взятие админа из сессии
             phoneNum = Integer.parseInt(request.getParameter("phoneNum"));
             prefixId = Integer.parseInt(request.getParameter("prefix"));
         } catch(NumberFormatException e) {
@@ -77,10 +77,15 @@ public class SubscriberSaveAction extends Action {
         subscriber.getPrefix().setId(prefixId);
         subscriber.setPhoneNum(phoneNum);
         
-        //TODO: заменить на взятие админа из сессии
-        Administrator administrator = new Administrator();
-        administrator.setId(adminId);
+        Administrator administrator = null;
+        try {
+            administrator = 
+                    new UserRetriever<Administrator>(request).getCurrentUser();
+        } catch (RetrieveException e) {
+            new ServletException(e);
+        }
         subscriber.setAdministrator(administrator);
+        
         try {
             SubscriberService service = getServiceFactory().getSubscriberService();
             service.save(subscriber);
