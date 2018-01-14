@@ -33,12 +33,12 @@ public class PaymentServiceImpl extends TransactionService
     public void setInvoiceDao(InvoiceDao invoiceDao) {
         this.invoiceDao = invoiceDao;
     }
-    
+
     @Override
     public Payment getById(Long id) throws ServiceException {
         try {
             return paymentDao.read(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -46,13 +46,13 @@ public class PaymentServiceImpl extends TransactionService
     @Override
     public void save(Payment payment) throws ServiceException {
         try {
-            if(payment.getId() != null) {
+            if (payment.getId() != null) {
                 throw new ServiceException("The data-modification is "
                         + "restricted");
             } else {
                 paymentDao.create(payment);
             }
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -61,7 +61,7 @@ public class PaymentServiceImpl extends TransactionService
     public void deleteAll() throws ServiceException {
         try {
             paymentDao.deleteAll();
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -78,7 +78,7 @@ public class PaymentServiceImpl extends TransactionService
             }
             getTransaction().commit();
             return payments;
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }

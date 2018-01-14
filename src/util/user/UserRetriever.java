@@ -20,16 +20,16 @@ public class UserRetriever<T extends User> {
     public HttpServletRequest getRequest() {
         return request;
     }
-    
+
     @SuppressWarnings("unchecked")
     public T getCurrentUser() throws RetrieveException {
         HttpSession httpSession = request.getSession(false);
         try {
             T currentUser = null;
-            if(httpSession != null) {
+            if (httpSession != null) {
                 currentUser = (T) httpSession.getAttribute("currentUser");
             }
-            return currentUser;        
+            return currentUser;
         } catch (ClassCastException e) {
             throw new RetrieveException(e);
         }

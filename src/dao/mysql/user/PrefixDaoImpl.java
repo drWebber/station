@@ -57,12 +57,12 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return prefix;
     }
@@ -104,10 +104,10 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
             statement.setString(1, prefix.getCity());
             statement.setInt(2, prefix.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
@@ -121,12 +121,12 @@ public class PrefixDaoImpl extends BaseDao implements PrefixDao {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 }

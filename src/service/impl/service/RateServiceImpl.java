@@ -21,7 +21,7 @@ public class RateServiceImpl extends TransactionService
     public void setRateDao(RateDao rateDao) {
         this.rateDao = rateDao;
     }
-    
+
     @Override
     public Rate getById(Long id) throws ServiceException {
         try {
@@ -36,7 +36,7 @@ public class RateServiceImpl extends TransactionService
             throws ServiceException {
         try {
             return rateDao.readCurrentByType(rateType);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -45,7 +45,7 @@ public class RateServiceImpl extends TransactionService
     public List<Rate> getCurrentRates() throws ServiceException {
         try {
             return rateDao.readCurrentRates();
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -54,7 +54,7 @@ public class RateServiceImpl extends TransactionService
     public void save(Rate entity) throws ServiceException {
         try {
             rateDao.create(entity);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

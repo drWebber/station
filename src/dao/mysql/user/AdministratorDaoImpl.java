@@ -36,7 +36,7 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -56,12 +56,12 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return administrator;
     }
@@ -81,17 +81,17 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return administrators;
     }
     
-    private Administrator getAdministrator(ResultSet resultSet) 
+    private Administrator getAdministrator(ResultSet resultSet)
             throws SQLException {
         Administrator administrator = new Administrator();
         administrator.setId(resultSet.getLong("id"));
@@ -111,13 +111,13 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             statement.setString(2, administrator.getPosition());
             statement.setLong(3, administrator.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
-        }    
+        }
     }
 
     @Override
@@ -128,12 +128,12 @@ public class AdministratorDaoImpl extends BaseDao implements AdministratorDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 }

@@ -28,7 +28,7 @@ public class CallMakeAction extends Action {
             HttpServletResponse response) throws ServletException {
         Forwarder forwarder = null;
         Call call = null;
-        try {     
+        try {
             CallValidator callValidator =
                     new ValidatorFactoryImpl(request).getCallValidator();
             call = callValidator.validate();

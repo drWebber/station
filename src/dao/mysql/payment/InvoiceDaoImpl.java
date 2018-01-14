@@ -56,7 +56,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, invoice.getSubscriber().getId());
             statement.setTimestamp(2, invoice.getInvoicingDate());
@@ -68,7 +68,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 resultSet.close(); 
             } catch (NullPointerException | SQLException e) {}
             try {
@@ -93,8 +93,8 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
+            try {
+                resultSet.close();
             } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
@@ -130,7 +130,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
@@ -165,7 +165,7 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -185,18 +185,18 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
     @Override
     public List<Invoice> readUnpaid() throws DaoException {
-        String query = "" 
+        String query = ""
                 + "SELECT *"
                 + "FROM `invoices` "
                 + "WHERE `id` NOT IN(SELECT `invoiceID` FROM `payments`)"
@@ -214,11 +214,11 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
             throw new DaoException(e);
         } finally {
             try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return unpaid;
     }
@@ -248,12 +248,12 @@ public class InvoiceDaoImpl extends BaseDao implements InvoiceDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return invoices;
     }

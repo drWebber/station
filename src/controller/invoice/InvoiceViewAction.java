@@ -20,7 +20,7 @@ import exception.ServiceException;
 public class InvoiceViewAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(InvoiceViewAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

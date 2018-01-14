@@ -26,7 +26,7 @@ public class RateDaoImpl extends BaseDao implements RateDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, rate.getType().toString());
             statement.setFloat(2, rate.getTariff());
@@ -38,11 +38,11 @@ public class RateDaoImpl extends BaseDao implements RateDao {
             throw new DaoException(e);
         } finally {
             try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -62,12 +62,12 @@ public class RateDaoImpl extends BaseDao implements RateDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return rate;
     }
@@ -89,12 +89,12 @@ public class RateDaoImpl extends BaseDao implements RateDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return rate;
     }
@@ -133,17 +133,17 @@ public class RateDaoImpl extends BaseDao implements RateDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return rates;
     }
 
-    private Rate getCallingRate(ResultSet resultSet) 
+    private Rate getCallingRate(final ResultSet resultSet)
             throws SQLException {
         Rate rate = new Rate();
         rate.setId(resultSet.getLong("id"));

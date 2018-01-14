@@ -24,7 +24,7 @@ public class AdministratorListAction extends Action {
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         try {
-            AdministratorService service = 
+            AdministratorService service =
                     getServiceFactory().getAdministratorService();
             List<Administrator> administrators = service.getAll();
             request.setAttribute("administrators", administrators);

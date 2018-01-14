@@ -9,7 +9,7 @@ import exception.ServiceException;
 import exception.UserIsBannedException;
 
 public interface SubscriptionService extends BaseService<Long, Subscription> {
-    List<Subscription> getSubscriptions(Subscriber subscriber, 
+    List<Subscription> getSubscriptions(Subscriber subscriber,
             boolean readArchieved) throws ServiceException;
 
     void validateAndSave(Subscription subscription) throws ServiceException,

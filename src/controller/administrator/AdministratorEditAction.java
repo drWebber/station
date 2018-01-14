@@ -17,19 +17,19 @@ import exception.ServiceException;
 public class AdministratorEditAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(AdministratorEditAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request, 
             HttpServletResponse response) throws ServletException {
         Long id = null;
         try {
-            id = Long.parseLong(request.getParameter("id"));            
+            id = Long.parseLong(request.getParameter("id"));
         } catch (NumberFormatException e) { }
         try {
             if (id != null) {
                 AdministratorService administratorService =
                         getServiceFactory().getAdministratorService();
-                Administrator administrator = 
+                Administrator administrator =
                         administratorService.getById(id);
                 request.setAttribute("administrator", administrator);
             }

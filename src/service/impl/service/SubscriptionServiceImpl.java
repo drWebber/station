@@ -45,12 +45,12 @@ public class SubscriptionServiceImpl extends TransactionService
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-    
+
     @Override
     public Subscription getById(Long id) throws ServiceException {
         try {
             return subscriptionDao.read(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -61,16 +61,16 @@ public class SubscriptionServiceImpl extends TransactionService
         try {
             getTransaction().start();
             List<Subscription> services = new ArrayList<>();
-            services = subscriptionDao.readSubscriptions(subscriber, 
+            services = subscriptionDao.readSubscriptions(subscriber,
                     readArchieved);
             for (Subscription service : services) {
-                Offer providedSrv = 
+                Offer providedSrv =
                         OfferDao.read(service.getOffer().getId());
                 service.setOffer(providedSrv);
             }
             getTransaction().commit();
             return services;
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -81,12 +81,12 @@ public class SubscriptionServiceImpl extends TransactionService
     @Override
     public void save(Subscription subscription) throws ServiceException {
         try {
-            if(subscription.getId() != null) {
+            if (subscription.getId() != null) {
                 subscriptionDao.update(subscription);
             } else {
                 subscriptionDao.create(subscription);
             }
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -96,7 +96,7 @@ public class SubscriptionServiceImpl extends TransactionService
             throws ServiceException, UserIsBannedException {
         try {
             getTransaction().start();
-            if(subscription.getId() != null) {
+            if (subscription.getId() != null) {
                 subscriptionDao.update(subscription);
                 getTransaction().commit();
             } else {
@@ -109,7 +109,7 @@ public class SubscriptionServiceImpl extends TransactionService
                             + "Subscriptions is resctricted");
                 }
             }
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }

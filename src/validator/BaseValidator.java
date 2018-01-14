@@ -13,7 +13,7 @@ import controller.administrator.AdministratorSaveAction;
 import exception.IncorrectFormDataException;
 
 public class BaseValidator {
-    protected Logger logger = 
+    protected Logger logger =
             LogManager.getLogger(AdministratorSaveAction.class.getName());
     protected HttpServletRequest request;
 
@@ -24,16 +24,16 @@ public class BaseValidator {
     public void setRequest(HttpServletRequest request) {
         this.request = request;
     }
-    
+
     public BaseValidator(HttpServletRequest request) {
         this.setRequest(request);
     }
-    
+
     public Logger getLogger() {
         return logger;
     }
-    
-    protected String getStringParameter(String parameter) 
+
+    protected String getStringParameter(String parameter)
             throws IncorrectFormDataException {
         String value = request.getParameter(parameter);
         if (value.isEmpty()) {
@@ -41,7 +41,7 @@ public class BaseValidator {
         }
         return value;
     }
-    
+
     protected Long getLongParameter(String parameter) 
             throws IncorrectFormDataException {
         try {
@@ -50,8 +50,8 @@ public class BaseValidator {
             throw new IncorrectFormDataException(parameter, "");
         }
     }
-    
-    protected Integer getIntegerParameter(String parameter) 
+
+    protected Integer getIntegerParameter(String parameter)
             throws IncorrectFormDataException {
         try {
             return Integer.parseInt(request.getParameter(parameter));
@@ -59,8 +59,8 @@ public class BaseValidator {
             throw new IncorrectFormDataException(parameter, "");
         }
     }
-    
-    protected Float getFloatParameter(String parameter) 
+
+    protected Float getFloatParameter(String parameter)
             throws IncorrectFormDataException {
         try {
             return Float.parseFloat(request.getParameter(parameter));
@@ -68,8 +68,8 @@ public class BaseValidator {
             throw new IncorrectFormDataException(parameter, "");
         }
     }
-    
-    protected Date getDateParameter(String parameter) 
+
+    protected Date getDateParameter(String parameter)
             throws IncorrectFormDataException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String value = request.getParameter(parameter);

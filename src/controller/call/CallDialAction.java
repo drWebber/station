@@ -19,12 +19,12 @@ import exception.ServiceException;
 public class CallDialAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(CallDialAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         try {
-            PrefixService prefixService = 
+            PrefixService prefixService =
                     getServiceFactory().getPrefixService();
             List<Prefix> prefixes = prefixService.getAll();
             request.setAttribute("prefixes", prefixes);

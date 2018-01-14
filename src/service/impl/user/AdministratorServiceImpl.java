@@ -16,7 +16,7 @@ public class AdministratorServiceImpl extends TransactionService
         implements AdministratorService {
     private UserDao userDao;
     private AdministratorDao administratorDao;
-    
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -33,13 +33,13 @@ public class AdministratorServiceImpl extends TransactionService
                 administrator.setUser(userDao.read(id));
             }
             return administrator;
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public Administrator getByLoginAndPassword(String login, String password) 
+    public Administrator getByLoginAndPassword(String login, String password)
             throws ServiceException {
         try {
             getTransaction().start();
@@ -53,7 +53,7 @@ public class AdministratorServiceImpl extends TransactionService
             }
             getTransaction().commit();
             return administrator;
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -71,7 +71,7 @@ public class AdministratorServiceImpl extends TransactionService
             }
             getTransaction().commit();
             return administrators;
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -83,7 +83,7 @@ public class AdministratorServiceImpl extends TransactionService
     public void save(Administrator administrator) throws ServiceException {
         try {
             getTransaction().start();
-            if(administrator.getId() != null) {
+            if (administrator.getId() != null) {
                 userDao.update(administrator.getUser());
                 administratorDao.update(administrator);
             } else {
@@ -92,7 +92,7 @@ public class AdministratorServiceImpl extends TransactionService
                 administratorDao.create(administrator);
             }
             getTransaction().commit();
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -107,7 +107,7 @@ public class AdministratorServiceImpl extends TransactionService
             administratorDao.delete(id);
             userDao.delete(id);
             getTransaction().commit();
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }

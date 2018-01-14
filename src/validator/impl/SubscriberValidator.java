@@ -20,7 +20,7 @@ public class SubscriberValidator extends BaseValidator
     public SubscriberValidator(HttpServletRequest request) {
         super(request);
     }
-    
+
     @Override
     public Subscriber validate()
             throws IncorrectFormDataException, ValidatorException {
@@ -30,10 +30,10 @@ public class SubscriberValidator extends BaseValidator
             Long id = getLongParameter("id");
             subscriber.getUser().setId(id);
             subscriber.setId(id);
-        } catch(IncorrectFormDataException e) {
+        } catch (IncorrectFormDataException e) {
             /* do nothing, because `id` can be null on create action */
         }
-            
+
         if (subscriber.getId() == null) {
             subscriber.getUser().setLogin(getStringParameter("login"));
             subscriber.getUser().setPassword(getStringParameter("password"));
@@ -55,16 +55,16 @@ public class SubscriberValidator extends BaseValidator
         subscriber.setAddress(request.getParameter("address"));
         subscriber.getPrefix().setId(getIntegerParameter("prefix"));
         subscriber.setPhoneNum(getIntegerParameter("phoneNum"));
-        
+
         try {
-            Administrator administrator = 
+            Administrator administrator =
                     new UserRetriever<Administrator>(request).getCurrentUser();
             subscriber.setAdministrator(administrator);
         } catch (RetrieveException e) {
             logger.error(e);
             new ValidatorException(e);
         }
-        
+
         return subscriber;
     }
 }

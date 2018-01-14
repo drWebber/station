@@ -33,7 +33,7 @@ public class SecurityFilter implements Filter {
         administrator.add(Role.ADMINISTRATOR);
         Set<Role> subscirber = new HashSet<>();
         subscirber.add(Role.SUBSCRIBER);
-        
+
         permissions.put("/", all);
         permissions.put("/index", all);
         permissions.put("/login", all);
@@ -79,20 +79,20 @@ public class SecurityFilter implements Filter {
         String url = httpReq.getRequestURI();
         String context = httpReq.getContextPath();
         int postfixIndex = url.lastIndexOf(".html");
-        if(postfixIndex != -1) {
+        if (postfixIndex != -1) {
             url = url.substring(context.length(), postfixIndex);
         } else {
             url = url.substring(context.length()) + "index";
         }
         Set<Role> roles = permissions.get(url);
-        if(roles != null) {
+        if (roles != null) {
             HttpSession session = httpReq.getSession(false);
-            if(session != null || roles.contains(Role.GUEST)) {
+            if (session != null || roles.contains(Role.GUEST)) {
                 User user = null;
                 if (session != null) {
-                    user = (User)session.getAttribute("currentUser");
+                    user = (User) session.getAttribute("currentUser");
                 }
-                if((user != null && roles.contains(user.getRole()))
+                if ((user != null && roles.contains(user.getRole()))
                         || roles.contains(Role.GUEST)) {
                     chain.doFilter(request, response);
                     return;
@@ -102,8 +102,8 @@ public class SecurityFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        httpResp.sendRedirect(context +
-                "/login.html?message=login.message.access.denied");
+        httpResp.sendRedirect(context
+                + "/login.html?message=login.message.access.denied");
     }
 
     @Override

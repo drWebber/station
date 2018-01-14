@@ -28,7 +28,7 @@ public class OfferDaoImpl extends BaseDao implements
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, providedService.getName());
             statement.setString(2, providedService.getDescription());
@@ -42,12 +42,12 @@ public class OfferDaoImpl extends BaseDao implements
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -67,12 +67,12 @@ public class OfferDaoImpl extends BaseDao implements
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return offer;
     }
@@ -93,8 +93,8 @@ public class OfferDaoImpl extends BaseDao implements
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
+            try {
+                resultSet.close();
             } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
@@ -121,12 +121,12 @@ public class OfferDaoImpl extends BaseDao implements
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return offers;
     }
@@ -146,10 +146,10 @@ public class OfferDaoImpl extends BaseDao implements
             statement.setBoolean(5, providedService.isRequired());
             statement.setInt(6, providedService.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
@@ -163,7 +163,7 @@ public class OfferDaoImpl extends BaseDao implements
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
@@ -171,8 +171,8 @@ public class OfferDaoImpl extends BaseDao implements
             } catch (NullPointerException | SQLException e) {}
         }
     }
-    
-    private Offer getService(ResultSet resultSet) 
+
+    private Offer getService(ResultSet resultSet)
             throws SQLException {
         Offer service = new Offer();
         service.setId(resultSet.getInt("id"));

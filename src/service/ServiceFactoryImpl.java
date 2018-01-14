@@ -45,10 +45,10 @@ import dao.mysql.user.UserDaoImpl;
 import exception.FactoryException;
 
 public class ServiceFactoryImpl implements ServiceFactory {
-    private static Logger logger = 
+    private static Logger logger =
             LogManager.getLogger(ServletDispatcher.class.getName());
     private Connection connection = null;
-    
+
     @Override
     public Connection getConnection() throws FactoryException {
         if (connection == null) {
@@ -114,7 +114,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     }
 
     @Override
-    public SubscriptionService getSubscriptionService() 
+    public SubscriptionService getSubscriptionService()
             throws FactoryException {
         SubscriptionServiceImpl service = new SubscriptionServiceImpl();
         service.setTransaction(getTransaction());

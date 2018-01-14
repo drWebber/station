@@ -41,12 +41,12 @@ public class CallServiceImpl extends TransactionService
     public void setRateDao(RateDao rateDao) {
         this.rateDao = rateDao;
     }
-    
+
     @Override
     public Call getById(Long id) throws ServiceException {
         try {
             return callDao.read(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -54,14 +54,14 @@ public class CallServiceImpl extends TransactionService
     @Override
     public void save(Call call) throws ServiceException {
         try {
-            if(call.getId() != null) {
+            if (call.getId() != null) {
                 callDao.update(call);
             } else {
                 Rate rate = rateDao.readCurrentByType(call.getRateType());
                 call.setRate(rate);
                 callDao.create(call);
             }
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -71,7 +71,7 @@ public class CallServiceImpl extends TransactionService
             throws ServiceException, UserIsBannedException {
         try {
             getTransaction().start();
-            if(call.getId() != null) {
+            if (call.getId() != null) {
                 callDao.update(call);
                 getTransaction().commit();
             } else {
@@ -87,7 +87,7 @@ public class CallServiceImpl extends TransactionService
                             + "Calling is restricted");
                 }
             }
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
                 try {
                     getTransaction().rollback();
                 } catch (TransactionException e1) { }

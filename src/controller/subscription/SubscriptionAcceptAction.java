@@ -21,7 +21,7 @@ import exception.UserIsBannedException;
 public class SubscriptionAcceptAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(SubscriptionAcceptAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -33,21 +33,21 @@ public class SubscriptionAcceptAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        
+
         Subscriber subscriber = null;
         try {
-            subscriber = 
+            subscriber =
                     new UserRetriever<Subscriber>(request).getCurrentUser();
         } catch (RetrieveException e) {
             logger.error(e);
             throw new ServletException(e);
         }
-        
+
         Subscription subscription = new Subscription();
         subscription.setSubscriber(subscriber);
         subscription.getOffer().setId(offerId);
         try {
-            SubscriptionService subscriptionService = 
+            SubscriptionService subscriptionService =
                     getServiceFactory().getSubscriptionService();
             subscriptionService.validateAndSave(subscription);
         } catch (FactoryException | ServiceException e) {

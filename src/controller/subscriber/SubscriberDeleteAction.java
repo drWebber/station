@@ -16,7 +16,7 @@ import exception.ServiceException;
 public class SubscriberDeleteAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(SubscriberDeleteAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -26,7 +26,8 @@ public class SubscriberDeleteAction extends Action {
             SubscriberService service =
                     getServiceFactory().getSubscriberService();
             service.delete(id);
-        } catch(NumberFormatException | FactoryException | ServiceException e) {
+        } catch (NumberFormatException | FactoryException
+                | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
         }

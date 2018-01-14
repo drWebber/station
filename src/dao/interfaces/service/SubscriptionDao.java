@@ -8,6 +8,6 @@ import domain.user.Subscriber;
 import exception.DaoException;
 
 public interface SubscriptionDao extends UpdatableDao<Long, Subscription> {
-    List<Subscription> readSubscriptions(Subscriber subscriber, 
+    List<Subscription> readSubscriptions(Subscriber subscriber,
             boolean readArchieved) throws DaoException;
 }

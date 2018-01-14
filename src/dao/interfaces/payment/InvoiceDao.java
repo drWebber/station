@@ -9,12 +9,12 @@ import exception.DaoException;
 
 public interface InvoiceDao extends CompleteDao<Long, Invoice> {
     void createInvoices() throws DaoException;
-    
+
     boolean canCreate() throws DaoException;
 
     List<Invoice> readUnpaid() throws DaoException;
 
-    List<Invoice> readInvoices(Subscriber subscriber, 
+    List<Invoice> readInvoices(Subscriber subscriber,
             boolean isPaid) throws DaoException;
 
     /* Used only for testing. Not for real system */

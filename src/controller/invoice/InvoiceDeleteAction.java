@@ -17,7 +17,7 @@ import exception.ServiceException;
 public class InvoiceDeleteAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(InvoiceDeleteAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -25,7 +25,7 @@ public class InvoiceDeleteAction extends Action {
             PaymentService paymentService =
                     getServiceFactory().getPaymentService();
             paymentService.deleteAll();
-            
+
             InvoiceService invoiceService =
                     getServiceFactory().getInvoiceService();
             invoiceService.deleteAll();

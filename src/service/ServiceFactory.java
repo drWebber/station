@@ -15,20 +15,19 @@ import util.transaction.Transaction;
 import exception.FactoryException;
 
 public interface ServiceFactory extends AutoCloseable {
-    
+
     Connection getConnection() throws FactoryException;
-    
+
     Transaction getTransaction() throws FactoryException;
-    
+
     AdministratorService getAdministratorService() throws FactoryException;
-    
+
     SubscriberService getSubscriberService() throws FactoryException;
-    
+
     PrefixService getPrefixService() throws FactoryException;
-    
-    OfferService getOfferService() 
-            throws FactoryException;
-    
+
+    OfferService getOfferService() throws FactoryException;
+
     SubscriptionService getSubscriptionService() throws FactoryException;
 
     RateService getRateService() throws FactoryException;

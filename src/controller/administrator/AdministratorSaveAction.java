@@ -21,7 +21,7 @@ import exception.ValidatorException;
 public class AdministratorSaveAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(AdministratorSaveAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -33,10 +33,10 @@ public class AdministratorSaveAction extends Action {
         } catch (NumberFormatException e) {
             isCreation = true;
         }
-                
+
         AdministratorValidator administratorValidator =
                 new ValidatorFactoryImpl(request).getAdministratorValidator();
-        
+
         Administrator administrator = null;
         try {
             administrator = administratorValidator.validate();
@@ -52,7 +52,7 @@ public class AdministratorSaveAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         }
-        
+
         try {
             AdministratorService service =
                     getServiceFactory().getAdministratorService();
@@ -61,7 +61,7 @@ public class AdministratorSaveAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        
+
         forwarder = new Forwarder("/administrator/list.html");
         String message;
         if (isCreation) {

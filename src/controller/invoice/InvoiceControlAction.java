@@ -21,7 +21,7 @@ import exception.ServiceException;
 public class InvoiceControlAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(InvoiceControlAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -30,7 +30,7 @@ public class InvoiceControlAction extends Action {
                     getServiceFactory().getInvoiceService();
             boolean canCreate = invoiceService.canCreate();
             request.setAttribute("canCreate", canCreate);
-            
+
             SubscriberService subscriberService =
                     getServiceFactory().getSubscriberService();
             List<Invoice> unpaid = invoiceService.getUnpaid();

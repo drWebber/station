@@ -20,7 +20,7 @@ public class SubscriberServiceImpl extends TransactionService
     private UserDao userDao;
     private SubscriberDao subscriberDao;
     private AdministratorDao administratorDao;
-    
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -51,7 +51,7 @@ public class SubscriberServiceImpl extends TransactionService
             }
             getTransaction().commit();
             return subscriber;
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -60,7 +60,8 @@ public class SubscriberServiceImpl extends TransactionService
     }
 
     @Override
-    public Subscriber getByLoginAndPassword(String login, String password)
+    public Subscriber getByLoginAndPassword(final String login,
+            final String password)
             throws ServiceException {
         try {
             getTransaction().start();
@@ -104,7 +105,7 @@ public class SubscriberServiceImpl extends TransactionService
     public void save(Subscriber subscriber) throws ServiceException {
         try {
             getTransaction().start();
-            if(subscriber.getId() != null) {
+            if (subscriber.getId() != null) {
                 userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);
             } else {
@@ -113,7 +114,7 @@ public class SubscriberServiceImpl extends TransactionService
                 subscriberDao.create(subscriber);
             }
             getTransaction().commit();
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -128,7 +129,7 @@ public class SubscriberServiceImpl extends TransactionService
             subscriberDao.delete(id);
             userDao.delete(id);
             getTransaction().commit();
-        } catch(DaoException | TransactionException e) {
+        } catch (DaoException | TransactionException e) {
             try {
                 getTransaction().rollback();
             } catch (TransactionException e1) { }
@@ -140,13 +141,13 @@ public class SubscriberServiceImpl extends TransactionService
     public void banById(Long id) throws ServiceException {
         try {
             userDao.banById(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
-    public boolean isBanned(Long id)
+    public boolean isBanned(final Long id)
             throws ServiceException, UserIsBannedException {
         try {
             boolean isBanned = userDao.isBanned(id);

@@ -22,24 +22,24 @@ import exception.ServiceException;
 public class SubscriptionListAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(SubscriptionListAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         try {
-            Subscriber subscriber = 
+            Subscriber subscriber =
                     new UserRetriever<Subscriber>(request).getCurrentUser();
-            SubscriptionService subscriptionService = 
+            SubscriptionService subscriptionService =
                     getServiceFactory().getSubscriptionService();
-            List<Subscription> activeSubscriptions = 
+            List<Subscription> activeSubscriptions =
                     subscriptionService.getSubscriptions(subscriber, false);
             request.setAttribute("activeSubscriptions", activeSubscriptions);
             List<Subscription> archievedSubscriptions =
                     subscriptionService.getSubscriptions(subscriber, true);
-            request.setAttribute("archievedSubscriptions", 
+            request.setAttribute("archievedSubscriptions",
                     archievedSubscriptions);
-        } catch (FactoryException | ServiceException | 
-                RetrieveException | NullPointerException e) {
+        } catch (FactoryException | ServiceException
+                | RetrieveException | NullPointerException e) {
             logger.error(e);
             throw new ServletException(e);
         }

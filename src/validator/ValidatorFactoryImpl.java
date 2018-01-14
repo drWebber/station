@@ -12,7 +12,7 @@ import validator.impl.SubscriberValidator;
 
 public class ValidatorFactoryImpl implements ValidatorFactory {
     private HttpServletRequest request;
-    
+
     public ValidatorFactoryImpl(HttpServletRequest request) {
         this.request = request;
     }

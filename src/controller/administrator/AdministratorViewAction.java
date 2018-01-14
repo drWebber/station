@@ -29,7 +29,7 @@ public class AdministratorViewAction extends Action {
         }
         if (id != null) {
             try {
-                AdministratorService service = 
+                AdministratorService service =
                         getServiceFactory().getAdministratorService();
                 Administrator administrator = service.getById(id);
                 request.setAttribute("administrator", administrator);

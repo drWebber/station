@@ -27,7 +27,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
@@ -44,11 +44,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             throw new DaoException(e);
         } finally {
             try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -68,18 +68,18 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return user;
     }
 
     @Override
-    public User readByLoginAndPassword(String login, String password) 
+    public User readByLoginAndPassword(String login, String password)
             throws DaoException {
         String query = "SELECT * FROM `users` WHERE login = ? AND password = ?";
         PreparedStatement statement = null;
@@ -98,17 +98,17 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         } catch (SQLException | NoSuchAlgorithmException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return user;
     }
 
-    private User getUser(ResultSet resultSet)
+    private User getUser(final ResultSet resultSet)
             throws SQLException, DaoException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
@@ -136,12 +136,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement.setBoolean(5, user.isActive());
             statement.setLong(6, user.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -153,10 +153,10 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
         }
@@ -170,7 +170,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
@@ -180,7 +180,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
-    public boolean isBanned(Long id) throws DaoException {
+    public boolean isBanned(final Long id) throws DaoException {
         String query = "SELECT `isActive` FROM `users` WHERE `id`=?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -195,12 +195,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return !isActive;
     }

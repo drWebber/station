@@ -21,7 +21,7 @@ import exception.ValidatorException;
 public class OfferSaveAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(OfferSaveAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -33,7 +33,7 @@ public class OfferSaveAction extends Action {
         } catch (NumberFormatException e) {
             isCreation = true;
         }
-        
+
         Offer offer = null;
         try {
             OfferValidator offerValidator =
@@ -50,7 +50,7 @@ public class OfferSaveAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         }
-        
+
         try {
             OfferService offerService = getServiceFactory().getOfferService();
             offerService.save(offer);
@@ -66,7 +66,7 @@ public class OfferSaveAction extends Action {
         }
         forwarder = new Forwarder("/offer/list.html");
         forwarder.getAttributes().put("succ_msg", message);
-        
+
         return forwarder;
     }
 }

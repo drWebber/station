@@ -8,7 +8,7 @@ import exception.TransactionException;
 
 public class TransactionImpl implements Transaction {
     Connection connection;
-    
+
     public TransactionImpl(Connection connection) {
         this.connection = connection;
     }

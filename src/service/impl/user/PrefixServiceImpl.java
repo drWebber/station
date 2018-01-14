@@ -34,7 +34,7 @@ public class PrefixServiceImpl extends TransactionService
     public List<Prefix> getAll() throws ServiceException {
         try {
             return prefixDao.readAll();
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -42,12 +42,12 @@ public class PrefixServiceImpl extends TransactionService
     @Override
     public void save(Prefix prefix) throws ServiceException {
         try {
-            if(prefix.getId() != null) {
+            if (prefix.getId() != null) {
                 prefixDao.update(prefix);
             } else {
                 prefixDao.create(prefix);
             }
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -56,7 +56,7 @@ public class PrefixServiceImpl extends TransactionService
     public void delete(Integer id) throws ServiceException {
         try {
             prefixDao.delete(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

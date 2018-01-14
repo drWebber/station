@@ -13,7 +13,7 @@ import exception.DaoException;
 
 public class SubscriptionsDetailDaoImpl extends BaseDao
     implements SubscriptionsDetailDao {
-    
+
     public SubscriptionsDetailDaoImpl(Connection connection) {
         super(connection);
     }
@@ -51,12 +51,12 @@ public class SubscriptionsDetailDaoImpl extends BaseDao
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return detail;
     }

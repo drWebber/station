@@ -26,7 +26,7 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, service.getSubscriber().getId());
             statement.setInt(2, service.getOffer().getId());
@@ -37,12 +37,12 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -62,12 +62,12 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return subscription;
     }
@@ -95,12 +95,12 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return services;
     }
@@ -114,13 +114,13 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, service.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
             } catch (NullPointerException | SQLException e) {}
-        }  
+        }
     }
 
     private Subscription getService(ResultSet resultSet) throws SQLException {

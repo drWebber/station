@@ -11,16 +11,16 @@ import exception.ValidatorException;
 public interface ValidatorFactory {
     AdministratorValidator getAdministratorValidator()
             throws ValidatorException, IncorrectFormDataException;
-    
-    CallValidator getCallValidator() 
+
+    CallValidator getCallValidator()
             throws ValidatorException, IncorrectFormDataException;
-    
-    OfferValidator getOfferValidator() 
+
+    OfferValidator getOfferValidator()
             throws ValidatorException, IncorrectFormDataException;
-    
+
     RateValidator getRateValidator()
             throws ValidatorException, IncorrectFormDataException;
-    
+
     SubscriberValidator getSubscriberValidator()
             throws ValidatorException, IncorrectFormDataException;
 }

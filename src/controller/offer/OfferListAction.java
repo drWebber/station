@@ -26,10 +26,10 @@ public class OfferListAction extends Action {
         try {
             OfferService offerservice = getServiceFactory()
                     .getOfferService();
-            List<Offer> additionalOffers = 
+            List<Offer> additionalOffers =
                     offerservice.getByRequirement(false);
             request.setAttribute("additionalOffers", additionalOffers);
-            List<Offer> requiredOffers = 
+            List<Offer> requiredOffers =
                     offerservice.getByRequirement(true);
             request.setAttribute("requiredOffers", requiredOffers);
         } catch (FactoryException | ServiceException e) {

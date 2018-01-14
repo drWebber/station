@@ -19,18 +19,18 @@ public class OfferEditAction extends Action {
             LogManager.getLogger(OfferEditAction.class.getName());
 
     @Override
-    public Forwarder execute(HttpServletRequest request, 
+    public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         Integer id = null;
         try {
-            id = Integer.parseInt(request.getParameter("id"));            
+            id = Integer.parseInt(request.getParameter("id"));
         } catch (NumberFormatException e) { }
-        
+
         try {
             if (id != null) {
                 OfferService offerService =
                         getServiceFactory().getOfferService();
-                Offer offer = 
+                Offer offer =
                         offerService.getById(id);
                 request.setAttribute("offer", offer);
             }

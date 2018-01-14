@@ -9,7 +9,7 @@ public enum MobilePrefix {
     private final int id;
     private static Map<Integer, MobilePrefix> map =
             new HashMap<Integer, MobilePrefix>();
-    
+
     private MobilePrefix(int id) {
         this.id = id;
     }
@@ -19,7 +19,7 @@ public enum MobilePrefix {
             map.put(pref.id, pref);
         }
     }
-    
+
     public int getId() {
         return id;
     }

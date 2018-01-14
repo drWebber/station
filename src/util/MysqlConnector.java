@@ -10,7 +10,7 @@ import javax.naming.InitialContext;
 public class MysqlConnector {
     private static volatile DataSource ds = null;
     private static final String PROJECT_NAME = "station";
-    
+
     public static Connection getConnection()
             throws NamingException, SQLException {
         Connection conn = null;
@@ -18,7 +18,7 @@ public class MysqlConnector {
                 synchronized (MysqlConnector.class) {
                     if (ds == null) {
                         ds = InitialContext
-                                .<DataSource>doLookup("java:comp/env/jdbc/" 
+                                .<DataSource>doLookup("java:comp/env/jdbc/"
                                         + PROJECT_NAME);
                     }
                 }

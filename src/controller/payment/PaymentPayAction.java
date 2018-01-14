@@ -17,7 +17,7 @@ import exception.ServiceException;
 public class PaymentPayAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(PaymentPayAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

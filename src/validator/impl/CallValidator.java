@@ -22,14 +22,14 @@ public class CallValidator extends BaseValidator implements Validator<Call> {
     }
 
     @Override
-    public Call validate() 
+    public Call validate()
             throws IncorrectFormDataException, ValidatorException {
         Call call = new Call();
-        
+
         Integer prefixId = getIntegerParameter("prefix");
         Integer phoneNum = getIntegerParameter("phoneNum");
         Long duration = getLongParameter("duration");
-        
+
         /* current Subscriber */
         Subscriber subscriber = null;
         try {
@@ -45,11 +45,11 @@ public class CallValidator extends BaseValidator implements Validator<Call> {
         opponent.getPrefix().setId(prefixId);
 
         /* Call direction INCOMING|OUTGOING */
-        CallDirection direction = 
+        CallDirection direction =
                 CallDirection.valueOf(request.getParameter("direction"));
 
         /* Call rate type determining */
-        RateType rateType = 
+        RateType rateType =
                 new CallRateResolver(subscriber, opponent, direction)
                 .getResolvedRate();
         call.setRateType(rateType);
@@ -59,7 +59,7 @@ public class CallValidator extends BaseValidator implements Validator<Call> {
         call.setPhoneNum(phoneNum);
         long time = System.currentTimeMillis();
         call.setBeginTime(new Timestamp(time));
-        call.setFinishTime(new Timestamp(time + duration*1000));
+        call.setFinishTime(new Timestamp(time + duration * 1000));
         return call;
     }
 }

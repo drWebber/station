@@ -63,12 +63,12 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return subscriber;
     }
@@ -126,13 +126,13 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             statement.setLong(6, subscriber.getAdministrator().getId());
             statement.setLong(7, subscriber.getId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
-        }        
+            } catch (NullPointerException | SQLException e) { }
+        }
     }
 
     @Override
@@ -143,12 +143,12 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             statement = getConnection().prepareStatement(query);
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 }

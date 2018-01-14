@@ -25,8 +25,8 @@ public class SubscriberBanAction extends Action {
             SubscriberService service =
                     getServiceFactory().getSubscriberService();
             service.banById(id);
-        } catch (FactoryException | NumberFormatException |
-                ServiceException e) {
+        } catch (FactoryException | NumberFormatException
+                | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
         }

@@ -24,7 +24,7 @@ import exception.ServiceException;
 public class InvoiceListAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(InvoiceListAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -35,7 +35,7 @@ public class InvoiceListAction extends Action {
             List<Invoice> unpaidInvoices =
                     service.getInvoices(subscriber, false);
             request.setAttribute("unpaidInvoices", unpaidInvoices);
-            
+
             PaymentService paymentService =
                     getServiceFactory().getPaymentService();
             List<Payment> payments = paymentService.getBySubscriber(subscriber);
@@ -43,7 +43,7 @@ public class InvoiceListAction extends Action {
         } catch (RetrieveException | FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
-        } 
+        }
         return null;
     }
 }

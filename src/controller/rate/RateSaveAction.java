@@ -40,20 +40,20 @@ public class RateSaveAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         }
-        
+
         try {
-            RateService service = 
+            RateService service =
                     getServiceFactory().getRateService();
             service.save(callingRate);
         } catch (FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
         }
-        
+
         forwarder = new Forwarder("/rate/list.html");
         forwarder.getAttributes().put("succ_msg", "The data was "
                 + "successfully saved");
-        
+
         return forwarder;
     }
 }

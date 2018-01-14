@@ -33,7 +33,7 @@ public class LoginAction extends Action {
         if (login != null && password != null) {
             if (role.equals(Role.ADMINISTRATOR.toString())) {
                 try {
-                    AdministratorService service = 
+                    AdministratorService service =
                             getServiceFactory().getAdministratorService();
                     Administrator administrator =
                             service.getByLoginAndPassword(login, password);
@@ -44,9 +44,9 @@ public class LoginAction extends Action {
                     logger.error(e);
                     throw new ServletException(e);
                 }
-            } else if(role.equals(Role.SUBSCRIBER.toString())) {
+            } else if (role.equals(Role.SUBSCRIBER.toString())) {
                 try {
-                    SubscriberService service = 
+                    SubscriberService service =
                             getServiceFactory().getSubscriberService();
                     Subscriber subscriber =
                             service.getByLoginAndPassword(login, password);
@@ -64,11 +64,11 @@ public class LoginAction extends Action {
         roles.addAll(Arrays.asList(Role.values()));
         roles.remove(Role.GUEST);
         request.setAttribute("roles", roles);
-        
+
         return null;
     }
-    
-    private static <T> boolean authorize(HttpServletRequest request, 
+
+    private static <T> boolean authorize(HttpServletRequest request,
             T currentUser) {
         boolean result = false;
         if (currentUser != null) {

@@ -26,7 +26,7 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, payment.getInvoice().getId());
             statement.executeUpdate();
@@ -36,8 +36,8 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
+            try {
+                resultSet.close();
             } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
@@ -62,7 +62,7 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 resultSet.close(); 
             } catch (NullPointerException | SQLException e) {}
             try {
@@ -95,7 +95,7 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
             throw new DaoException(e);
         } finally {
             try { 
-                resultSet.close(); 
+                resultSet.close();
             } catch (NullPointerException | SQLException e) {}
             try {
                 statement.close();
@@ -125,7 +125,7 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
         } finally {
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 }

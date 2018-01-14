@@ -13,23 +13,23 @@ import exception.ValidatorException;
 
 public class AdministratorValidator extends BaseValidator
         implements Validator<Administrator> {
-    
+
     public AdministratorValidator(HttpServletRequest request) {
         super(request);
     }
 
     @Override
-    public Administrator validate() throws ValidatorException, 
+    public Administrator validate() throws ValidatorException,
             IncorrectFormDataException {
         Administrator administrator = new Administrator();
         try {
             Long id = getLongParameter("id");
             administrator.getUser().setId(id);
             administrator.setId(id);
-        } catch(IncorrectFormDataException e) {
+        } catch (IncorrectFormDataException e) {
             /* do nothing, because `id` can be null on create action */
         }
-        
+
         if (administrator.getId() == null) {
             administrator.getUser().setLogin(getStringParameter("login"));
             administrator.getUser().setPassword(
@@ -50,7 +50,7 @@ public class AdministratorValidator extends BaseValidator
                 Boolean.parseBoolean(request.getParameter("isActive")));
         administrator.setPersonalId(getIntegerParameter("personalId"));
         administrator.setPosition(getStringParameter("position"));
-        
+
         return administrator;
     }
 }

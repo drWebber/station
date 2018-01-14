@@ -27,7 +27,7 @@ public class CallDaoImpl extends BaseDao implements CallDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = getConnection().prepareStatement(query, 
+            statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setLong(1, call.getSubscriber().getId());
             statement.setInt(2, call.getPrefix().getId());
@@ -43,11 +43,11 @@ public class CallDaoImpl extends BaseDao implements CallDao {
             throw new DaoException(e);
         } finally {
             try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 
@@ -67,12 +67,12 @@ public class CallDaoImpl extends BaseDao implements CallDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return call;
     }
@@ -107,9 +107,9 @@ public class CallDaoImpl extends BaseDao implements CallDao {
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
+            try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
     }
 }

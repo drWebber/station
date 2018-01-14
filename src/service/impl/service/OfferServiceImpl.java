@@ -12,7 +12,7 @@ import service.interfaces.service.OfferService;
 public class OfferServiceImpl extends TransactionService
         implements OfferService {
     private OfferDao offerDao;
-    
+
     public OfferDao getOfferDao() {
         return offerDao;
     }
@@ -34,7 +34,7 @@ public class OfferServiceImpl extends TransactionService
     public List<Offer> getAll() throws ServiceException {
         try {
             return offerDao.readAll();
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -44,7 +44,7 @@ public class OfferServiceImpl extends TransactionService
             throws ServiceException {
         try {
             return offerDao.readByRequirement(require);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -52,12 +52,12 @@ public class OfferServiceImpl extends TransactionService
     @Override
     public void save(Offer service) throws ServiceException {
         try {
-            if(service.getId() != null) {
+            if (service.getId() != null) {
                 offerDao.update(service);
             } else {
                 offerDao.create(service);
             }
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -66,7 +66,7 @@ public class OfferServiceImpl extends TransactionService
     public void delete(Integer id) throws ServiceException {
         try {
             offerDao.delete(id);
-        } catch(DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

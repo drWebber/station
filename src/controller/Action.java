@@ -16,7 +16,7 @@ public abstract class Action {
     public void setServiceFactory(ServiceFactory serviceFactory) {
         this.serviceFactory = serviceFactory;
     }
-    
-    public abstract Forwarder execute(HttpServletRequest request, 
+
+    public abstract Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException;
 }

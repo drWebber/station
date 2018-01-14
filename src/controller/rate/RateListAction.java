@@ -19,7 +19,7 @@ import exception.ServiceException;
 public class RateListAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(RateListAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

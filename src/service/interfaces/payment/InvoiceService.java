@@ -16,10 +16,10 @@ public interface InvoiceService extends CompleteService<Long, Invoice> {
 
     List<Invoice> getInvoices(Subscriber subscriber, boolean isPaid)
             throws ServiceException;
-    
+
     Invoice getWithDetails(Long id, Subscriber subscriber)
         throws ServiceException;
-    
+
     /* Used only for testing. Not for real system */
     void deleteAll() throws ServiceException;
 }

@@ -17,7 +17,7 @@ import exception.ServiceException;
 public class RateEditAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(RateEditAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
@@ -27,7 +27,7 @@ public class RateEditAction extends Action {
         } catch (NumberFormatException e) { }
         if (id != null) {
             try {
-                RateService service = 
+                RateService service =
                         getServiceFactory().getRateService();
                 Rate rate = service.getById(id);
                 request.setAttribute("rate", rate);

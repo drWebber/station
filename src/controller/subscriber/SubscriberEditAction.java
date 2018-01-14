@@ -21,22 +21,22 @@ import exception.ServiceException;
 public class SubscriberEditAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(SubscriberEditAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request, 
             HttpServletResponse response) throws ServletException {
         Long id = null;
         try {
-            id = Long.parseLong(request.getParameter("id"));            
+            id = Long.parseLong(request.getParameter("id"));
         } catch (NumberFormatException e) { }
         try {
             if (id != null) {
-                SubscriberService subscriberService = 
+                SubscriberService subscriberService =
                         getServiceFactory().getSubscriberService();
                 Subscriber subscriber = subscriberService.getById(id);
                 request.setAttribute("subscriber", subscriber);
             }
-            PrefixService prefixService = 
+            PrefixService prefixService =
                     getServiceFactory().getPrefixService();
             List<Prefix> prefixes = prefixService.getAll();
             request.setAttribute("prefixes", prefixes);

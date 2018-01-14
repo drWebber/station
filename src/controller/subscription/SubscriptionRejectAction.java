@@ -27,21 +27,21 @@ public class SubscriptionRejectAction extends Action {
         Long id = null;
         try {
             id = Long.parseLong(request.getParameter("id"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new ServletException(e);
         }
-        
+
         if (id != null) {
             Subscriber subscriber = null;
             try {
-                subscriber = 
+                subscriber =
                         new UserRetriever<Subscriber>(request).getCurrentUser();
             } catch (RetrieveException e) {
                 logger.error(e);
                 throw new ServletException(e);
             }
             try {
-                SubscriptionService service = 
+                SubscriptionService service =
                         getServiceFactory().getSubscriptionService();
                 Subscription subscription = new Subscription();
                 subscription.setId(id);

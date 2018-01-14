@@ -7,7 +7,7 @@ public class CallRateResolver {
     private Subscriber subscriber;
     private Subscriber opponent;
     private CallDirection direction;
-    
+
     public CallRateResolver(Subscriber subscriber, Subscriber opponent,
             CallDirection direction) {
         this.subscriber = subscriber;

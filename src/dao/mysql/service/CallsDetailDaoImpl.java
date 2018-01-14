@@ -15,7 +15,7 @@ import domain.user.Subscriber;
 import exception.DaoException;
 
 public class CallsDetailDaoImpl extends BaseDao implements CallsDetailDao {
-    
+
     public CallsDetailDaoImpl(Connection connection) {
         super(connection);
     }
@@ -47,12 +47,12 @@ public class CallsDetailDaoImpl extends BaseDao implements CallsDetailDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            try { 
-                resultSet.close(); 
-            } catch (NullPointerException | SQLException e) {}
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
             try {
                 statement.close();
-            } catch (NullPointerException | SQLException e) {}
+            } catch (NullPointerException | SQLException e) { }
         }
         return callsDetail;
     }

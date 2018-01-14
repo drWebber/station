@@ -12,7 +12,7 @@ public class Forwarder {
         this.url = url;
         this.redirect = redirect;
     }
-    
+
     public Forwarder(String url) {
         this(url, true);
     }
@@ -20,7 +20,7 @@ public class Forwarder {
     public String getUrl() {
         return url;
     }
-    
+
     public String getUrlWithAttributes() {
         StringBuilder url = new StringBuilder(this.url);
         if (!attributes.isEmpty()) {
@@ -29,20 +29,19 @@ public class Forwarder {
             } else {
                 url.append("&");
             }
-            for(String key : attributes.keySet()) {
+            for (String key : attributes.keySet()) {
                 url.append(key + "=" + attributes.get(key) + "&");
             }
             url.setLength(url.length() - 1);
         }
         return url.toString();
     }
-    
+
     public boolean isRedirect() {
         return redirect;
     }
-    
+
     public Map<String, String> getAttributes() {
         return attributes;
     }
-    
 }

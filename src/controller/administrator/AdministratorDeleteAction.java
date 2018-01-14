@@ -14,7 +14,7 @@ import exception.FactoryException;
 import exception.ServiceException;
 
 public class AdministratorDeleteAction extends Action {
-    private static Logger logger = 
+    private static Logger logger =
             LogManager.getLogger(AdministratorDeleteAction.class.getName());
 
     @Override
@@ -23,8 +23,8 @@ public class AdministratorDeleteAction extends Action {
         Long id = null;
         try {
             id = Long.parseLong(request.getParameter("id"));
-        } catch(NumberFormatException e) { }
-        
+        } catch (NumberFormatException e) { }
+
         if (id != null) {
             try {
                 AdministratorService service =

@@ -41,9 +41,9 @@ import controller.subscription.SubscriptionRejectAction;
 public class ActionFactory {
     private static Map<String, Class<? extends Action>> 
             actions = new ConcurrentHashMap<>();
-    private static Logger logger = 
+    private static Logger logger =
             LogManager.getLogger(ActionFactory.class.getName());
-    
+
     static {
         actions.put("/", IndexViewAction.class);
         actions.put("/index", IndexViewAction.class);
@@ -78,7 +78,7 @@ public class ActionFactory {
         actions.put("/invoice/view", InvoiceViewAction.class);
         actions.put("/payment/pay", PaymentPayAction.class);
     }
-    
+
     public static Action getAction(String url) throws ServletException {
         Class<?> action = actions.get(url);
         try {

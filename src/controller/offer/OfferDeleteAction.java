@@ -16,20 +16,20 @@ import exception.ServiceException;
 public class OfferDeleteAction extends Action {
     private static Logger logger = 
             LogManager.getLogger(OfferDeleteAction.class.getName());
-    
+
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
         Integer id = null;
         try {
             id = Integer.parseInt(request.getParameter("id"));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             logger.warn(e);
         }
-        
+
         if (id != null) {
             try {
-                OfferService service = 
+                OfferService service =
                         getServiceFactory().getOfferService();
                 service.delete(id);
             } catch (FactoryException | ServiceException e) {
