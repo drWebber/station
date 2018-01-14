@@ -30,6 +30,10 @@ public class SubscriberDeleteAction extends Action {
             logger.error(e);
             throw new ServletException(e);
         }
-        return new Forwarder("/subscriber/list.html");
+
+        Forwarder forwarder = new Forwarder("/subscriber/list.html");
+        forwarder.getAttributes().put("succ_msg", "Record has been "
+                + "successfully deleted");
+        return forwarder;
     }
 }

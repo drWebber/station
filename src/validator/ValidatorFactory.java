@@ -4,6 +4,7 @@ import validator.impl.AdministratorValidator;
 import validator.impl.CallValidator;
 import validator.impl.OfferValidator;
 import validator.impl.RateValidator;
+import validator.impl.SubscriberValidator;
 import exception.IncorrectFormDataException;
 import exception.ValidatorException;
 
@@ -18,5 +19,8 @@ public interface ValidatorFactory {
             throws ValidatorException, IncorrectFormDataException;
     
     RateValidator getRateValidator()
+            throws ValidatorException, IncorrectFormDataException;
+    
+    SubscriberValidator getSubscriberValidator()
             throws ValidatorException, IncorrectFormDataException;
 }
