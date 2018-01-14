@@ -1,4 +1,4 @@
-package util.user;
+package exception;
 
 public class RetrieveException extends Exception {
     private static final long serialVersionUID = 1L;

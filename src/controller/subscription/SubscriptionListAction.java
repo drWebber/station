@@ -10,13 +10,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.service.SubscriptionService;
-import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.RetrieveException;
 import exception.ServiceException;
 
 public class SubscriptionListAction extends Action {

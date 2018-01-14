@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import domain.user.User;
+import exception.RetrieveException;
 
 public class UserRetriever<T extends User> {
     HttpServletRequest request;

@@ -13,7 +13,6 @@ import service.interfaces.service.CallService;
 import service.interfaces.service.RateService;
 import util.service.CallDirection;
 import util.service.CallRateResolver;
-import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -22,6 +21,7 @@ import domain.service.Rate;
 import domain.service.RateType;
 import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.RetrieveException;
 import exception.ServiceException;
 
 public class CallMakeAction extends Action {

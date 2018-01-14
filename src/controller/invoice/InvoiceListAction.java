@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import service.interfaces.payment.InvoiceService;
 import service.interfaces.payment.PaymentService;
-import util.user.RetrieveException;
 import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
@@ -19,6 +18,7 @@ import domain.payment.Invoice;
 import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.RetrieveException;
 import exception.ServiceException;
 
 public class InvoiceListAction extends Action {

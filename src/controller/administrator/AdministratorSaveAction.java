@@ -1,7 +1,5 @@
 package controller.administrator;
 
-import java.security.NoSuchAlgorithmException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.user.AdministratorService;
+import validator.AdministratorValidator;
+import validator.ValidatorFactoryImpl;
 import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
-import domain.user.Role;
 import exception.FactoryException;
+import exception.IncorrectFormDataException;
 import exception.ServiceException;
+import exception.ValidatorException;
 
 public class AdministratorSaveAction extends Action {
     private static Logger logger = 
@@ -24,39 +25,22 @@ public class AdministratorSaveAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-        Administrator administrator = new Administrator();
+        AdministratorValidator administratorValidator =
+                new ValidatorFactoryImpl(request).getAdministratorValidator();
+        Administrator administrator = null;
         try {
-            Long id = Long.parseLong(request.getParameter("id"));
-            administrator.getUser().setId(id);
-            administrator.setId(id);
-        } catch(NumberFormatException e) { }
-        if (administrator.getId() == null) {
-            administrator.getUser().setLogin(request.getParameter("login"));
-            administrator.getUser().setPassword(
-                    request.getParameter("password"));
-            try {
-                administrator.getUser().cryptPassword();
-            } catch (NoSuchAlgorithmException e) {
-                logger.error(e);
-                throw new ServletException(e);
-            }
-        }
-        administrator.getUser().setSurname(request.getParameter("surname"));
-        administrator.getUser().setName(request.getParameter("name"));
-        administrator.getUser().setPatronymic(request.getParameter("patronymic"));
-        administrator.getUser().setRole(Role.ADMINISTRATOR);
-        administrator.getUser().setActive(
-                Boolean.parseBoolean(request.getParameter("isActive")));
-        try {
-            Integer personalId = Integer.parseInt(
-                    request.getParameter("personalId"));
-            administrator.setPersonalId(personalId);
-        } catch (NumberFormatException e) {
+            administrator = administratorValidator.validate();
+        } catch (ValidatorException e) {
             logger.error(e);
-            throw new ServletException(e);
+            e.printStackTrace();
+        } catch (IncorrectFormDataException e) {
+            String referer = request.getHeader("referer");
+            String context = request.getContextPath();
+            referer = referer.substring(referer.indexOf(context)+ context.length(), referer.length());
+            Forwarder forwarder = new Forwarder(referer);
+            forwarder.getAttributes().put("message", e);
+            return forwarder;
         }
-        
-        administrator.setPosition(request.getParameter("position"));
         
         try {
             AdministratorService service =
