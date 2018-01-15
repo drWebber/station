@@ -11,6 +11,7 @@ import java.util.List;
 import dao.interfaces.service.OfferDao;
 import dao.mysql.BaseDao;
 import domain.service.Offer;
+import domain.user.Subscriber;
 import exception.DaoException;
 
 public class OfferDaoImpl extends BaseDao implements
@@ -21,7 +22,7 @@ public class OfferDaoImpl extends BaseDao implements
     }
 
     @Override
-    public Integer create(Offer providedService) throws DaoException {
+    public Integer create(final Offer offer) throws DaoException {
         String query = "INSERT INTO `offers` (`name`, "
                 + "`description`, `monthlyFee`, `subscriptionRate`, "
                 + "`required`) VALUES(?, ?, ?, ?, ?)";
@@ -30,11 +31,11 @@ public class OfferDaoImpl extends BaseDao implements
         try {
             statement = getConnection().prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
-            statement.setString(1, providedService.getName());
-            statement.setString(2, providedService.getDescription());
-            statement.setFloat(3, providedService.getMonthlyFee());
-            statement.setFloat(4, providedService.getSubscriptionRate());
-            statement.setBoolean(5, providedService.isRequired());
+            statement.setString(1, offer.getName());
+            statement.setString(2, offer.getDescription());
+            statement.setFloat(3, offer.getMonthlyFee());
+            statement.setFloat(4, offer.getSubscriptionRate());
+            statement.setBoolean(5, offer.isRequired());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -52,7 +53,7 @@ public class OfferDaoImpl extends BaseDao implements
     }
 
     @Override
-    public Offer read(Integer id) throws DaoException {
+    public Offer read(final Integer id) throws DaoException {
         String query = "SELECT * FROM `offers` WHERE `id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -62,7 +63,7 @@ public class OfferDaoImpl extends BaseDao implements
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                offer = getService(resultSet);
+                offer = getOffer(resultSet);
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -87,7 +88,7 @@ public class OfferDaoImpl extends BaseDao implements
             statement = getConnection().createStatement();
             resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                Offer offer = getService(resultSet);
+                Offer offer = getOffer(resultSet);
                 offers.add(offer);
             }
         } catch (SQLException e) {
@@ -104,7 +105,7 @@ public class OfferDaoImpl extends BaseDao implements
     }
 
     @Override
-    public List<Offer> readByRequirement(boolean require)
+    public List<Offer> readByRequirement(final boolean require)
             throws DaoException {
         String query = "SELECT * FROM `offers` WHERE `required` = ?";
         PreparedStatement statement = null;
@@ -115,7 +116,7 @@ public class OfferDaoImpl extends BaseDao implements
             statement.setBoolean(1, require);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Offer offer = getService(resultSet);
+                Offer offer = getOffer(resultSet);
                 offers.add(offer);
             }
         } catch (SQLException e) {
@@ -132,19 +133,19 @@ public class OfferDaoImpl extends BaseDao implements
     }
 
     @Override
-    public void update(Offer providedService) throws DaoException {
+    public void update(final Offer offer) throws DaoException {
         String query = "UPDATE `offers` SET `name` = ?, "
                 + "`description` = ?, `monthlyFee` = ?, "
                 + "`subscriptionRate` = ?, `required` = ? WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setString(1, providedService.getName());
-            statement.setString(2, providedService.getDescription());
-            statement.setFloat(3, providedService.getMonthlyFee());
-            statement.setFloat(4, providedService.getSubscriptionRate());
-            statement.setBoolean(5, providedService.isRequired());
-            statement.setInt(6, providedService.getId());
+            statement.setString(1, offer.getName());
+            statement.setString(2, offer.getDescription());
+            statement.setFloat(3, offer.getMonthlyFee());
+            statement.setFloat(4, offer.getSubscriptionRate());
+            statement.setBoolean(5, offer.isRequired());
+            statement.setInt(6, offer.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -156,7 +157,7 @@ public class OfferDaoImpl extends BaseDao implements
     }
 
     @Override
-    public void delete(Integer id) throws DaoException {
+    public void delete(final Integer id) throws DaoException {
         String query = "DELETE FROM `offers` WHERE `id` = ?";
         PreparedStatement statement = null;
         try {
@@ -172,16 +173,50 @@ public class OfferDaoImpl extends BaseDao implements
         }
     }
 
-    private Offer getService(ResultSet resultSet)
+    private Offer getOffer(final ResultSet resultSet)
             throws SQLException {
-        Offer service = new Offer();
-        service.setId(resultSet.getInt("id"));
-        service.setName(resultSet.getString("name"));
-        service.setDescription(resultSet.getString("description"));
-        service.setMonthlyFee(resultSet.getFloat("monthlyFee"));
-        service.setSubscriptionRate(resultSet
+        Offer offer = new Offer();
+        offer.setId(resultSet.getInt("id"));
+        offer.setName(resultSet.getString("name"));
+        offer.setDescription(resultSet.getString("description"));
+        offer.setMonthlyFee(resultSet.getFloat("monthlyFee"));
+        offer.setSubscriptionRate(resultSet
                 .getFloat("subscriptionRate"));
-        service.setRequired(resultSet.getBoolean("required"));
-        return service;
+        offer.setRequired(resultSet.getBoolean("required"));
+        return offer;
+    }
+
+    @Override
+    public List<Offer> readSubscribedOffers(final Subscriber subscriber)
+            throws DaoException {
+        String query = "SELECT * "
+                     + "FROM `offers` "
+                         + "WHERE `required` = 0 "
+                             + "AND `id` IN("
+                                 + "SELECT `offerID` "
+                                 + "FROM `subscriptions` "
+                                 + "WHERE `subscriberID` = ? "
+                                     + "AND `disconnected` IS NULL)";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, subscriber.getId());
+            resultSet = statement.executeQuery();
+            List<Offer> offers = new ArrayList<>();
+            while (resultSet.next()) {
+                offers.add(getOffer(resultSet));
+            }
+            return offers;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
     }
 }

@@ -27,8 +27,8 @@
 <h3>Дополнительные услуги</h3>
 <div class="container-fluid">
     <c:set var="count" value="0" />
-    <c:forEach var="offer" items="${additionalOffers}">
-			${count % 2 == 0 ? '<div class="row">' : ''}
+    	<c:forEach var="offer" items="${additionalOffers}">
+			${count % 2 == 0 ? "<div class='row'>" : ""}
 			<div class="col-sm-6 offers">
             <h4>${offer.name}
             	<c:if test="${isAdmin}">
@@ -65,18 +65,30 @@
 	                    <c:param name="offerId" value="${offer.id}" />
 	                </c:url>
 	                <form action="${subscribeUrl}" method="post">
-	                    <button type="submit" class="btn btn-success" 
-	                    	title="${isDisabled ? 'Подключить'
-								: 'Вы забанены'}" ${isDisabled}>Подключить
-	                    </button>
+					<c:set var="isSubscribed" value="${offer.subscribed}" />
+					<c:choose>
+						<c:when test="${not isSubscribed}">
+		                    <button type="submit" class="btn btn-success" 
+		                    	title="${isDisabled ? 'Вы заблокированы'
+									: 'Подключить'}" ${isDisabled}>
+									Подключить
+		                    </button>
+						</c:when>
+						<c:otherwise>
+		                    <button type="submit" class="btn btn-success" 
+		                    	title="Вы уже подписаны на эту услугу" disabled>
+									Подключить
+		                    </button>
+						</c:otherwise>
+					</c:choose>
 	                </form>
                 </c:if>
             </div>
         </div>
         <c:set var="count" value="${count + 1}" />
-			${count % 2 == 0 ? '</div>' : ''}
+		${count % 2 == 0 ? "</div>" : ""}
 		</c:forEach>
-    ${count % 2 == 0 ? '' : '</div>'}
+    ${count % 2 == 0 ? "" : "</div>"}
 </div>
 <h3>Установка и пользование телефоном</h3>
 <div class="container-fluid">

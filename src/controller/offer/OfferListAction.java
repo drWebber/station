@@ -10,10 +10,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import service.interfaces.service.OfferService;
+import util.user.UserRetriever;
 import controller.Action;
 import controller.Forwarder;
 import domain.service.Offer;
+import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.RetrieveException;
 import exception.ServiceException;
 
 public class OfferListAction extends Action {
@@ -23,11 +26,16 @@ public class OfferListAction extends Action {
     @Override
     public Forwarder execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
+        Subscriber subscriber = null;
         try {
-            OfferService offerservice = getServiceFactory()
-                    .getOfferService();
+            subscriber =
+                    new UserRetriever<Subscriber>(request).getCurrentUser();
+        } catch (RetrieveException e) { }
+        
+        try {
+            OfferService offerservice = getServiceFactory().getOfferService();
             List<Offer> additionalOffers =
-                    offerservice.getByRequirement(false);
+                    offerservice.getBySubscriber(subscriber);
             request.setAttribute("additionalOffers", additionalOffers);
             List<Offer> requiredOffers =
                     offerservice.getByRequirement(true);

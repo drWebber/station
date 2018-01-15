@@ -3,6 +3,8 @@ package service.impl.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import service.impl.TransactionService;
+import service.interfaces.service.SubscriptionService;
 import dao.interfaces.service.OfferDao;
 import dao.interfaces.service.SubscriptionDao;
 import dao.interfaces.user.UserDao;
@@ -10,11 +12,10 @@ import domain.service.Offer;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.DaoException;
+import exception.OfferIsAlreadySubscribed;
 import exception.ServiceException;
 import exception.TransactionException;
 import exception.UserIsBannedException;
-import service.impl.TransactionService;
-import service.interfaces.service.SubscriptionService;
 
 public class SubscriptionServiceImpl extends TransactionService
         implements SubscriptionService {
@@ -93,7 +94,7 @@ public class SubscriptionServiceImpl extends TransactionService
 
     @Override
     public void validateAndSave(Subscription subscription)
-            throws ServiceException, UserIsBannedException {
+            throws ServiceException, UserIsBannedException, OfferIsAlreadySubscribed {
         try {
             getTransaction().start();
             if (subscription.getId() != null) {
@@ -102,12 +103,19 @@ public class SubscriptionServiceImpl extends TransactionService
             } else {
                 boolean isBanned =
                         userDao.isBanned(subscription.getSubscriber().getId());
+                boolean isSubscribed =
+                        subscriptionDao.isSubscribed(subscription);
+                //TODO
                 subscriptionDao.create(subscription);
-                getTransaction().commit();
                 if (isBanned) {
                     throw new UserIsBannedException("You are banned. "
                             + "Subscriptions is resctricted");
                 }
+                if (isSubscribed) {
+                    throw new OfferIsAlreadySubscribed("You are already "
+                            + "subscribed for this offer");
+                }
+                getTransaction().commit();
             }
         } catch (DaoException | TransactionException e) {
             try {

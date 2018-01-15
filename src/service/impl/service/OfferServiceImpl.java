@@ -4,8 +4,10 @@ import java.util.List;
 
 import dao.interfaces.service.OfferDao;
 import domain.service.Offer;
+import domain.user.Subscriber;
 import exception.DaoException;
 import exception.ServiceException;
+import exception.TransactionException;
 import service.impl.TransactionService;
 import service.interfaces.service.OfferService;
 
@@ -46,6 +48,32 @@ public class OfferServiceImpl extends TransactionService
             return offerDao.readByRequirement(require);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Offer> getBySubscriber(final Subscriber subscriber)
+            throws ServiceException {
+        try {
+            getTransaction().start();
+            List<Offer> offers = offerDao.readByRequirement(false);
+            if (subscriber != null) {
+                List<Offer> subscribered =
+                        offerDao.readSubscribedOffers(subscriber);
+                for (Offer offer : offers) {
+                    if (subscribered.contains(offer)) {
+                        offer.setSubscribed(true);
+                    }
+                }
+            }
+            getTransaction().commit();
+            return offers;
+        } catch (DaoException | TransactionException e) {
+            throw new ServiceException(e);
+        } finally {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e) { }
         }
     }
 

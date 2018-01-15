@@ -136,4 +136,30 @@ public class SubscriptionDaoImpl extends BaseDao implements SubscriptionDao {
         service.setDisconnected(resultSet.getTimestamp("disconnected"));
         return service;
     }
+
+    @Override
+    public boolean isSubscribed(Subscription subscription) throws DaoException {
+        String query = "SELECT `id` "
+                     + "FROM `subscriptions` "
+                     + "WHERE `subscriberID` = ? AND `disconnected` IS NULL "
+                         + "AND `offerID` = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, subscription.getSubscriber().getId());
+            statement.setInt(2, subscription.getOffer().getId());
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? true : false;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
 }

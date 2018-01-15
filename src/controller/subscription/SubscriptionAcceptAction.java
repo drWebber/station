@@ -14,6 +14,7 @@ import controller.Forwarder;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
+import exception.OfferIsAlreadySubscribed;
 import exception.RetrieveException;
 import exception.ServiceException;
 import exception.UserIsBannedException;
@@ -53,7 +54,7 @@ public class SubscriptionAcceptAction extends Action {
         } catch (FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
-        } catch (UserIsBannedException e) {
+        } catch (UserIsBannedException | OfferIsAlreadySubscribed e) {
             logger.warn(e);
             forwarder = new Forwarder("/offer/list.html");
             forwarder.getAttributes().put("err_msg", e.getMessage());

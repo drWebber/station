@@ -5,5 +5,5 @@ import exception.DaoException;
 
 public interface CompleteDao<PK, T extends Entity<PK>>
         extends UpdatableDao<PK, T> {
-    void delete(PK id) throws DaoException;
+    void delete(final PK id) throws DaoException;
 }
