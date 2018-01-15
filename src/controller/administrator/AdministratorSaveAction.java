@@ -15,6 +15,7 @@ import controller.Forwarder;
 import domain.user.Administrator;
 import exception.FactoryException;
 import exception.IncorrectFormDataException;
+import exception.LoginIsNotUnique;
 import exception.ServiceException;
 import exception.ValidatorException;
 
@@ -60,6 +61,14 @@ public class AdministratorSaveAction extends Action {
         } catch (FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);
+        } catch (LoginIsNotUnique e) {
+            logger.info(e);
+            forwarder = new Forwarder("/administrator/edit.html");
+            if (id != null) {
+                forwarder.getAttributes().put("id", id.toString());
+            }
+            forwarder.getAttributes().put("err_msg", e.getMessage());
+            return forwarder;
         }
 
         forwarder = new Forwarder("/administrator/list.html");

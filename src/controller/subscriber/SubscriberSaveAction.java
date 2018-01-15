@@ -15,6 +15,7 @@ import controller.Forwarder;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.IncorrectFormDataException;
+import exception.LoginIsNotUnique;
 import exception.ServiceException;
 import exception.ValidatorException;
 
@@ -56,6 +57,14 @@ public class SubscriberSaveAction extends Action {
             SubscriberService service =
                     getServiceFactory().getSubscriberService();
             service.save(subscriber);
+        } catch (LoginIsNotUnique e) {
+            logger.info(e);
+            forwarder = new Forwarder("/subscriber/edit.html");
+            if (id != null) {
+                forwarder.getAttributes().put("id", id.toString());
+            }
+            forwarder.getAttributes().put("err_msg", e.getMessage());
+            return forwarder;
         } catch (FactoryException | ServiceException e) {
             logger.error(e);
             throw new ServletException(e);

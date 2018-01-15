@@ -2,6 +2,8 @@ package service.impl.user;
 
 import java.util.List;
 
+import service.impl.TransactionService;
+import service.interfaces.user.SubscriberService;
 import dao.interfaces.user.AdministratorDao;
 import dao.interfaces.user.SubscriberDao;
 import dao.interfaces.user.UserDao;
@@ -9,11 +11,10 @@ import domain.user.Administrator;
 import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
+import exception.LoginIsNotUnique;
 import exception.ServiceException;
 import exception.TransactionException;
 import exception.UserIsBannedException;
-import service.impl.TransactionService;
-import service.interfaces.user.SubscriberService;
 
 public class SubscriberServiceImpl extends TransactionService
         implements SubscriberService {
@@ -102,13 +103,17 @@ public class SubscriberServiceImpl extends TransactionService
     }
 
     @Override
-    public void save(Subscriber subscriber) throws ServiceException {
+    public void save(Subscriber subscriber)
+            throws ServiceException, LoginIsNotUnique {
         try {
             getTransaction().start();
             if (subscriber.getId() != null) {
                 userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);
             } else {
+                if (!userDao.isLoginUnique(subscriber.getLogin())) {
+                    throw new LoginIsNotUnique();
+                }
                 Long id = userDao.create(subscriber.getUser());
                 subscriber.setId(id);
                 subscriberDao.create(subscriber);

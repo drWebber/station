@@ -204,4 +204,26 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         }
         return !isActive;
     }
+
+    @Override
+    public boolean isLoginUnique(String login) throws DaoException {
+        String query = "SELECT `id` FROM `users` WHERE `login` = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
 }
