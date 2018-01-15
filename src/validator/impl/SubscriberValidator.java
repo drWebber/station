@@ -54,7 +54,11 @@ public class SubscriberValidator extends BaseValidator
         subscriber.setBirthDay(getDateParameter("birthday"));
         subscriber.setAddress(request.getParameter("address"));
         subscriber.getPrefix().setId(getIntegerParameter("prefix"));
-        subscriber.setPhoneNum(getIntegerParameter("phoneNum"));
+        Integer phoneNum = getIntegerParameter("phoneNum");
+        if (phoneNum < 100 || phoneNum > 9999999) {
+            throw new IncorrectFormDataException("Incorrect phone number");
+        }
+        subscriber.setPhoneNum(phoneNum);
 
         try {
             Administrator administrator =

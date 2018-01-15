@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.user.Subscriber;
 import exception.LoginIsNotUnique;
+import exception.PassportIdIsNotUnique;
 import exception.PhoneIsNotUnique;
 import exception.ServiceException;
 import exception.UserIsBannedException;
@@ -12,7 +13,8 @@ public interface SubscriberService {
     Subscriber getById(Long id) throws ServiceException;
     
     void save(Subscriber subscriber)
-            throws ServiceException, LoginIsNotUnique, PhoneIsNotUnique;
+            throws ServiceException, LoginIsNotUnique,
+                PhoneIsNotUnique, PassportIdIsNotUnique;
     
     void delete(Long id) throws ServiceException;
     

@@ -92,14 +92,16 @@
                     <c:forEach var="prefix" items="${prefixes}">
                         <option ${prefix.id == subscriber.prefix.id 
                             ? "selected" 
-                            : ""}>${prefix.id}</option>
+                            : ""} value="${prefix.id}">
+                            	0${prefix.id} ${prefix.city}
+                        </option>
                     </c:forEach>
                 </select>
             </div>
             <div class="col-xs-7">
                 <label for="phoneNum">Телефон:</label>
                 <input class="form-control" type="number" name="phoneNum"
-                    value="${subscriber.phoneNum}" />
+                    value="${subscriber.phoneNum}" min="100" max="9999999" />
             </div>
         </div>
         <c:if test="${not isCreation}">

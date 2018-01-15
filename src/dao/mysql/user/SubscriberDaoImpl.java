@@ -151,4 +151,31 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             } catch (NullPointerException | SQLException e) { }
         }
     }
+
+    @Override
+    public boolean isPassportIdUnique(Subscriber subscriber)
+            throws DaoException {
+        String query = "SELECT `id` "
+                     + "FROM subscribers "
+                     + "WHERE `passportID` = ? "
+                         + "AND `id` <> ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1, subscriber.getPassportId());
+            statement.setLong(2, subscriber.getId());
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
 }

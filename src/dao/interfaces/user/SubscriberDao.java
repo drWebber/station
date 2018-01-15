@@ -8,4 +8,6 @@ import exception.DaoException;
 
 public interface SubscriberDao extends CompleteDao<Long, Subscriber> {
     List<Subscriber> readAll() throws DaoException;
+    
+    boolean isPassportIdUnique(Subscriber subscriber) throws DaoException;
 }

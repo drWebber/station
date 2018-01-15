@@ -16,6 +16,7 @@ import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.IncorrectFormDataException;
 import exception.LoginIsNotUnique;
+import exception.PassportIdIsNotUnique;
 import exception.PhoneIsNotUnique;
 import exception.ServiceException;
 import exception.ValidatorException;
@@ -58,7 +59,8 @@ public class SubscriberSaveAction extends Action {
             SubscriberService service =
                     getServiceFactory().getSubscriberService();
             service.save(subscriber);
-        } catch (PhoneIsNotUnique | LoginIsNotUnique e) {
+        } catch (PhoneIsNotUnique | LoginIsNotUnique
+                | PassportIdIsNotUnique e) {
             logger.info(e);
             forwarder = new Forwarder("/subscriber/edit.html");
             if (id != null) {

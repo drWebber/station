@@ -30,12 +30,18 @@ public class OfferListAction extends Action {
         try {
             subscriber =
                     new UserRetriever<Subscriber>(request).getCurrentUser();
-        } catch (RetrieveException e) { }
+        } catch (RetrieveException | ClassCastException e) { }
         
         try {
             OfferService offerservice = getServiceFactory().getOfferService();
-            List<Offer> additionalOffers =
-                    offerservice.getBySubscriber(subscriber);
+            List<Offer> additionalOffers = null;
+            if (subscriber != null) {
+                additionalOffers =
+                        offerservice.getBySubscriber(subscriber);
+            } else {
+                additionalOffers =
+                        offerservice.getByRequirement(false);
+            }
             request.setAttribute("additionalOffers", additionalOffers);
             List<Offer> requiredOffers =
                     offerservice.getByRequirement(true);

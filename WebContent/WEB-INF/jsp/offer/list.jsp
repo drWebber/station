@@ -59,11 +59,11 @@
                         </c:choose>
                     </p>
                 </div>
-                <c:if test="${isUser}">
 	                <c:url var="subscribeUrl" value="/subscription/accept.html">
 	                    <c:param name="id" value="${currentUser.id}" />
 	                    <c:param name="offerId" value="${offer.id}" />
 	                </c:url>
+					<c:if test="${not isAdmin}">
 	                <form action="${subscribeUrl}" method="post">
 					<c:set var="isSubscribed" value="${offer.subscribed}" />
 					<c:choose>
