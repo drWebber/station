@@ -13,6 +13,9 @@
 	<c:when test="${currentUser.role == 'ADMINISTRATOR'}">
 		<c:set var="isAdmin" value="true" />
 	</c:when>
+	<c:otherwise>
+		<c:set var="isGuest" value="true" />
+	</c:otherwise>
 </c:choose>
 
 <u:html title="Перечень предоставляемых услуг"
@@ -63,7 +66,7 @@
 	                    <c:param name="id" value="${currentUser.id}" />
 	                    <c:param name="offerId" value="${offer.id}" />
 	                </c:url>
-					<c:if test="${not isAdmin}">
+					<c:if test="${not isAdmin && not isGuest}">
 	                <form action="${subscribeUrl}" method="post">
 					<c:set var="isSubscribed" value="${offer.subscribed}" />
 					<c:choose>
