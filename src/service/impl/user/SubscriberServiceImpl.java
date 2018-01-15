@@ -12,6 +12,7 @@ import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
 import exception.LoginIsNotUnique;
+import exception.PhoneIsNotUnique;
 import exception.ServiceException;
 import exception.TransactionException;
 import exception.UserIsBannedException;
@@ -104,9 +105,12 @@ public class SubscriberServiceImpl extends TransactionService
 
     @Override
     public void save(Subscriber subscriber)
-            throws ServiceException, LoginIsNotUnique {
+            throws ServiceException, LoginIsNotUnique, PhoneIsNotUnique {
         try {
             getTransaction().start();
+            if (!userDao.isPhoneUnique(subscriber)) {
+                throw new PhoneIsNotUnique();
+            }
             if (subscriber.getId() != null) {
                 userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);

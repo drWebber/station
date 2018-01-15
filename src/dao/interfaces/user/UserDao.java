@@ -1,6 +1,7 @@
 package dao.interfaces.user;
 
 import dao.CompleteDao;
+import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
 
@@ -13,4 +14,6 @@ public interface UserDao extends CompleteDao<Long, User> {
     boolean isBanned(Long id) throws DaoException;
     
     boolean isLoginUnique(String login) throws DaoException;
+    
+    boolean isPhoneUnique(Subscriber subscriber) throws DaoException;
 }
