@@ -10,7 +10,6 @@ import util.user.PasswordCryptographer;
 import dao.interfaces.user.UserDao;
 import dao.mysql.BaseDao;
 import domain.user.Role;
-import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
 
@@ -214,34 +213,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         try {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, login);
-            resultSet = statement.executeQuery();
-            return resultSet.next() ? false : true;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                resultSet.close();
-            } catch (NullPointerException | SQLException e) { }
-            try {
-                statement.close();
-            } catch (NullPointerException | SQLException e) { }
-        }
-    }
-
-    @Override
-    public boolean isPhoneUnique(Subscriber subscriber)
-            throws DaoException {
-        String query = "SELECT `id` "
-                     + "FROM subscribers "
-                     + "WHERE `prefixID` = ? AND `phoneNum` = ? "
-                         + "AND `id` <> ?";
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = getConnection().prepareStatement(query);
-            statement.setInt(1, subscriber.getPrefix().getId());
-            statement.setInt(2, subscriber.getPhoneNum());
-            statement.setLong(3, subscriber.getId());
             resultSet = statement.executeQuery();
             return resultSet.next() ? false : true;
         } catch (SQLException e) {

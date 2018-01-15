@@ -164,7 +164,45 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
         try {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, subscriber.getPassportId());
-            statement.setLong(2, subscriber.getId());
+            if (subscriber.getId() != null) {
+                statement.setLong(2, subscriber.getId());
+            } else {
+                /* It's subscriber creation, he hasn't id yet */
+                statement.setLong(2, 0L);
+            }
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
+
+    @Override
+    public boolean isPhoneUnique(Subscriber subscriber)
+            throws DaoException {
+        String query = "SELECT `id` "
+                     + "FROM subscribers "
+                     + "WHERE `prefixID` = ? AND `phoneNum` = ? "
+                         + "AND `id` <> ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(1, subscriber.getPrefix().getId());
+            statement.setInt(2, subscriber.getPhoneNum());
+            if (subscriber.getId() != null) {
+                statement.setLong(3, subscriber.getId());
+            } else {
+                /* It's subscriber creation, he hasn't id yet */
+                statement.setLong(3, 0L);
+            }
             resultSet = statement.executeQuery();
             return resultSet.next() ? false : true;
         } catch (SQLException e) {

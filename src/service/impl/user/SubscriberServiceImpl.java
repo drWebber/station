@@ -113,7 +113,7 @@ public class SubscriberServiceImpl extends TransactionService
             if (!subscriberDao.isPassportIdUnique(subscriber)) {
                 throw new PassportIdIsNotUnique();
             }
-            if (!userDao.isPhoneUnique(subscriber)) {
+            if (!subscriberDao.isPhoneUnique(subscriber)) {
                 throw new PhoneIsNotUnique();
             }
             if (subscriber.getId() != null) {
