@@ -7,7 +7,7 @@
 	<c:when test="${currentUser.role == 'SUBSCRIBER'}">
 		<c:set var="isUser" value="true" />
 		<c:if test="${not currentUser.user.active}">
-			<c:set var="isDisabled" value="disabled" />
+			<c:set var="disabled" value="disabled" />
 		</c:if>
 	</c:when>
 	<c:when test="${currentUser.role == 'ADMINISTRATOR'}">
@@ -69,8 +69,8 @@
 					<c:choose>
 						<c:when test="${not isSubscribed}">
 		                    <button type="submit" class="btn btn-success" 
-		                    	title="${isDisabled ? 'Вы заблокированы'
-									: 'Подключить'}" ${isDisabled}>
+		                    	title="${empty disabled ? 'Подключить'
+									: 'Вы заблокированы'}" ${disabled}>
 									Подключить
 		                    </button>
 						</c:when>
