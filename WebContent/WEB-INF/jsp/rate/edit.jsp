@@ -9,8 +9,8 @@
 <c:set var="pageHeading" value="Редактирование 
 		тарифа &laquo;<span class='text-lowercase'>${rateType}</span>&raquo;" />
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
-<div class="row">
-	<form class="col-lg-7" action="${urlSave}" method="post">
+<div class="container-fluid">
+	<form action="${urlSave}" method="post">
 	   <div class="input-group">
 	       <span class="input-group-addon">Тариф, руб/мин</span>
 	       <input class="form-control" type="number" name="tariff"

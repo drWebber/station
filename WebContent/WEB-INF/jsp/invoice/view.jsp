@@ -13,7 +13,7 @@
     pattern="dd.MM.YYYY" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
-<div class="row">
+<div class="container-fluid">
     <table class="table table-condensed">
         <tbody>
             <tr>
@@ -34,7 +34,7 @@
         </tbody>
     </table>
 </div>
-<div class="row">
+<div class="container-fluid">
     <table class="table table-condensed table-striped">
         <thead>
             <tr>
@@ -109,16 +109,18 @@
         </tbody>
     </table>
 </div>
-<p class="small">
-    <em>* <fmt:message key="invoice.view.note"/></em>
-</p>
-<div class="row text-right">
-    <c:url var="urlPay" value="/payment/pay.html">
+<div class="container-fluid">
+	<p class="small">
+	    <em>* <fmt:message key="invoice.view.note"/></em>
+	</p>
+	<c:url var="urlPay" value="/payment/pay.html">
         <c:param name="id" value="${invoice.id}" />
     </c:url>
     <fmt:message var="billPayment" key="invoice.view.billPayment"/>
-    <a href="${urlPay}" class="btn btn-info" role="button" 
-        title="${billPayment}"><fmt:message key="invoice.view.pay"/></a>
+    <p class="text-right">
+    	<a href="${urlPay}" class="btn btn-info" role="button" 
+        		title="${billPayment}"><fmt:message key="invoice.view.pay"/></a>
+    </p>
 </div>
 <br />
 </u:html>

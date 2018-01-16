@@ -6,5 +6,7 @@
 
 <fmt:message var="error" key="error.title"/>
 <u:html title="${error}" pageHeading="${error}">
-    <p><fmt:message key="error.message"/></p>
+	<div class="container-fluid">
+	    <p><fmt:message key="error.message"/></p>
+	</div>
 </u:html>

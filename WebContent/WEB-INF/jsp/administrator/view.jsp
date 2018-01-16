@@ -9,22 +9,24 @@
 
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
-<table class="table">
-    <tbody>
-        <tr>
-            <td>ФИО</td>
-            <td>${administrator.surname} ${administrator.name} 
-            	${administrator.patronymic}
-            </td>
-        </tr>
-        <tr>
-            <td>Должность</td>
-            <td>${administrator.position}</td>
-        </tr>
-        <tr>
-            <td>Состояние</td>
-            <td>${administrator.active ? "Активен" : "Заблокирован"}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container-fluid">
+	<table class="table">
+	    <tbody>
+	        <tr>
+	            <td>ФИО</td>
+	            <td>${administrator.surname} ${administrator.name} 
+	            	${administrator.patronymic}
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>Должность</td>
+	            <td>${administrator.position}</td>
+	        </tr>
+	        <tr>
+	            <td>Состояние</td>
+	            <td>${administrator.active ? "Активен" : "Заблокирован"}</td>
+	        </tr>
+	    </tbody>
+	</table>
+</div>
 </u:html>

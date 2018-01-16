@@ -22,9 +22,8 @@
 <c:url var="urlDelete" value="/administrator/delete.html" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
-<div class="row nopadding">
-    <div class="row col-lg-8">
-    <form action="${urlSave}" method="post">
+<div class="container-fluid user-edit">
+    <form class="col-xs-12" action="${urlSave}" method="post">
         <div class="input-group row">
             <span class="input-group-addon">Логин</span>
             <input type="text" class="form-control" name="login"
@@ -85,6 +84,5 @@
                 onclick="history.back();" value="Назад" />
         </div>
     </form>
-    </div>
 </div>
 </u:html>

@@ -2,11 +2,21 @@ html, body {
     background-color: #EEE;
     height: 100%;
 }
+
+aside ul {
+	padding: 0;
+}
+
 /* index */
 .jumbotron {
     background: white;
     border-radius: 0 !important;
 }
+
+.alert {
+	margin-bottom: 0;
+}
+
 /* sidebar */
 .sidebar ul {
     list-style-type: none;
@@ -33,6 +43,35 @@ html, body {
     border: none;
 }
 
+/* subscriber-edit */
+.subscriber-static label, .subscriber-static div {
+    padding: 0 !important;
+    text-align: left !important;
+}
+
+.subscriber-edit-phone {
+	width: 100%;
+	paddint-right: 15px;
+}
+
+.subscriber-edit-phone div {
+    padding: 0 15px 10px 0;
+}
+
+.subscriber-edit-phone div:last-child {
+    padding-right: 0;
+}
+
+/* subscriber edit + admin edit */
+.user-edit .input-group-addon {
+	width: 125px;
+	text-align: left;
+}
+
+.user-edit .input-group {
+    width: 100%;
+}
+
 /* offers */
 .subscription-conditions p {
     margin: 0;
@@ -40,11 +79,6 @@ html, body {
 
 .offers button {
     margin: 10px 10px 0 0;
-}
-
-/* subscriber edit */
-form .subscriber-phone {
-	margin-bottom: .7em;
 }
 
 /* input */
@@ -98,6 +132,10 @@ footer p {
     line-height: 2em;
 }
 
+/* offers */
+.offer button {
+    margin: .7em 15px;
+}
 
 /* call form */
 .call-wrapper .radio-inline {
@@ -114,6 +152,11 @@ footer p {
     padding: .5em;
     width: 3em;
     border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.call-wrapper button {
+    border-radius: 4px;
 }
 
 .call-wrapper input[type="radio"]:checked + span {
@@ -123,12 +166,12 @@ footer p {
 }
 
 /* invoice control */
-.red-button {
-    margin-top: 1em;
+.red-button h3 {
+	margin: 0;
 }
 
-.red-button button {
-    margin: 0 0 15px 15px !important;
+.red-button {
+    padding: 15px;
 }
 
 /* media-queries */

@@ -14,6 +14,7 @@
 <fmt:message var="heading" key="rate.list.heading"/>
 <u:html title="${title}"
     pageHeading="${heading}">
+<div class="container-fluid">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -52,4 +53,5 @@
             </c:forEach>
         </tbody>
     </table>
+</div>    
 </u:html>

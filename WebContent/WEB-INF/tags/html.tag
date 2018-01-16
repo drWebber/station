@@ -103,24 +103,31 @@
         <div class="content col-xs-12 col-lg-9 col-lg-push-3">
             <article>
 				<c:if test="${not empty param.err_msg}">
-					<div class="alert alert-danger fade in row">
+    			<div class="container-fluid">
+					<div class="alert alert-danger fade in">
 						<a href="#" class="close" data-dismiss="alert" 
 							aria-label="close">&times;</a>
 					  <strong>Error!</strong> ${param.err_msg}.
 					</div>
+				</div>
 				</c:if>
 				<c:if test="${not empty param.succ_msg}">
-					<div class="alert alert-success fade in row">
+    			<div class="container-fluid">
+					<div class="alert alert-success fade in">
 						<a href="#" class="close" data-dismiss="alert" 
 							aria-label="close">&times;</a>
 					  <strong>Success!</strong> ${param.succ_msg}.
 					</div>
+				</div>
 				</c:if>
-                <h1 class="text-left">${pageHeading}</h1>
+				<div class="container-fluid">	
+                	<h1 class="text-left">${pageHeading}</h1>
+                </div>
                 <jsp:doBody />
             </article>
         </div>
         <aside class="sidebar col-xs-12 col-lg-3 col-lg-pull-9">
+        	<div class="container-fluid">
             <h4>Главное меню</h4>
             <ul>
                 <li><a href="${urlHome}">Главная</a></li>
@@ -143,6 +150,7 @@
 				<li><a href="${urlOfferList}">Услуги</a></li>
 				<li><a href="${urlRateList}">Тарифные планы</a></li>
             </ul>
+            </div>
         </aside>
     </section>
     <div class="row">

@@ -9,11 +9,10 @@
 <fmt:formatDate var="current_month" value="${now}" pattern="MMMM" />
 
 <u:html title="Счета за звонки и услуги" pageHeading="Перечень счетов">
-<h3>Неоплаченные счета</h3>
 <c:choose>
 <c:when test="${not empty unpaidInvoices}">
-    <div class="container-fulid">
-        <div class="row col-sm-12">
+    <div class="container-fluid">
+		<h3>Неоплаченные счета</h3>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -56,17 +55,17 @@
                     </c:forEach>
                 </tbody>
             </table>
-        </div>
     </div>
 </c:when>
     <c:otherwise>
-        <p>Неоплаченных счетов нет.</p>
+    	<div class="container-fluid">
+        	<p>Неоплаченных счетов нет.</p>
+        </div>
     </c:otherwise>
 </c:choose>    
 <c:if test="${not empty payments}">
+    <div class="container-fluid">
     <h3>Оплаты</h3>
-    <div class="container-fulid">
-        <div class="row col-sm-12">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -105,6 +104,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
 </c:if>
 </u:html>

@@ -25,8 +25,8 @@
 
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
-<div class="row">
-    <form class="col-lg-8" action="${urlSave}" method="post">
+<div class="container-fluid user-edit">
+    <form class="col-xs-12" action="${urlSave}" method="post">
         <div class="input-group row">
             <span class="input-group-addon">Логин</span> <input
                 type="text" class="form-control" name="login"
@@ -85,7 +85,7 @@
                 ${subscriber.active == "false" ? "checked": ""}>Заблокирован
             </label>
         </div>
-        <div class="input-group subscriber-phone row">
+        <div class="row subscriber-edit-phone">
             <div class="col-xs-5">
                 <label for="sel">Код города:</label> <select
                     class="form-control" id="sel" name="prefix">
@@ -98,17 +98,26 @@
                     </c:forEach>
                 </select>
             </div>
+            <c:choose>
+            	<c:when test="${subscriber.phoneNum > 0}">
+            		<c:set var="phone" value="${subscriber.phoneNum}"></c:set>
+            	</c:when>
+            	<c:otherwise>
+            		<c:set var="phone" value="240000"></c:set>
+            	</c:otherwise>
+            </c:choose>
             <div class="col-xs-7">
                 <label for="phoneNum">Телефон:</label>
                 <input class="form-control" type="number" name="phoneNum"
-                    value="${subscriber.phoneNum}" min="100" max="9999999" />
+                    value="${phone}" min="100" max="9999999" />
             </div>
         </div>
         <c:if test="${not isCreation}">
-	        <div class="form-group form-horizontal row">
-	            <label class="control-label col-sm-3">Администратор</label>
-	            <div class="col-sm-7">
-	                <p class="form-control-static">
+        <div class="row subscriber-static">
+	        <div class="form-group form-horizontal">
+	            <label class="control-label col-sm-2">Администратор</label>
+	            <div class="col-sm-10">
+	                <p>
 	                    <a href="${urlAdminProfile}" 
 	                    		title="Профиль администратора">
 	                        ${subscriber.administrator.surname}
@@ -117,9 +126,10 @@
 	                </p>
 	            </div>
 	        </div>
+        </div>
             <input name="id" value="${subscriber.id}" type="hidden">
         </c:if>
-        <div class="form-group row">
+        <div class="form-group row subscriber-submit">
             <button type="submit" class="btn btn-info" title="Сохранить">
                 Сохранить</button>
             <c:if test="${not isCreation}">

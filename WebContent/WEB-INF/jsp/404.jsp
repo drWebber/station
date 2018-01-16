@@ -8,5 +8,7 @@
 <fmt:message var="heading" key="404.heading"/>
 <u:html title="${title}" 
     pageHeading="${heading}">
-    <p><fmt:message key="404.message"/></p>
+	<div class="container-fluid">
+		<p><fmt:message key="404.message"/></p>
+	</div>
 </u:html>

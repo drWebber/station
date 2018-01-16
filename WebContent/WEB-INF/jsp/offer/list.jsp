@@ -21,13 +21,17 @@
 <u:html title="Перечень предоставляемых услуг"
     pageHeading="Предоставляемые услуги">
 <c:if test="${isAdmin}">
-	<c:url var="offerEditUrl" value="/offer/edit.html" />
-	<form action="${offerEditUrl}">
-	    <button type="submit" class="btn btn-info" 
-	    	title="Создать услугу">Создать услугу</button>
-	</form>
+	<div class="container-fluid">
+		<c:url var="offerEditUrl" value="/offer/edit.html" />
+		<form action="${offerEditUrl}">
+		    <button type="submit" class="btn btn-info" 
+		    	title="Создать услугу">Создать услугу</button>
+		</form>
+	</div>
 </c:if>
-<h3>Дополнительные услуги</h3>
+<div class="container-fluid">
+	<h3>Дополнительные услуги</h3>
+</div>
 <div class="container-fluid">
     <c:set var="count" value="0" />
     	<c:forEach var="offer" items="${additionalOffers}">
@@ -93,8 +97,8 @@
 		</c:forEach>
     ${count % 2 == 0 ? "" : "</div>"}
 </div>
-<h3>Установка и пользование телефоном</h3>
 <div class="container-fluid">
+	<h3>Установка и пользование телефоном</h3>
     <div class="row">
         <c:forEach var="offer" items="${requiredOffers}">
             <div class="col-sm-12">

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Создание абонента | Telephone Exchange 51</title>
+      <link rel="stylesheet" href="./css/bootstrap.min.css">
+      <link rel="stylesheet" href="./css/style.css">
+      <script src="./js/jquery.min.js"></script>
+      <script src="./js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="./css/bootstrap-datetimepicker.min.css">
+      <script src="./js/moment-with-locales.js"></script>
+      <script src="./js/bootstrap-datetimepicker.js"></script>
+   </head>
+   <body class="container-fluid">
+      <header class="row">
+         <nav class="navbar navbar-inverse navbar-static-top"
+            role="navigation">
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle"
+                     data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span> <span
+                     class="icon-bar"></span> <span
+                     class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Station 51</a>
+               </div>
+               <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav">
+                     <li class="active"><a href="#">Главная</a></li>
+                     <li><a href="#">Услуги</a></li>
+                     <li><a href="#">Тарифные планы</a></li>
+                  </ul>
+                  <div class="nav navbar-nav navbar-right">
+                     <span class="login-lable">Вы вошли как: </span>
+                     <button class="navbar-inverse dropdown-toggle 
+                        login-navlink" type="button" 
+                        data-toggle="dropdown">vasya
+                     <span class="caret"></span></button>
+                     <ul class="dropdown-menu">
+                        <li><a href="#">Выход</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </nav>
+      </header>
+      <section class="row content-layout">
+         <div class="content col-xs-12 col-lg-9 col-lg-push-3">
+            <article>
+               <div class="container-fluid">
+                  <h1 class="text-left">Создание абонента</h1>
+               </div>
+               <div class="container-fluid user-edit">
+                  <form class="col-xs-12" action="#" method="post">
+                     <div class="input-group row">
+                        <span class="input-group-addon">Логин</span>
+                        <input type="text" class="form-control" name="login" value="vasya" disabled="disabled">
+                     </div>
+                     <div class="input-group row">
+                        <span class="input-group-addon">Фамилия</span>
+                        <input type="text" class="form-control" name="surname" value="Васильев">
+                     </div>
+                     <div class="input-group row">
+                        <span class="input-group-addon">Имя</span>
+                        <input type="text" class="form-control" name="name" value="Василий">
+                     </div>
+                     <div class="input-group row">
+                        <span class="input-group-addon">Отчество</span>
+                        <input type="text" class="form-control" name="patronymic" value="Васильевич">
+                     </div>
+                     <div class="input-group row">
+                        <span class="input-group-addon">Личное дело</span>
+                        <input type="number" class="form-control" name="personalId" value="74894254">
+                     </div>
+                     <div class="input-group row">
+                        <span class="input-group-addon">Должность</span>
+                        <input type="text" class="form-control" name="position" value="дворник">
+                     </div>
+                     <div class="radio row">
+                        <label class="radio-inline"> <input type="radio" name="isActive" value="true" checked>Активен
+                        </label>
+                        <label class="radio-inline"> <input type="radio" name="isActive" value="false">Заблокирован
+                        </label>
+                     </div>
+                     <input name="id" value="14" type="hidden">
+                     <div class="form-group row">
+                        <button type="submit" class="btn btn-info">Сохранить</button>
+                        <button type="submit" class="btn btn-danger" formaction="#">Удалить</button>
+                        <button type="reset" class="btn btn-default">Сброс</button>
+                        <input type="button" class="btn btn-default" onclick="history.back();" value="Назад">
+                     </div>
+                  </form>
+               </div>
+            </article>
+         </div>
+         <aside class="sidebar col-xs-12 col-lg-3 col-lg-pull-9">
+            <h4>Главное меню</h4>
+            <ul>
+               <li><a href="#">Главная</a></li>
+               <li><a href="#">Абоненты</a></li>
+               <li>
+                  <a href="#">Администраторы</a>
+               </li>
+               <li><a href="#">Счета и оплаты</a></li>
+               <li><a href="#">Услуги</a></li>
+               <li><a href="#">Тарифные планы</a></li>
+            </ul>
+         </aside>
+      </section>
+      <div class="row">
+         <footer class="navbar-inverse navbar-fixed-bottom">
+            <p>©2017-2018 "Station 51"</p>
+         </footer>
+      </div>
+   </body>
+</html>

@@ -13,7 +13,7 @@
     </c:when>
     <c:otherwise>
         <c:set var="pageHeading"
-            value="Редактирование услуги «${offer.name}»" />
+            value="Редактирование услуги" />
         <c:set var="isCreation" value="false" />
     </c:otherwise>
 </c:choose>
@@ -21,30 +21,30 @@
 <c:url var="urlDelete" value="/offer/delete.html" />
 
 <u:html title="${pageHeading}" pageHeading="${pageHeading}">
-<div class="row">
-    <form class="col-lg-8" action="${urlSave}" method="post">
-        <div class="input-group">
-            <span class="input-group-addon">Наименование</span>
-            <input type="text" class="form-control" name="name"
+<div class="container-fluid">
+    <form action="${urlSave}" method="post">
+        <div class="form-group">
+            <label for="name">Наименование</label>
+            <input id="name" type="text" class="form-control" name="name"
                 value="${offer.name}">
         </div>
-        <div class="input-group">
-            <span class="input-group-addon">Описание</span>
-            <textarea class="form-control" rows="5" 
-            	name="description">${offer.description}</textarea>
+        <div class="form-group">
+            <label for="desc">Описание</label>
+            <textarea id="desc" class="form-control" rows="3" 
+            		name="description">${offer.description}</textarea>
         </div>
-        <div class="input-group">
-            <span class="input-group-addon">
-                Абонентская плата, BYN в мес.
-            </span>
-            <input type="number" class="form-control" name="monthlyFee" 
+        <div class="form-group">
+            <label for="fee">Абонентская плата, 
+            		белорусских рублей в месяц</label>
+            <input id="fee" type="number" class="form-control" name="monthlyFee" 
             value="${offer.monthlyFee}" step="0.01">
         </div>
-        <div class="input-group">
-            <span class="input-group-addon">Стоимость
-                подключения, BYN</span>
-            <input type="number" class="form-control" name="subscriptionRate"
-                value="${offer.subscriptionRate}" step="0.01">
+        <div class="form-group">
+            <label for="rate">Стоимость
+                подключения, белорусских рублей</label>
+            <input id="rate" type="number" class="form-control"
+					name="subscriptionRate"
+                	value="${offer.subscriptionRate}" step="0.01">
         </div>
         <div class="radio">
             <label class="radio-inline"> <input type="radio"

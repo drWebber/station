@@ -6,7 +6,7 @@
 <c:url var="urlMakeCall" value="/call/make-call.html" />
 
 <u:html title="Исходящий вызов" pageHeading="Исходящий вызов">
-<div class="call-wrapper">
+<div class="container-fluid call-wrapper">
     <form action="${urlMakeCall}" method="post">
         <div class="row">
             <div class="form-group col-xs-12 col-sm-3 col-md-3">
@@ -63,15 +63,13 @@
             </label>
         </div>
         <div class="row col-xs-12">
-            <div class="input-group-btn">
-                <button class="btn btn-primary" type="submit"
+            <button class="btn btn-primary" type="submit"
                 		title="${currentUser.user.active ? 'Позвонить'
                 				: 'Вы заблокированы'}"
                 		${currentUser.user.active ? '' : 'disabled'}>
                     <span class="glyphicon glyphicon-earphone"></span>
                     Совершить звонок
-                </button>
-            </div>
+            </button>
         </div>
     </form>
 </div>
