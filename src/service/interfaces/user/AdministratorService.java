@@ -14,4 +14,6 @@ public interface AdministratorService
             throws ServiceException;
 
     boolean isBanned(Long id) throws ServiceException;
+    
+    boolean isDeletable(Long id) throws ServiceException;
 }

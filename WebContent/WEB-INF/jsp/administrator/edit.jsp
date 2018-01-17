@@ -28,6 +28,7 @@
             <span class="input-group-addon">Логин</span>
             <input type="text" class="form-control" name="login"
                 value="${administrator.login}" ${disabled}>
+            <c:remove var="disabled"/>
         </div>
         <c:if test="${empty administrator.id}">
             <div class="input-group">
@@ -74,12 +75,28 @@
             <input name="id" value="${administrator.id}" type="hidden">
         </c:if>
         <div class="form-group">
-            <button type="submit" class="btn btn-info">Сохранить</button>
+            <button type="submit" class="btn btn-info"
+            		title="Сохранить">Сохранить</button>
             <c:if test="${not isCreation}">
-                <button type="submit" class="btn btn-danger"
-                    formaction="${urlDelete}">Удалить</button>
+            	<c:choose>
+            		<c:when test="${isDeletable}">
+            			<c:set var="disabled" value=""></c:set>
+            			<c:set var="btnTitle" value="Удалить запись"></c:set>
+            		</c:when>
+            		<c:otherwise>
+            			<c:set var="disabled" value="disabled"></c:set>
+            			<c:set var="btnTitle"
+            					value="Удаление невозможно"></c:set>
+            		</c:otherwise>
+            	</c:choose>
+                <button type="submit" class="btn btn-danger" 
+                		formaction="${urlDelete}" title="${btnTitle}"
+                				${disabled}>
+                    	Удалить
+				</button>
             </c:if>
-            <button type="reset" class="btn btn-default">Сброс</button>
+            <button type="reset" class="btn btn-default" 
+            		title="Сброс параметров">Сброс</button>
             <input type="button" class="btn btn-default"
                 onclick="history.back();" value="Назад" />
         </div>

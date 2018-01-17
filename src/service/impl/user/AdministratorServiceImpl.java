@@ -128,4 +128,13 @@ public class AdministratorServiceImpl extends TransactionService
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public boolean isDeletable(Long id) throws ServiceException {
+        try {
+            return administratorDao.isDeletable(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

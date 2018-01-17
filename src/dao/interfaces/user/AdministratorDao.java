@@ -8,4 +8,6 @@ import exception.DaoException;
 
 public interface AdministratorDao extends CompleteDao<Long, Administrator> {
     List<Administrator> readAll() throws DaoException;
+    
+    boolean isDeletable(Long id) throws DaoException;
 }

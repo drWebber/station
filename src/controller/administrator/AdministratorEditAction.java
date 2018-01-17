@@ -27,11 +27,13 @@ public class AdministratorEditAction extends Action {
         } catch (NumberFormatException e) { }
         try {
             if (id != null) {
-                AdministratorService administratorService =
+                AdministratorService service =
                         getServiceFactory().getAdministratorService();
                 Administrator administrator =
-                        administratorService.getById(id);
+                        service.getById(id);
                 request.setAttribute("administrator", administrator);
+                request.setAttribute("isDeletable", service.isDeletable(id));
+                System.out.println(service.isDeletable(id));
             }
         } catch (FactoryException | ServiceException e) {
             logger.error(e);
