@@ -52,7 +52,7 @@ public class SubscriberValidator extends BaseValidator
                 Boolean.parseBoolean(request.getParameter("isActive")));
         subscriber.setPassportId(getStringParameter("passportId"));
         subscriber.setBirthDay(getDateParameter("birthday"));
-        subscriber.setAddress(request.getParameter("address"));
+        subscriber.setAddress(getStringParameter("address"));
         subscriber.getPrefix().setId(getIntegerParameter("prefix"));
         Integer phoneNum = getIntegerParameter("phoneNum");
         if (phoneNum < 100 || phoneNum > 9999999) {
