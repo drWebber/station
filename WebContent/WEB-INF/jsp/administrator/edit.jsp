@@ -98,7 +98,7 @@
             <button type="reset" class="btn btn-default" 
             		title="Сброс параметров">Сброс</button>
             <input type="button" class="btn btn-default"
-                onclick="history.back();" value="Назад" />
+                onclick="history.back();" value="Назад" title="Назад" />
         </div>
     </form>
 </div>

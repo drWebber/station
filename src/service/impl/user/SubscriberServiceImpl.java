@@ -174,4 +174,13 @@ public class SubscriberServiceImpl extends TransactionService
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public boolean isDeletable(Long id) throws ServiceException {
+        try {
+            return subscriberDao.isDeletable(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

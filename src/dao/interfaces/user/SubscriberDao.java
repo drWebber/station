@@ -12,4 +12,6 @@ public interface SubscriberDao extends CompleteDao<Long, Subscriber> {
     boolean isPassportIdUnique(Subscriber subscriber) throws DaoException;
     
     boolean isPhoneUnique(Subscriber subscriber) throws DaoException;
+    
+    boolean isDeletable(Long id) throws DaoException;
 }

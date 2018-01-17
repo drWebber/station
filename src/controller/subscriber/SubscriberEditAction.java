@@ -35,6 +35,8 @@ public class SubscriberEditAction extends Action {
                         getServiceFactory().getSubscriberService();
                 Subscriber subscriber = subscriberService.getById(id);
                 request.setAttribute("subscriber", subscriber);
+                request.setAttribute("isDeletable",
+                        subscriberService.isDeletable(id));
             }
             PrefixService prefixService =
                     getServiceFactory().getPrefixService();

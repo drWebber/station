@@ -214,4 +214,34 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
             } catch (NullPointerException | SQLException e) { }
         }
     }
+
+    @Override
+    public boolean isDeletable(Long id) throws DaoException {
+        String query = "(SELECT `subscriberID` "
+                     + "FROM `calls` "
+                     + "WHERE `subscriberID` = ?) "
+                     + "UNION "
+                     + "(SELECT `subscriberID` "
+                     + "FROM `subscriptions` "
+                     + "WHERE `subscriberID` = ?) "
+                     + "LIMIT 1";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, id);
+            statement.setLong(2, id);
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? false : true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
 }

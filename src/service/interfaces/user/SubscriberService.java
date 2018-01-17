@@ -16,4 +16,6 @@ public interface SubscriberService extends CompleteService<Long, Subscriber> {
     void banById(Long id) throws ServiceException;
 
     boolean isBanned(Long id) throws ServiceException, UserIsBannedException;
+    
+    boolean isDeletable(Long id) throws ServiceException;
 }
