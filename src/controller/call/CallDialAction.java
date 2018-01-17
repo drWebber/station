@@ -14,7 +14,7 @@ import controller.Action;
 import controller.Forwarder;
 import domain.user.Prefix;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class CallDialAction extends Action {
     private static Logger logger = 

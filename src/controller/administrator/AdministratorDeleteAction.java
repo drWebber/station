@@ -11,7 +11,7 @@ import service.interfaces.user.AdministratorService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class AdministratorDeleteAction extends Action {
     private static Logger logger =

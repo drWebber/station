@@ -14,10 +14,10 @@ import controller.Action;
 import controller.Forwarder;
 import domain.service.Call;
 import exception.FactoryException;
-import exception.IncorrectFormDataException;
-import exception.ServiceException;
-import exception.UserIsBannedException;
-import exception.ValidatorException;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class CallMakeAction extends Action {
     private static Logger logger = 
@@ -44,15 +44,15 @@ public class CallMakeAction extends Action {
 
         try {
             CallService callService = getServiceFactory().getCallService();
-            callService.validateAndsave(call);
-        } catch (FactoryException | ServiceException e) {
-            logger.error(e);
-            throw new ServletException(e);
+            callService.save(call);
         } catch (UserIsBannedException e) {
             logger.warn(e);
             forwarder = new Forwarder("/call/dial.html");
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
+        } catch (FactoryException | ServiceException e) {
+            logger.error(e);
+            throw new ServletException(e);
         }
 
         forwarder = new Forwarder("/call/dial.html");

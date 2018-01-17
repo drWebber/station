@@ -6,7 +6,7 @@ import dao.interfaces.service.RateDao;
 import domain.service.Rate;
 import domain.service.RateType;
 import exception.DaoException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.service.RateService;
 

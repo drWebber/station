@@ -8,8 +8,8 @@ import validator.BaseValidator;
 import validator.Validator;
 import domain.user.Administrator;
 import domain.user.Role;
-import exception.IncorrectFormDataException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class AdministratorValidator extends BaseValidator
         implements Validator<Administrator> {

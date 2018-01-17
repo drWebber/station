@@ -1,7 +1,7 @@
 package service.interfaces;
 
 import domain.Entity;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public interface CompleteService <PK, T extends Entity<PK>> 
         extends BaseService<PK, T> {

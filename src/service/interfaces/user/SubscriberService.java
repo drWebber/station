@@ -2,22 +2,12 @@ package service.interfaces.user;
 
 import java.util.List;
 
+import service.interfaces.CompleteService;
 import domain.user.Subscriber;
-import exception.LoginIsNotUnique;
-import exception.PassportIdIsNotUnique;
-import exception.PhoneIsNotUnique;
-import exception.ServiceException;
-import exception.UserIsBannedException;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
 
-public interface SubscriberService {
-    Subscriber getById(Long id) throws ServiceException;
-    
-    void save(Subscriber subscriber)
-            throws ServiceException, LoginIsNotUnique,
-                PhoneIsNotUnique, PassportIdIsNotUnique;
-    
-    void delete(Long id) throws ServiceException;
-    
+public interface SubscriberService extends CompleteService<Long, Subscriber> {
     List<Subscriber> getAll() throws ServiceException;
 
     Subscriber getByLoginAndPassword(String login, String password)

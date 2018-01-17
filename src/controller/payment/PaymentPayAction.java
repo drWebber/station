@@ -12,7 +12,7 @@ import controller.Action;
 import controller.Forwarder;
 import domain.payment.Payment;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class PaymentPayAction extends Action {
     private static Logger logger = 

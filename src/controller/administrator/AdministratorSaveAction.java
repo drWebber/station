@@ -14,10 +14,10 @@ import controller.Action;
 import controller.Forwarder;
 import domain.user.Administrator;
 import exception.FactoryException;
-import exception.IncorrectFormDataException;
-import exception.LoginIsNotUnique;
-import exception.ServiceException;
-import exception.ValidatorException;
+import exception.service.LoginIsNotUnique;
+import exception.service.ServiceException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class AdministratorSaveAction extends Action {
     private static Logger logger = 
@@ -58,7 +58,7 @@ public class AdministratorSaveAction extends Action {
             AdministratorService service =
                     getServiceFactory().getAdministratorService();
             service.save(administrator);
-        } catch (FactoryException | ServiceException e) {
+        } catch (FactoryException e) {
             logger.error(e);
             throw new ServletException(e);
         } catch (LoginIsNotUnique e) {
@@ -69,6 +69,9 @@ public class AdministratorSaveAction extends Action {
             }
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
+        } catch (ServiceException e) {
+            logger.error(e);
+            throw new ServletException(e);
         }
 
         forwarder = new Forwarder("/administrator/list.html");

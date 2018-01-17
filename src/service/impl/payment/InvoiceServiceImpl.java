@@ -10,8 +10,8 @@ import domain.service.CallsDetail;
 import domain.service.SubscriptionsDetail;
 import domain.user.Subscriber;
 import exception.DaoException;
-import exception.ServiceException;
 import exception.TransactionException;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.payment.InvoiceService;
 

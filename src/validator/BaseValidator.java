@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.administrator.AdministratorSaveAction;
-import exception.IncorrectFormDataException;
+import exception.validator.IncorrectFormDataException;
 
 public class BaseValidator {
     protected Logger logger =

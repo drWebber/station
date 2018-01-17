@@ -5,7 +5,7 @@ import java.util.List;
 import dao.interfaces.user.PrefixDao;
 import domain.user.Prefix;
 import exception.DaoException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.user.PrefixService;
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import domain.payment.Invoice;
 import domain.user.Subscriber;
-import exception.ServiceException;
+import exception.service.ServiceException;
 import service.interfaces.CompleteService;
 
 public interface InvoiceService extends CompleteService<Long, Invoice> {

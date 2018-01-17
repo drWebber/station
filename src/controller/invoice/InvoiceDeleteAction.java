@@ -12,7 +12,7 @@ import service.interfaces.payment.PaymentService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class InvoiceDeleteAction extends Action {
     private static Logger logger = 

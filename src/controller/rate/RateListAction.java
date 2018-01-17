@@ -14,7 +14,7 @@ import controller.Action;
 import controller.Forwarder;
 import domain.service.Rate;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class RateListAction extends Action {
     private static Logger logger = 

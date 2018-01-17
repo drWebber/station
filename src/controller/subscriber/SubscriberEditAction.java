@@ -16,7 +16,7 @@ import controller.Forwarder;
 import domain.user.Prefix;
 import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class SubscriberEditAction extends Action {
     private static Logger logger = 

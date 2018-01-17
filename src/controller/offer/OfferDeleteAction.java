@@ -11,7 +11,7 @@ import service.interfaces.service.OfferService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class OfferDeleteAction extends Action {
     private static Logger logger = 

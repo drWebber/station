@@ -5,8 +5,8 @@ import validator.impl.CallValidator;
 import validator.impl.OfferValidator;
 import validator.impl.RateValidator;
 import validator.impl.SubscriberValidator;
-import exception.IncorrectFormDataException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public interface ValidatorFactory {
     AdministratorValidator getAdministratorValidator()

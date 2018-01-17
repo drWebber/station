@@ -6,8 +6,8 @@ import dao.interfaces.service.OfferDao;
 import domain.service.Offer;
 import domain.user.Subscriber;
 import exception.DaoException;
-import exception.ServiceException;
 import exception.TransactionException;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.service.OfferService;
 

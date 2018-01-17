@@ -12,9 +12,9 @@ import validator.Validator;
 import domain.service.Call;
 import domain.service.RateType;
 import domain.user.Subscriber;
-import exception.IncorrectFormDataException;
 import exception.RetrieveException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class CallValidator extends BaseValidator implements Validator<Call> {
     public CallValidator(HttpServletRequest request) {

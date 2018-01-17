@@ -155,20 +155,19 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
     @Override
     public boolean isPassportIdUnique(Subscriber subscriber)
             throws DaoException {
+        /* Subscriber can has empty id value on creation */
+        boolean isCreation = (subscriber.getId() == null ? true : false);
         String query = "SELECT `id` "
                      + "FROM subscribers "
                      + "WHERE `passportID` = ? "
-                         + "AND `id` <> ?";
+                         + (isCreation ? "" : "AND `id` <> ?");
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, subscriber.getPassportId());
-            if (subscriber.getId() != null) {
+            if (!isCreation) {
                 statement.setLong(2, subscriber.getId());
-            } else {
-                /* It's subscriber creation, he hasn't id yet */
-                statement.setLong(2, 0L);
             }
             resultSet = statement.executeQuery();
             return resultSet.next() ? false : true;
@@ -187,21 +186,20 @@ public class SubscriberDaoImpl extends BaseDao implements SubscriberDao {
     @Override
     public boolean isPhoneUnique(Subscriber subscriber)
             throws DaoException {
+        /* Subscriber can has empty id value on creation */
+        boolean isCreation = (subscriber.getId() == null ? true : false);
         String query = "SELECT `id` "
                      + "FROM subscribers "
                      + "WHERE `prefixID` = ? AND `phoneNum` = ? "
-                         + "AND `id` <> ?";
+                         + (isCreation ? "" : "AND `id` <> ?");
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, subscriber.getPrefix().getId());
             statement.setInt(2, subscriber.getPhoneNum());
-            if (subscriber.getId() != null) {
+            if (!isCreation) {
                 statement.setLong(3, subscriber.getId());
-            } else {
-                /* It's subscriber creation, he hasn't id yet */
-                statement.setLong(3, 0L);
             }
             resultSet = statement.executeQuery();
             return resultSet.next() ? false : true;

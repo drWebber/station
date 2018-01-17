@@ -19,7 +19,7 @@ import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.FactoryException;
 import exception.RetrieveException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class InvoiceListAction extends Action {
     private static Logger logger = 

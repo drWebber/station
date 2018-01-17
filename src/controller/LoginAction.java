@@ -18,7 +18,7 @@ import domain.user.Administrator;
 import domain.user.Role;
 import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class LoginAction extends Action {
     private static Logger logger = 

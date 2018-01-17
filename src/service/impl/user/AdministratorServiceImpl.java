@@ -7,9 +7,9 @@ import dao.interfaces.user.UserDao;
 import domain.user.Administrator;
 import domain.user.User;
 import exception.DaoException;
-import exception.LoginIsNotUnique;
-import exception.ServiceException;
 import exception.TransactionException;
+import exception.service.LoginIsNotUnique;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.user.AdministratorService;
 
@@ -90,7 +90,7 @@ public class AdministratorServiceImpl extends TransactionService
                 administratorDao.update(administrator);
             } else {
                 if (!userDao.isLoginUnique(administrator.getLogin())) {
-                    throw new LoginIsNotUnique();
+                    throw new LoginIsNotUnique(administrator.getLogin());
                 }
                 Long id = userDao.create(administrator.getUser());
                 administrator.setId(id);

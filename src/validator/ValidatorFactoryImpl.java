@@ -2,8 +2,8 @@ package validator;
 
 import javax.servlet.http.HttpServletRequest;
 
-import exception.IncorrectFormDataException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 import validator.impl.AdministratorValidator;
 import validator.impl.CallValidator;
 import validator.impl.OfferValidator;

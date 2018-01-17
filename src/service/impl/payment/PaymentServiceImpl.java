@@ -8,8 +8,8 @@ import domain.payment.Invoice;
 import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.DaoException;
-import exception.ServiceException;
 import exception.TransactionException;
+import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.payment.PaymentService;
 

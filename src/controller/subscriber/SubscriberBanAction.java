@@ -11,7 +11,7 @@ import service.interfaces.user.SubscriberService;
 import controller.Action;
 import controller.Forwarder;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class SubscriberBanAction extends Action {
     private static Logger logger = 

@@ -14,10 +14,10 @@ import controller.Forwarder;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.OfferIsAlreadySubscribed;
 import exception.RetrieveException;
-import exception.ServiceException;
-import exception.UserIsBannedException;
+import exception.service.OfferIsAlreadySubscribed;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
 
 public class SubscriptionAcceptAction extends Action {
     private static Logger logger = 
@@ -50,16 +50,16 @@ public class SubscriptionAcceptAction extends Action {
         try {
             SubscriptionService subscriptionService =
                     getServiceFactory().getSubscriptionService();
-            subscriptionService.validateAndSave(subscription);
-        } catch (FactoryException | ServiceException e) {
-            logger.error(e);
-            throw new ServletException(e);
+            subscriptionService.save(subscription);
         } catch (UserIsBannedException | OfferIsAlreadySubscribed e) {
             logger.warn(e);
             forwarder = new Forwarder("/offer/list.html");
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
-        }
+        } catch (FactoryException | ServiceException e) {
+            logger.error(e);
+            throw new ServletException(e);
+        } 
 
         forwarder = new Forwarder("/subscription/list.html");
         forwarder.getAttributes().put("succ_msg", "You have successfully "

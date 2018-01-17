@@ -5,7 +5,7 @@ import java.util.List;
 import service.interfaces.CompleteService;
 import domain.service.Offer;
 import domain.user.Subscriber;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public interface OfferService extends CompleteService<Integer, Offer> {
     List<Offer> getAll() throws ServiceException;

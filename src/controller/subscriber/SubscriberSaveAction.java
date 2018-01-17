@@ -14,12 +14,12 @@ import controller.Action;
 import controller.Forwarder;
 import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.IncorrectFormDataException;
-import exception.LoginIsNotUnique;
-import exception.PassportIdIsNotUnique;
-import exception.PhoneIsNotUnique;
-import exception.ServiceException;
-import exception.ValidatorException;
+import exception.service.LoginIsNotUnique;
+import exception.service.PassportIdIsNotUnique;
+import exception.service.PhoneIsNotUnique;
+import exception.service.ServiceException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class SubscriberSaveAction extends Action {
     private static Logger logger = 

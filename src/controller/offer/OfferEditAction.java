@@ -12,7 +12,7 @@ import controller.Action;
 import controller.Forwarder;
 import domain.service.Offer;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class OfferEditAction extends Action {
     private static Logger logger = 

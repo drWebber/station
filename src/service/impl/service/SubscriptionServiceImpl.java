@@ -12,10 +12,10 @@ import domain.service.Offer;
 import domain.service.Subscription;
 import domain.user.Subscriber;
 import exception.DaoException;
-import exception.OfferIsAlreadySubscribed;
-import exception.ServiceException;
 import exception.TransactionException;
-import exception.UserIsBannedException;
+import exception.service.OfferIsAlreadySubscribed;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
 
 public class SubscriptionServiceImpl extends TransactionService
         implements SubscriptionService {
@@ -80,21 +80,8 @@ public class SubscriptionServiceImpl extends TransactionService
     }
 
     @Override
-    public void save(Subscription subscription) throws ServiceException {
-        try {
-            if (subscription.getId() != null) {
-                subscriptionDao.update(subscription);
-            } else {
-                subscriptionDao.create(subscription);
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void validateAndSave(Subscription subscription)
-            throws ServiceException, UserIsBannedException, OfferIsAlreadySubscribed {
+    public void save(Subscription subscription) throws ServiceException,
+            UserIsBannedException, OfferIsAlreadySubscribed {
         try {
             getTransaction().start();
             if (subscription.getId() != null) {
@@ -105,15 +92,13 @@ public class SubscriptionServiceImpl extends TransactionService
                         userDao.isBanned(subscription.getSubscriber().getId());
                 boolean isSubscribed =
                         subscriptionDao.isSubscribed(subscription);
-                //TODO
                 subscriptionDao.create(subscription);
                 if (isBanned) {
-                    throw new UserIsBannedException("You are banned. "
-                            + "Subscriptions is resctricted");
+                    throw new UserIsBannedException(" Subscriptions "
+                            + "is resctricted");
                 }
                 if (isSubscribed) {
-                    throw new OfferIsAlreadySubscribed("You are already "
-                            + "subscribed for this offer");
+                    throw new OfferIsAlreadySubscribed();
                 }
                 getTransaction().commit();
             }

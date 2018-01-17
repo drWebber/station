@@ -8,9 +8,9 @@ import dao.interfaces.user.UserDao;
 import domain.service.Call;
 import domain.service.Rate;
 import exception.DaoException;
-import exception.ServiceException;
 import exception.TransactionException;
-import exception.UserIsBannedException;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
 
 public class CallServiceImpl extends TransactionService
         implements CallService {
@@ -52,23 +52,7 @@ public class CallServiceImpl extends TransactionService
     }
 
     @Override
-    public void save(Call call) throws ServiceException {
-        try {
-            if (call.getId() != null) {
-                callDao.update(call);
-            } else {
-                Rate rate = rateDao.readCurrentByType(call.getRateType());
-                call.setRate(rate);
-                callDao.create(call);
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void validateAndsave(Call call)
-            throws ServiceException, UserIsBannedException {
+    public void save(Call call) throws ServiceException, UserIsBannedException {
         try {
             getTransaction().start();
             if (call.getId() != null) {
@@ -83,8 +67,7 @@ public class CallServiceImpl extends TransactionService
                 callDao.create(call);
                 getTransaction().commit();
                 if (isBanned) {
-                    throw new UserIsBannedException("You are Banned."
-                            + "Calling is restricted");
+                    throw new UserIsBannedException(" Calling is restricted");
                 }
             }
         } catch (DaoException | TransactionException e) {

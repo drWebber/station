@@ -2,18 +2,12 @@ package service.interfaces.user;
 
 import java.util.List;
 
+import service.interfaces.CompleteService;
 import domain.user.Administrator;
-import exception.LoginIsNotUnique;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
-public interface AdministratorService {
-    Administrator getById(Long id) throws ServiceException;
-    
-    void save(Administrator administrator)
-            throws LoginIsNotUnique, ServiceException;
-    
-    void delete(Long id) throws ServiceException;
-    
+public interface AdministratorService
+        extends CompleteService<Long, Administrator> {    
     List<Administrator> getAll() throws ServiceException;
 
     Administrator getByLoginAndPassword(String login, String password)

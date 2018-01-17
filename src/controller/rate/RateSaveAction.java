@@ -14,9 +14,9 @@ import controller.Action;
 import controller.Forwarder;
 import domain.service.Rate;
 import exception.FactoryException;
-import exception.IncorrectFormDataException;
-import exception.ServiceException;
-import exception.ValidatorException;
+import exception.service.ServiceException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class RateSaveAction extends Action {
     private static Logger logger = 

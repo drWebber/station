@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import domain.service.Rate;
 import domain.service.RateType;
-import exception.IncorrectFormDataException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 import validator.BaseValidator;
 import validator.Validator;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import service.interfaces.BaseService;
 import domain.service.Rate;
 import domain.service.RateType;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public interface RateService extends BaseService<Long, Rate> {
     List<Rate> getCurrentRates() throws ServiceException;

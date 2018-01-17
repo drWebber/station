@@ -1,4 +1,4 @@
-package exception;
+package exception.validator;
 
 public class IncorrectFormDataException extends Exception {
     private static final long serialVersionUID = 1L;

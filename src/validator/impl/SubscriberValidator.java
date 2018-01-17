@@ -10,9 +10,9 @@ import validator.Validator;
 import domain.user.Administrator;
 import domain.user.Role;
 import domain.user.Subscriber;
-import exception.IncorrectFormDataException;
 import exception.RetrieveException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class SubscriberValidator extends BaseValidator
         implements Validator<Subscriber> {

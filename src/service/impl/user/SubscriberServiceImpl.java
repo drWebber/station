@@ -11,12 +11,12 @@ import domain.user.Administrator;
 import domain.user.Subscriber;
 import domain.user.User;
 import exception.DaoException;
-import exception.LoginIsNotUnique;
-import exception.PassportIdIsNotUnique;
-import exception.PhoneIsNotUnique;
-import exception.ServiceException;
 import exception.TransactionException;
-import exception.UserIsBannedException;
+import exception.service.LoginIsNotUnique;
+import exception.service.PassportIdIsNotUnique;
+import exception.service.PhoneIsNotUnique;
+import exception.service.ServiceException;
+import exception.service.UserIsBannedException;
 
 public class SubscriberServiceImpl extends TransactionService
         implements SubscriberService {
@@ -106,22 +106,22 @@ public class SubscriberServiceImpl extends TransactionService
 
     @Override
     public void save(Subscriber subscriber)
-            throws ServiceException, LoginIsNotUnique, 
-                PhoneIsNotUnique, PassportIdIsNotUnique {
+            throws ServiceException, LoginIsNotUnique,
+                    PhoneIsNotUnique, PassportIdIsNotUnique {
         try {
             getTransaction().start();
             if (!subscriberDao.isPassportIdUnique(subscriber)) {
-                throw new PassportIdIsNotUnique();
+                throw new PassportIdIsNotUnique(subscriber.getPassportId());
             }
             if (!subscriberDao.isPhoneUnique(subscriber)) {
-                throw new PhoneIsNotUnique();
+                throw new PhoneIsNotUnique(subscriber.getPhoneNum());
             }
             if (subscriber.getId() != null) {
                 userDao.update(subscriber.getUser());
                 subscriberDao.update(subscriber);
             } else {
                 if (!userDao.isLoginUnique(subscriber.getLogin())) {
-                    throw new LoginIsNotUnique();
+                    throw new LoginIsNotUnique(subscriber.getLogin());
                 }
                 Long id = userDao.create(subscriber.getUser());
                 subscriber.setId(id);
@@ -166,8 +166,8 @@ public class SubscriberServiceImpl extends TransactionService
         try {
             boolean isBanned = userDao.isBanned(id);
             if (isBanned) {
-                throw new UserIsBannedException("You are banned. "
-                        + "Calling is restricted");
+                throw new UserIsBannedException("You can't subscribe "
+                        + "to this offer");
             }
             return isBanned;
         } catch (DaoException e) {

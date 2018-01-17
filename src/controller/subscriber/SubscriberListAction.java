@@ -14,7 +14,7 @@ import controller.Action;
 import controller.Forwarder;
 import domain.user.Subscriber;
 import exception.FactoryException;
-import exception.ServiceException;
+import exception.service.ServiceException;
 
 public class SubscriberListAction extends Action {
     private static Logger logger = 

@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import validator.BaseValidator;
 import validator.Validator;
 import domain.service.Offer;
-import exception.IncorrectFormDataException;
-import exception.ValidatorException;
+import exception.validator.IncorrectFormDataException;
+import exception.validator.ValidatorException;
 
 public class OfferValidator extends BaseValidator implements Validator<Offer> {
 
