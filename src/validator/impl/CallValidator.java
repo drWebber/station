@@ -36,7 +36,7 @@ public class CallValidator extends BaseValidator implements Validator<Call> {
             subscriber =
                     new UserRetriever<Subscriber>(request).getCurrentUser();
         } catch (RetrieveException e) {
-            logger.error(e);
+            logger.error("Retrieving exeption", e);
             throw new ValidatorException(e);
         }
 

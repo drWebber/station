@@ -84,7 +84,7 @@ public class ActionFactory {
         try {
             return (Action) action.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            logger.error(e);
+            logger.error("GetAction exeption", e);
             throw new ServletException(e);
         } catch (NullPointerException e) {
             logger.warn("Action for url '" + url + "' not found " + e);

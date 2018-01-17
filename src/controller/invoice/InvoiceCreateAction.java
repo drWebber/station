@@ -26,7 +26,7 @@ public class InvoiceCreateAction extends Action {
                 service.createInvoices();
             }
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Creation exception", e);
             throw new ServletException(e);
         }
         return new Forwarder("/invoice/control.html");

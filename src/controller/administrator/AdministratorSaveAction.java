@@ -42,8 +42,8 @@ public class AdministratorSaveAction extends Action {
         try {
             administrator = administratorValidator.validate();
         } catch (ValidatorException e) {
-            logger.error(e);
-            e.printStackTrace();
+            logger.error("ValidatorException", e);
+            throw new ServletException(e);
         } catch (IncorrectFormDataException e) {
             logger.warn(e);
             forwarder = new Forwarder("/administrator/edit.html");
@@ -59,7 +59,7 @@ public class AdministratorSaveAction extends Action {
                     getServiceFactory().getAdministratorService();
             service.save(administrator);
         } catch (FactoryException e) {
-            logger.error(e);
+            logger.error("FactoryException", e);
             throw new ServletException(e);
         } catch (LoginIsNotUnique e) {
             logger.info(e);
@@ -70,7 +70,7 @@ public class AdministratorSaveAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         } catch (ServiceException e) {
-            logger.error(e);
+            logger.error("ServiceException", e);
             throw new ServletException(e);
         }
 

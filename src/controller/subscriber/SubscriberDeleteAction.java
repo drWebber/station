@@ -28,7 +28,7 @@ public class SubscriberDeleteAction extends Action {
             service.delete(id);
         } catch (NumberFormatException | FactoryException
                 | ServiceException e) {
-            logger.error(e);
+            logger.error("Deleting exception", e);
             throw new ServletException(e);
         }
 

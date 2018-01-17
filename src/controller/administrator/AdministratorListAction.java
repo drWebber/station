@@ -29,7 +29,7 @@ public class AdministratorListAction extends Action {
             List<Administrator> administrators = service.getAll();
             request.setAttribute("administrators", administrators);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Viewing exception", e);
             throw new ServletException(e);
         }
         return null;

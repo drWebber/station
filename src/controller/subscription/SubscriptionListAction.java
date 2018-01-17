@@ -40,7 +40,7 @@ public class SubscriptionListAction extends Action {
                     archievedSubscriptions);
         } catch (FactoryException | ServiceException
                 | RetrieveException | NullPointerException e) {
-            logger.error(e);
+            logger.error("Viewing exception", e);
             throw new ServletException(e);
         }
         return null;

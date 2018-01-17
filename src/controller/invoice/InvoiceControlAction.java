@@ -41,7 +41,7 @@ public class InvoiceControlAction extends Action {
             }
             request.setAttribute("unpaid", unpaid);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("InvoiceControl exception", e);
             throw new ServletException(e);
         }
         return null;

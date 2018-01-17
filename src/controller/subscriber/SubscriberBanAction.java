@@ -27,7 +27,7 @@ public class SubscriberBanAction extends Action {
             service.banById(id);
         } catch (FactoryException | NumberFormatException
                 | ServiceException e) {
-            logger.error(e);
+            logger.error("Ban exception", e);
             throw new ServletException(e);
         }
         return new Forwarder("/invoice/control.html");

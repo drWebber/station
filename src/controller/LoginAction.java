@@ -41,7 +41,7 @@ public class LoginAction extends Action {
                         return new Forwarder("/subscriber/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
-                    logger.error(e);
+                    logger.error("Logging exeption", e);
                     throw new ServletException(e);
                 }
             } else if (role.equals(Role.SUBSCRIBER.toString())) {
@@ -54,7 +54,7 @@ public class LoginAction extends Action {
                         return new Forwarder("/invoice/list.html");
                     }
                 } catch (FactoryException | ServiceException e) {
-                    logger.error(e);
+                    logger.error("Logging exeption", e);
                     throw new ServletException(e);
                 }
             }

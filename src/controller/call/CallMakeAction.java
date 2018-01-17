@@ -33,7 +33,7 @@ public class CallMakeAction extends Action {
                     new ValidatorFactoryImpl(request).getCallValidator();
             call = callValidator.validate();
         } catch (ValidatorException e) {
-            logger.error(e);
+            logger.error("Make call exception", e);
             throw new ServletException(e);
         } catch (IncorrectFormDataException e) {
             logger.warn(e);

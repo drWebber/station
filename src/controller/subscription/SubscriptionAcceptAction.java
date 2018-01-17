@@ -31,7 +31,7 @@ public class SubscriptionAcceptAction extends Action {
         try {
             offerId = Integer.parseInt(request.getParameter("offerId"));
         } catch (NumberFormatException e) {
-            logger.error(e);
+            logger.warn(e);
             throw new ServletException(e);
         }
 
@@ -40,7 +40,7 @@ public class SubscriptionAcceptAction extends Action {
             subscriber =
                     new UserRetriever<Subscriber>(request).getCurrentUser();
         } catch (RetrieveException e) {
-            logger.error(e);
+            logger.error("RetrieveException", e);
             throw new ServletException(e);
         }
 
@@ -57,7 +57,7 @@ public class SubscriptionAcceptAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Accept exception", e);
             throw new ServletException(e);
         } 
 

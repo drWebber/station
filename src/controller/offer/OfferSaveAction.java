@@ -40,7 +40,7 @@ public class OfferSaveAction extends Action {
                     new ValidatorFactoryImpl(request).getOfferValidator();
             offer = offerValidator.validate();
         } catch (ValidatorException e) {
-            logger.error(e);
+            logger.error("ValidatorException", e);
         } catch (IncorrectFormDataException e) {
             logger.warn(e);
             forwarder = new Forwarder("/offer/edit.html");
@@ -55,7 +55,7 @@ public class OfferSaveAction extends Action {
             OfferService offerService = getServiceFactory().getOfferService();
             offerService.save(offer);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Save exeption", e);
             throw new ServletException(e);
         }
         String message;

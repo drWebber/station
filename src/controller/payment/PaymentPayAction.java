@@ -30,16 +30,16 @@ public class PaymentPayAction extends Action {
             payment.getInvoice().setId(id);
             service.save(payment);
         } catch (NumberFormatException e) {
-            logger.error(e);
+            logger.error("Format exception", e);
             throw new ServletException(e);
         } catch (InvoiceIsAlreadyBeenPaid e) {
-            logger.error(e);
+            logger.warn(e);
             forwarder = new Forwarder("/invoice/list.html");
             forwarder.getAttributes().put("err_msg", 
                     "The invoice has already been paid");
             return forwarder;
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Payment exception", e);
             throw new ServletException(e);
         }
 

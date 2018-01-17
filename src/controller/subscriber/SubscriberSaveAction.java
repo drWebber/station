@@ -43,7 +43,7 @@ public class SubscriberSaveAction extends Action {
                     new ValidatorFactoryImpl(request).getSubscriberValidator();
             subscriber = validator.validate();
         } catch (ValidatorException e) {
-            logger.error(e);
+            logger.error("ValidatorException", e);
             new ServiceException(e);
         } catch (IncorrectFormDataException e) {
             logger.warn(e);
@@ -69,7 +69,7 @@ public class SubscriberSaveAction extends Action {
             forwarder.getAttributes().put("err_msg", e.getMessage());
             return forwarder;
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Save exception", e);
             throw new ServletException(e);
         }
 

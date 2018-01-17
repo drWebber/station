@@ -37,7 +37,7 @@ public class SubscriptionRejectAction extends Action {
                 subscriber =
                         new UserRetriever<Subscriber>(request).getCurrentUser();
             } catch (RetrieveException e) {
-                logger.error(e);
+                logger.error("RetrieveException", e);
                 throw new ServletException(e);
             }
             try {
@@ -48,7 +48,7 @@ public class SubscriptionRejectAction extends Action {
                 subscription.setSubscriber(subscriber);
                 service.save(subscription);
             } catch (FactoryException | ServiceException e) {
-                logger.error(e);
+                logger.error("Reject exception", e);
                 throw new ServletException(e);
             }
         }

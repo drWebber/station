@@ -32,7 +32,7 @@ public class RateSaveAction extends Action {
                     new ValidatorFactoryImpl(request).getRateValidator();
             callingRate = rateValidator.validate();
         } catch (ValidatorException e) {
-            logger.error(e);
+            logger.error("ValidatorException", e);
             throw new ServletException(e);
         } catch (IncorrectFormDataException e) {
             logger.warn(e);
@@ -46,7 +46,7 @@ public class RateSaveAction extends Action {
                     getServiceFactory().getRateService();
             service.save(callingRate);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Saving exception", e);
             throw new ServletException(e);
         }
 

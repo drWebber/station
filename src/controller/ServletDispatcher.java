@@ -61,7 +61,7 @@ public class ServletDispatcher extends HttpServlet {
                     .forward(req, resp);
                 }
             } catch (Exception e) {
-                logger.error(e);
+                logger.error("Action executing exception", e);
                 getServletContext()
                     .getRequestDispatcher("/WEB-INF/jsp/error.jsp")
                     .forward(req, resp);

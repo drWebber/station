@@ -37,7 +37,7 @@ public class AdministratorValidator extends BaseValidator
             try {
                 administrator.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
-                logger.error(e);
+                logger.error("Cryptography exeption", e);
                 throw new ValidatorException(e);
             }
         }

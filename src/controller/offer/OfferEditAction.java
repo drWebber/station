@@ -35,7 +35,7 @@ public class OfferEditAction extends Action {
                 request.setAttribute("offer", offer);
             }
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Editing exception", e);
             throw new ServletException(e);
         }
         return null;

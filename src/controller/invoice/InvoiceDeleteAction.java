@@ -30,7 +30,7 @@ public class InvoiceDeleteAction extends Action {
                     getServiceFactory().getInvoiceService();
             invoiceService.deleteAll();
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Deleting exception", e);
             throw new ServletException(e);
         }
         return new Forwarder("/invoice/control.html");

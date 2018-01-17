@@ -31,7 +31,7 @@ public class AdministratorDeleteAction extends Action {
                         getServiceFactory().getAdministratorService();
                 service.delete(id);
             } catch (FactoryException | ServiceException e) {
-                logger.error(e);
+                logger.error("Deleting exception", e);
                 throw new ServletException(e);
             }
         }

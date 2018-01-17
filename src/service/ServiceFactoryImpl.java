@@ -55,7 +55,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
             try {
                 connection = MysqlConnector.getConnection();
             } catch (NamingException | SQLException e) {
-                logger.error(e);
+                logger.error("No database connection", e);
                 throw new FactoryException(e);
             }
         }

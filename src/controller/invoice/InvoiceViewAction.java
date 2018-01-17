@@ -32,7 +32,7 @@ public class InvoiceViewAction extends Action {
             Invoice invoice = service.getWithDetails(id, subscriber);
             request.setAttribute("invoice", invoice);
         } catch (RetrieveException | FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Viewing exception", e);
             throw new ServletException(e);
         } catch (NumberFormatException e) {
             logger.warn(e);

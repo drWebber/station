@@ -40,7 +40,7 @@ public class SubscriberValidator extends BaseValidator
             try {
                 subscriber.getUser().cryptPassword();
             } catch (NoSuchAlgorithmException e) {
-                logger.error(e);
+                logger.error("Cryptography exception", e);
                 throw new ValidatorException(e);
             }
         }

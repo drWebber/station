@@ -29,7 +29,7 @@ public class SubscriberListAction extends Action {
             List<Subscriber> subscribers = service.getAll();
             request.setAttribute("subscribers", subscribers);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Viewing exception", e);
             throw new ServletException(e);
         }
         return null;

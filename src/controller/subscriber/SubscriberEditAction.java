@@ -43,7 +43,7 @@ public class SubscriberEditAction extends Action {
             List<Prefix> prefixes = prefixService.getAll();
             request.setAttribute("prefixes", prefixes);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Editing exception", e);
             throw new ServletException(e);
         }
         return null;

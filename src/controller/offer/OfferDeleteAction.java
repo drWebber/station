@@ -33,7 +33,7 @@ public class OfferDeleteAction extends Action {
                         getServiceFactory().getOfferService();
                 service.delete(id);
             } catch (FactoryException | ServiceException e) {
-                logger.error(e);
+                logger.error("Deleting exception", e);
                 throw new ServletException(e);
             }
         }

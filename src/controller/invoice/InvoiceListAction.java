@@ -41,7 +41,7 @@ public class InvoiceListAction extends Action {
             List<Payment> payments = paymentService.getBySubscriber(subscriber);
             request.setAttribute("payments", payments);
         } catch (RetrieveException | FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("InvoiceList exception", e);
             throw new ServletException(e);
         }
         return null;

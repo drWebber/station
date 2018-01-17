@@ -29,7 +29,7 @@ public class RateListAction extends Action {
             List<Rate> rates = service.getCurrentRates();
             request.setAttribute("rates", rates);
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Viewing exception", e);
             throw new ServletException(e);
         }
         return null;

@@ -33,10 +33,9 @@ public class AdministratorEditAction extends Action {
                         service.getById(id);
                 request.setAttribute("administrator", administrator);
                 request.setAttribute("isDeletable", service.isDeletable(id));
-                System.out.println(service.isDeletable(id));
             }
         } catch (FactoryException | ServiceException e) {
-            logger.error(e);
+            logger.error("Editing exception", e);
             throw new ServletException(e);
         }
         return null;
