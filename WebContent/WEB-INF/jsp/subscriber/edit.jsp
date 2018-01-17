@@ -26,39 +26,39 @@
 <u:html title="${pageHeading}" useDatePicker="true"
     pageHeading="${pageHeading}">
 <div class="container-fluid user-edit">
-    <form class="col-xs-12" action="${urlSave}" method="post">
-        <div class="input-group row">
+    <form action="${urlSave}" method="post">
+        <div class="input-group">
             <span class="input-group-addon">Логин</span> <input
                 type="text" class="form-control" name="login"
                 value="${subscriber.login}" ${disabled}>
         </div>
         <c:if test="${empty subscriber.id}">
-            <div class="input-group row">
+            <div class="input-group">
                 <span class="input-group-addon">Пароль</span>
                 <input type="password" class="form-control" name="password">
             </div>
         </c:if>
-        <div class="input-group row">
+        <div class="input-group">
             <span class="input-group-addon">Фамилия</span>
             <input type="text" class="form-control" name="surname"
                 value="${subscriber.surname}">
         </div>
-        <div class="input-group row">
+        <div class="input-group">
             <span class="input-group-addon">Имя</span>
             <input type="text" class="form-control" name="name"
                 value="${subscriber.name}">
         </div>
-        <div class="input-group row">
+        <div class="input-group">
             <span class="input-group-addon">Отчество</span>
             <input type="text" class="form-control" name="patronymic"
                 value="${subscriber.patronymic}">
         </div>
-        <div class="input-group row">
+        <div class="input-group">
             <span class="input-group-addon">Личный номер</span>
             <input type="text" class="form-control" name="passportId"
                 value="${subscriber.passportId}">
         </div>
-        <div class='input-group row'>
+        <div class='input-group'>
             <span class="input-group-addon">Дата рождения</span>
             <input type='text' class="form-control" name="birthday"
                 id='datetimepicker' value="${subscriber.birthDay}" />
@@ -70,12 +70,12 @@
 										});
 									});
 								</script>
-        <div class="input-group row">
+        <div class="input-group">
             <span class="input-group-addon">Адрес</span>
             <input type="text" class="form-control" name="address"
                 value="${subscriber.address}">
         </div>
-        <div class="radio row">
+        <div class="radio">
             <label class="radio-inline"> <input type="radio"
                 name="isActive" value="true"
                 ${subscriber.active != false ? "checked": ""}>Активен
@@ -85,7 +85,7 @@
                 ${subscriber.active == "false" ? "checked": ""}>Заблокирован
             </label>
         </div>
-        <div class="row subscriber-edit-phone">
+        <div class="subscriber-edit-phone">
             <div class="col-xs-5">
                 <label for="sel">Код города:</label> <select
                     class="form-control" id="sel" name="prefix">
@@ -113,7 +113,7 @@
             </div>
         </div>
         <c:if test="${not isCreation}">
-        <div class="row subscriber-static">
+        <div class="subscriber-static">
 	        <div class="form-group form-horizontal">
 	            <label class="control-label col-sm-2">Администратор</label>
 	            <div class="col-sm-10">
@@ -129,7 +129,7 @@
         </div>
             <input name="id" value="${subscriber.id}" type="hidden">
         </c:if>
-        <div class="form-group row subscriber-submit">
+        <div class="form-group subscriber-submit">
             <button type="submit" class="btn btn-info" title="Сохранить">
                 Сохранить</button>
             <c:if test="${not isCreation}">
