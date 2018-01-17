@@ -9,6 +9,8 @@ import exception.DaoException;
 
 public interface PaymentDao extends BaseDao<Long, Payment> {
     List<Payment> readBySubscriber(Subscriber subscriber) throws DaoException;
+    
+    boolean isAlreadyPaid(Payment payment) throws DaoException;
 
     /* Used only for testing. Not for real system */
     void deleteAll() throws DaoException;

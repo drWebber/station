@@ -9,6 +9,7 @@ import domain.payment.Payment;
 import domain.user.Subscriber;
 import exception.DaoException;
 import exception.TransactionException;
+import exception.service.InvoiceIsAlreadyBeenPaid;
 import exception.service.ServiceException;
 import service.impl.TransactionService;
 import service.interfaces.payment.PaymentService;
@@ -44,15 +45,25 @@ public class PaymentServiceImpl extends TransactionService
     }
 
     @Override
-    public void save(Payment payment) throws ServiceException {
+    public void save(Payment payment)
+            throws ServiceException, InvoiceIsAlreadyBeenPaid {
         try {
+            getTransaction().start();
             if (payment.getId() != null) {
                 throw new ServiceException("The data-modification is "
                         + "restricted");
             } else {
+                if (paymentDao.isAlreadyPaid(payment)) {
+                    throw new InvoiceIsAlreadyBeenPaid(
+                            payment.getInvoice().getId());
+                }
                 paymentDao.create(payment);
             }
-        } catch (DaoException e) {
+            getTransaction().commit();
+        } catch (DaoException | TransactionException e) {
+            try {
+                getTransaction().rollback();
+            } catch (TransactionException e1) { }
             throw new ServiceException(e);
         }
     }

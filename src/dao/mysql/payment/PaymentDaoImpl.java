@@ -128,4 +128,26 @@ public class PaymentDaoImpl extends BaseDao implements PaymentDao {
             } catch (NullPointerException | SQLException e) { }
         }
     }
+
+    @Override
+    public boolean isAlreadyPaid(Payment payment) throws DaoException {
+        String query = "SELECT `id` FROM `payments` WHERE `invoiceID` = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setLong(1, payment.getInvoice().getId());
+            resultSet = statement.executeQuery();
+            return resultSet.next() ? true : false;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch (NullPointerException | SQLException e) { }
+            try {
+                statement.close();
+            } catch (NullPointerException | SQLException e) { }
+        }
+    }
 }
